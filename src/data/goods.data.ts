@@ -1,5 +1,5 @@
 export interface IGood {
-  id: string;
+  id: number;
   category: string;
   title: string;
   author: string;
@@ -9,7 +9,7 @@ export interface IGood {
 
 export const goods: IGood[] = [
   {
-    id: "js01",
+    id: 1,
     category: "books",
     title: "JavaScript Pocket Guide",
     author: "David Flanagan",
@@ -18,7 +18,7 @@ export const goods: IGood[] = [
     price: 750,
   },
   {
-    id: "js02",
+    id: 2,
     category: "books",
     title: "JavaScript In-depth Guide",
     author: "David Flanagan",
@@ -27,7 +27,7 @@ export const goods: IGood[] = [
     price: 1450,
   },
   {
-    id: "js03",
+    id: 3,
     category: "books",
     title: "React and Redux",
     author: "Alex Banks and Eva Porcello",
@@ -36,7 +36,7 @@ export const goods: IGood[] = [
     price: 950,
   },
   {
-    id: "data01",
+    id: 4,
     category: "books",
     title: "GraphQL",
     author: "Alex Banks and Eva Porcello",
@@ -45,7 +45,7 @@ export const goods: IGood[] = [
     price: 850,
   },
   {
-    id: "js04",
+    id: 5,
     category: "books",
     title: "The path to learning React",
     author: "Robin Viruch",
@@ -54,7 +54,7 @@ export const goods: IGood[] = [
     price: 550,
   },
   {
-    id: "video01",
+    id: 6,
     category: "video",
     title: "Fundamental JavaScript",
     author: "Barbara Pierce",
@@ -63,7 +63,7 @@ export const goods: IGood[] = [
     price: 1250,
   },
   {
-    id: "video02",
+    id: 7,
     category: "video",
     title: "Animations in JavaScript",
     author: "Lucy Williams",
@@ -72,7 +72,7 @@ export const goods: IGood[] = [
     price: 1550,
   },
   {
-    id: "video03",
+    id: 8,
     category: "video",
     title: "TypeScript basics",
     author: "Susan Clark",
@@ -81,7 +81,7 @@ export const goods: IGood[] = [
     price: 2250,
   },
   {
-    id: "video04",
+    id: 9,
     category: "video",
     title: "Pro React",
     author: "Juan Greene",
@@ -90,7 +90,7 @@ export const goods: IGood[] = [
     price: 1450,
   },
   {
-    id: "sticker01",
+    id: 10,
     category: "stickers",
     title: "Frontend sticker set",
     author: "Cindy Moore",
@@ -99,7 +99,7 @@ export const goods: IGood[] = [
     price: 550,
   },
   {
-    id: "sticker02",
+    id: 11,
     category: "stickers",
     title: "Backend sticker set",
     author: "Carla Brown",
@@ -108,7 +108,7 @@ export const goods: IGood[] = [
     price: 550,
   },
   {
-    id: "sticker03",
+    id: 12,
     category: "stickers",
     title: "FullStack sticker set",
     author: "Leroy Parker",

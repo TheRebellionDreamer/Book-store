@@ -47,7 +47,7 @@ export const Catalogue: React.FC = () => {
       </form>
       <Container>
         {filtredItems.length ? (
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             {filtredItems.map(item => (
               <Grid item key={item.id} xs={12} sm={6} md={4} lg={4}>
                 <CatalogueItem {...item}/>

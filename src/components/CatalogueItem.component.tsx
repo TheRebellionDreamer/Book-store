@@ -39,6 +39,9 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
+  button: {
+    
+  }
 });
 
 export const CatalogueItem: React.FC<IGood> = ({
@@ -62,7 +65,7 @@ export const CatalogueItem: React.FC<IGood> = ({
       price,
     };
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
-    console.log(shopList);
+    console.log(shopList.shopList);
   };
 
   return (
@@ -83,8 +86,9 @@ export const CatalogueItem: React.FC<IGood> = ({
         </CardContent>
         <CardActions className={classes.cardAction}>
           <Button
-            variant="text"
-            endIcon={<ShoppingBasketIcon />}
+            color="secondary"
+            variant="contained"
+            endIcon={<ShoppingBasketIcon fontSize="large"/>}
             onClick={addInBag}
           >
             Buy
