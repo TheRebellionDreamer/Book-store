@@ -1,7 +1,7 @@
 import { Grid, Container, TextField, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { goods, IGood } from "../data/goods";
-import { CatalogueItem } from "./CatalogueItem";
+import { CatalogueItem } from "../components/CatalogueItem";
 
 const useStyle = makeStyles({
   field: {

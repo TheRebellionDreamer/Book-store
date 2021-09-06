@@ -1,7 +1,7 @@
 import React from "react";
 import { NavBar } from "./components/NavBar";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import {Catalogue} from "./components/Catalogue"
+import {Catalogue} from "./pages/Catalogue"
 
 const theme = createTheme({
   typography: {
