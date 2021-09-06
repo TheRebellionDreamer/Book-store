@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const NavBar: React.FC = () => {
+export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
   return (
     <AppBar>

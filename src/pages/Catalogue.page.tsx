@@ -1,7 +1,7 @@
 import { Grid, Container, TextField, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import { goods, IGood } from "../data/goods";
-import { CatalogueItem } from "../components/CatalogueItem";
+import { goods, IGood } from "../data/goods.data";
+import { CatalogueItem } from "../components/CatalogueItem.component";
 
 const useStyle = makeStyles({
   field: {
@@ -26,12 +26,12 @@ export const Catalogue: React.FC = () => {
     setSearchValue(event.target.value);
   }; // ввод в поле поиска
 
-  const filteringBooks: IFilteringItem = ({ title, author }) =>
+  const filteringItems: IFilteringItem = ({ title, author }) =>
     title.toLowerCase().includes(searchValue.toLowerCase()) ||
     author.toLowerCase().includes(searchValue.toLowerCase()); // метод поиска книг по названию и автору
 
-  const filtredBooks =
-    searchValue.trim() !== "" ? goods.filter(filteringBooks) : goods; // принимаемый колбэк для метода
+  const filtredItems =
+    searchValue.trim() !== "" ? goods.filter(filteringItems) : goods; // принимаемый колбэк для метода
 
   return (
     <Container>
@@ -46,11 +46,11 @@ export const Catalogue: React.FC = () => {
         />
       </form>
       <Container>
-        {filtredBooks.length ? (
-          <Grid container spacing={8}>
-            {filtredBooks.map((book, id) => (
-              <Grid item key={book.id} xs={12} sm={6} md={4} lg={4}>
-                <CatalogueItem />
+        {filtredItems.length ? (
+          <Grid container spacing={2}>
+            {filtredItems.map(item => (
+              <Grid item key={item.id} xs={12} sm={6} md={4} lg={4}>
+                <CatalogueItem {...item}/>
               </Grid>
             ))}
           </Grid>
