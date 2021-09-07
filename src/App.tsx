@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
 import { Baggage } from "./pages/Baggage.page";
-import { Container, makeStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 
 const theme = createTheme({
@@ -24,21 +24,15 @@ const theme = createTheme({
     },
   },
 });
-const useStyle = makeStyles({
-  container: {
-    background: "rgba(0,0,0,.03)",
-    paddingBottom: "5rem",
-  }
-})
+
 
 function App() {
-  const classes = useStyle()
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <NavBar />
         <Switch>
-          <Container className={classes.container}>
+          <Container>
             <Route component={Catalogue} path="/catalogue" />
             <Route component={Baggage} path="/baggage" />
             <Route component={AboutUs} path="/about-us"/>

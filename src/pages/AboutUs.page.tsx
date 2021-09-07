@@ -1,24 +1,29 @@
 import { Container, Typography, makeStyles } from "@material-ui/core";
+import image from "../img/book.png";
 import React from "react";
 
 const useStyle = makeStyles({
+  container: {
+    marginTop: "5rem",
+  },
   paragraph: {
-
+    marginTop: "3rem",
   },
   imageContainer: {
-    background: "url(./img/book.png)",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-  }
-})
+    height: "900px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export const AboutUs: React.FC = (): JSX.Element => {
-  const classes = useStyle()
+  const classes = useStyle();
   return (
-    <Container>
+    <Container className={classes.container}>
       <Container>
         <Typography variant="h2">The Booktown</Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" className={classes.paragraph}>
           Since its fuse in 2005, 'The Booktown' has cut a specialty for itself
           in the youngsters’ books section of the distributing business. We have
           some expertise in books implied for offspring of various ages. The
@@ -28,7 +33,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
           and some more. Every one of these books are accessible in both English
           and Hindi.
         </Typography>
-        <Typography>
+        <Typography className={classes.paragraph}>
           Our point is to give significant, charming and also animating
           substance to youngsters that goes much past their normal course
           books.With this point in view, we treat each book as a work of
@@ -36,8 +41,9 @@ export const AboutUs: React.FC = (): JSX.Element => {
           composed and delightfully planned.
         </Typography>
         <Container className={classes.imageContainer}>
+          <img src={image} alt="" />
         </Container>
-        <Typography>
+        <Typography className={classes.paragraph}>
           Development and experimentation are indispensable to our methodology
           towards books. Our broad gathering of books– picture books, sticker
           books, story and sticker books, 3D Books, spring up books, innovative
@@ -45,7 +51,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
           on – are a declaration to this methodology. This encourages us in
           making energizing and testing items for youngsters.
         </Typography>
-        <Typography>
+        <Typography className={classes.paragraph}>
           We earnestly trust that books can be an extraordinary wellspring of
           motivation with the ability to impact and shape youthful
           personalities. Our books not simply go for building up the scholarly

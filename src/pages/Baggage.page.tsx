@@ -10,13 +10,16 @@ const useStyle = makeStyles({
 })
 
 export const Baggage: React.FC = (): JSX.Element => {
+  // const totalCost: number = (price: number, count: number): number => {
+
+  // }
   const classes = useStyle()
   const itemsInBag = useTypedSelector((state) => state.shopList);
   return (
     <Container className={classes.container}>
       <List>
         {!itemsInBag.length ? (
-          <Typography>Your cart is empty</Typography>
+          <Typography variant="h2">Your cart is empty :(</Typography>
         ) : (
           itemsInBag.map(({ item, count }) => (
             <>
