@@ -1,20 +1,24 @@
-import { Container, Divider, List, Typography, makeStyles } from "@material-ui/core";
+import {
+  Container,
+  Divider,
+  List,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import React from "react";
 import { BaggageItem } from "../components/BaggageItem.component";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 
 const useStyle = makeStyles({
   container: {
-    marginTop: "5rem"
-  }
-})
+    marginTop: "5rem",
+  },
+});
 
 export const Baggage: React.FC = (): JSX.Element => {
-  // const totalCost: number = (price: number, count: number): number => {
-
-  // }
-  const classes = useStyle()
+  const classes = useStyle();
   const itemsInBag = useTypedSelector((state) => state.shopList);
+  const summaryOfCost = useTypedSelector((state) => state.sumCost);
   return (
     <Container className={classes.container}>
       <List>
@@ -29,6 +33,9 @@ export const Baggage: React.FC = (): JSX.Element => {
           ))
         )}
       </List>
+      <Container>
+        <Typography>Your purchase amount: {summaryOfCost.totalCost}</Typography>
+      </Container>
     </Container>
   );
 };

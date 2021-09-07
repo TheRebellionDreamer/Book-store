@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { IGood } from "../data/goods.data";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { shopListActions } from "../store/reducers/shopListReducer.reducer";
+import { sumActions } from "../store/reducers/sumReducer.reducer";
 
 const useStyles = makeStyles({
   root: {
@@ -39,9 +40,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
-  button: {
-    
-  }
+  button: {},
 });
 
 export const CatalogueItem: React.FC<IGood> = ({
@@ -54,6 +53,7 @@ export const CatalogueItem: React.FC<IGood> = ({
 }): JSX.Element => {
   const classes = useStyles();
   const shopList = useTypedSelector((state) => state);
+  const sumOfCost = useTypedSelector((state) => state);
   const dispatch = useDispatch();
 
   const addInBag = (): void => {
@@ -65,7 +65,9 @@ export const CatalogueItem: React.FC<IGood> = ({
       price,
     };
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
+    dispatch({type: sumActions.ADD_TO_THE_SUM, payload: payload.price})
     console.log(shopList.shopList);
+    console.log(sumOfCost.sumCost.totalCost)
   };
 
   return (
@@ -88,7 +90,7 @@ export const CatalogueItem: React.FC<IGood> = ({
           <Button
             color="secondary"
             variant="contained"
-            endIcon={<ShoppingBasketIcon fontSize="large"/>}
+            endIcon={<ShoppingBasketIcon fontSize="large" />}
             onClick={addInBag}
           >
             Buy

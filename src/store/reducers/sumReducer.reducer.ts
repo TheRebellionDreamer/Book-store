@@ -17,7 +17,7 @@ export interface DEDUCT_FROM_THE_SUM {
   payload: number;
 }
 
-const initialState: sumState = {
+export const initialState: sumState = {
   totalCost: 0,
 };
 
