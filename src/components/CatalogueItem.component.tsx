@@ -12,9 +12,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGood } from "../data/goods.data";
-import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { shopListActions } from "../store/reducers/shopListReducer.reducer";
-import { sumActions } from "../store/reducers/sumReducer.reducer";
 
 const useStyles = makeStyles({
   root: {
@@ -52,8 +50,6 @@ export const CatalogueItem: React.FC<IGood> = ({
   price,
 }): JSX.Element => {
   const classes = useStyles();
-  const shopList = useTypedSelector((state) => state);
-  const sumOfCost = useTypedSelector((state) => state);
   const dispatch = useDispatch();
 
   const addInBag = (): void => {
@@ -64,10 +60,8 @@ export const CatalogueItem: React.FC<IGood> = ({
       author,
       price,
     };
+
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
-    dispatch({type: sumActions.ADD_TO_THE_SUM, payload: payload.price})
-    console.log(shopList.shopList);
-    console.log(sumOfCost.sumCost.totalCost)
   };
 
   return (
@@ -84,7 +78,7 @@ export const CatalogueItem: React.FC<IGood> = ({
           <Typography variant="h6" component="h3">
             {title}
           </Typography>
-          <Typography variant="body1">Price: {price} $.</Typography>
+          <Typography variant="body1">Price: {price}₽</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
           <Button

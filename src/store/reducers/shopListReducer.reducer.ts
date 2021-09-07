@@ -17,27 +17,64 @@ export interface REMOVE_ITEM_ACTION {
 
 export type ShopListAction = ADD_ITEM_ACTION | REMOVE_ITEM_ACTION;
 
-export type ShopListState = {
-  item: IGood;
-  count: number;
-}[];
+export interface ShopListState {
+  products: Array<{
+    item: IGood,
+    count: number 
+  }>,
+  totalSize: number,
+  totalCost: number,
+}
+
+const initialState = {
+  products: [],
+  totalSize: 0,
+  totalCost: 0
+}
 
 export const shopListReducer = (
-  state: ShopListState = [],
+  state: ShopListState = initialState,
   action: ShopListAction
 ): ShopListState => {
   switch (action.type) {
     case shopListActions.ADD_ITEM:
-      const itemIndex = state.findIndex(
-        ({ item }) => item.id === action.payload.id
-      );
-      if (itemIndex === -1) {
-        return state.concat({ item: action.payload, count: 1 });
+      const findIndex = state.products.findIndex(({item}) => item.id === action.payload.id)
+
+      if(findIndex === -1) {
+        return {
+          products: state.products.concat({item: action.payload, count: 1}),
+          totalSize: state.totalSize + 1,
+          totalCost: state.totalCost + action.payload.price
+        }
       }
-      return state.map(({ item, count }, index) => ({
-        item,
-        count: index === itemIndex ? count + 1 : count,
-      }));
+
+      return {
+        products: state.products.map(({item, count}) => {
+          return item.id === action.payload.id
+            ? {item, count: count + 1}
+            : {item, count}
+        }),
+        totalSize: state.totalSize + 1,
+        totalCost: state.totalCost + action.payload.price,
+      }
+
+    case shopListActions.REMOVE_ITEM:
+      const _findIndex = state.products.findIndex(({item}) => item.id === action.payload)
+      const price = state.products[_findIndex].item.price;
+      const products = state.products[_findIndex].count === 1
+        ? state.products.splice(_findIndex, 1)
+        : state.products.map(({item, count}) => {
+          return item.id === action.payload
+            ? {item, count: count - 1}
+            : {item, count}
+        })
+
+      return {
+        products,
+        totalSize: state.totalSize - 1,
+        totalCost: state.totalCost - price,
+      }
+
     default:
       return state;
   }

@@ -6,9 +6,11 @@ import {
   MenuItem,
   makeStyles,
   Button,
+  Badge
 } from "@material-ui/core";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { NavLink } from "react-router-dom";
+import { useTypedSelector } from "../hooks/typed-selector.hook";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -27,6 +29,8 @@ const useStyles = makeStyles({
 
 export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
+  const {totalSize} = useTypedSelector((state) => state.shopList);
+  
   return (
     <AppBar>
       <Toolbar className={classes.toolBar}>
@@ -40,7 +44,7 @@ export const NavBar: React.FC = (): JSX.Element => {
           </NavLink>
         </MenuList>
         <NavLink to="/baggage">
-          <Button endIcon={<LocalMallIcon />} className={classes.button}>
+          <Button endIcon={<Badge color="secondary" badgeContent={totalSize}><LocalMallIcon /></Badge>} className={classes.button}>
             Baggage
           </Button>
         </NavLink>

@@ -17,15 +17,14 @@ const useStyle = makeStyles({
 
 export const Baggage: React.FC = (): JSX.Element => {
   const classes = useStyle();
-  const itemsInBag = useTypedSelector((state) => state.shopList);
-  const summaryOfCost = useTypedSelector((state) => state.sumCost);
+  const {products, totalCost, totalSize} = useTypedSelector((state) => state.shopList);
   return (
     <Container className={classes.container}>
       <List>
-        {!itemsInBag.length ? (
+        {!products.length ? (
           <Typography variant="h2">Your cart is empty :(</Typography>
         ) : (
-          itemsInBag.map(({ item, count }) => (
+          products.map(({ item, count }) => (
             <>
               <BaggageItem {...item} count={count} key={item.id + "_2D"} />
               <Divider variant="fullWidth" />
@@ -34,7 +33,9 @@ export const Baggage: React.FC = (): JSX.Element => {
         )}
       </List>
       <Container>
-        <Typography>Your purchase amount: {summaryOfCost.totalCost}</Typography>
+        <Typography>
+          You have {totalSize} items in your basket with a value of {totalCost}₽
+        </Typography>
       </Container>
     </Container>
   );
