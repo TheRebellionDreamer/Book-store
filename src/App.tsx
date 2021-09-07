@@ -6,6 +6,7 @@ import { Catalogue } from "./pages/Catalogue.page";
 import { Baggage } from "./pages/Baggage.page";
 import { Container } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
+import { Contacts } from "./pages/Contacts.page";
 
 const theme = createTheme({
   typography: {
@@ -25,19 +26,19 @@ const theme = createTheme({
   },
 });
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <NavBar />
-        <Switch>
-          <Container>
+        <Container>
+          <Switch>
             <Route component={Catalogue} path="/catalogue" />
+            <Route component={Contacts} path="/contacts" />
             <Route component={Baggage} path="/baggage" />
-            <Route component={AboutUs} path="/about-us"/>
-          </Container>
-        </Switch>
+            <Route component={AboutUs} path="/about-us" />
+          </Switch>
+        </Container>
       </BrowserRouter>
     </ThemeProvider>
   );

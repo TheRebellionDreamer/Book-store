@@ -59,10 +59,12 @@ export const shopListReducer = (
       }
 
     case shopListActions.REMOVE_ITEM:
+
       const _findIndex = state.products.findIndex(({item}) => item.id === action.payload)
+      
       const price = state.products[_findIndex].item.price;
       const products = state.products[_findIndex].count === 1
-        ? state.products.splice(_findIndex, 1)
+        ? state.products.filter(({item}) => item.id !== action.payload)
         : state.products.map(({item, count}) => {
           return item.id === action.payload
             ? {item, count: count - 1}

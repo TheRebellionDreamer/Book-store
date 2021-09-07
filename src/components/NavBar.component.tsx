@@ -6,7 +6,7 @@ import {
   MenuItem,
   makeStyles,
   Button,
-  Badge
+  Badge,
 } from "@material-ui/core";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { NavLink } from "react-router-dom";
@@ -29,8 +29,8 @@ const useStyles = makeStyles({
 
 export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
-  const {totalSize} = useTypedSelector((state) => state.shopList);
-  
+  const { totalSize } = useTypedSelector((state) => state.shopList);
+
   return (
     <AppBar>
       <Toolbar className={classes.toolBar}>
@@ -38,13 +38,22 @@ export const NavBar: React.FC = (): JSX.Element => {
           <NavLink to="/catalogue" className={classes.button}>
             <MenuItem>Catalogue</MenuItem>
           </NavLink>
-          <MenuItem>Contacts</MenuItem>
+          <NavLink to="/contacts"  className={classes.button}>
+            <MenuItem>Contacts</MenuItem>
+          </NavLink>
           <NavLink to="/about-us" className={classes.button}>
             <MenuItem>About us</MenuItem>
           </NavLink>
         </MenuList>
         <NavLink to="/baggage">
-          <Button endIcon={<Badge color="secondary" badgeContent={totalSize}><LocalMallIcon /></Badge>} className={classes.button}>
+          <Button
+            endIcon={
+              <Badge color="secondary" badgeContent={totalSize}>
+                <LocalMallIcon />
+              </Badge>
+            }
+            className={classes.button}
+          >
             Baggage
           </Button>
         </NavLink>

@@ -18,6 +18,7 @@ const useStyle = makeStyles({
   },
   numberOfItems: {
     display: "inline-flex",
+    justifyContent: "flex-end",
   },
   item: {
     margin: 5,
@@ -52,9 +53,6 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
       price,
     };
 
-    const numberPayload = {
-      item: 1,
-    };
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
   };
 
@@ -63,9 +61,6 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
       price,
       id
     }
-    const numberPayload = {
-      item: 1,
-    };
     dispatch({type: shopListActions.REMOVE_ITEM, payload: secPayload.id})
   }
 

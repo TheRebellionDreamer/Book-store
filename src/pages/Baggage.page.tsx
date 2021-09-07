@@ -4,6 +4,7 @@ import {
   List,
   Typography,
   makeStyles,
+  Box,
 } from "@material-ui/core";
 import React from "react";
 import { BaggageItem } from "../components/BaggageItem.component";
@@ -17,7 +18,9 @@ const useStyle = makeStyles({
 
 export const Baggage: React.FC = (): JSX.Element => {
   const classes = useStyle();
-  const {products, totalCost, totalSize} = useTypedSelector((state) => state.shopList);
+  const { products, totalCost, totalSize } = useTypedSelector(
+    (state) => state.shopList
+  );
   return (
     <Container className={classes.container}>
       <List>
@@ -26,17 +29,21 @@ export const Baggage: React.FC = (): JSX.Element => {
         ) : (
           products.map(({ item, count }) => (
             <>
-              <BaggageItem {...item} count={count} key={item.id + "_2D"} />
+              <BaggageItem {...item} count={count} key={`${item.id.toString()}`} />
               <Divider variant="fullWidth" />
             </>
           ))
         )}
+        {products.length ? (
+          <Container>
+            <Typography variant="h4">
+              You have {totalSize} items in your basket with a value of {totalCost}₽
+            </Typography>
+          </Container>
+        ) : (
+          <Box></Box>
+        )}
       </List>
-      <Container>
-        <Typography>
-          You have {totalSize} items in your basket with a value of {totalCost}₽
-        </Typography>
-      </Container>
     </Container>
   );
 };

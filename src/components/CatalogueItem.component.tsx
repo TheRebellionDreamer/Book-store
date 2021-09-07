@@ -7,12 +7,15 @@ import {
   Grid,
   CardMedia,
   CardActions,
+  Snackbar,
 } from "@material-ui/core";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGood } from "../data/goods.data";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { shopListActions } from "../store/reducers/shopListReducer.reducer";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   root: {
@@ -51,6 +54,7 @@ export const CatalogueItem: React.FC<IGood> = ({
 }): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const addInBag = (): void => {
     const payload = {
@@ -62,6 +66,14 @@ export const CatalogueItem: React.FC<IGood> = ({
     };
 
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -89,6 +101,14 @@ export const CatalogueItem: React.FC<IGood> = ({
           >
             Buy
           </Button>
+          <Snackbar
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            <Alert severity="success">Item added to cart</Alert>
+          </Snackbar>
         </CardActions>
       </Card>
     </Grid>
