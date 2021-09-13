@@ -15,6 +15,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { Authorisation } from "../pages/Authorisation.page";
 import { Baggage } from "../pages/Baggage.page";
+import AdbIcon from "@material-ui/icons/Adb";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -53,6 +54,7 @@ export const NavBar: React.FC = (): JSX.Element => {
   const [authOpen, setAuthOpen] = React.useState<boolean>(false);
   const [bagOpen, setBagOpen] = React.useState<boolean>(false);
   const [cheked, setCheked] = React.useState<boolean>(false);
+  const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
 
   const handleClickOpen = () => {
     setAuthOpen(true);
@@ -61,7 +63,7 @@ export const NavBar: React.FC = (): JSX.Element => {
 
   const handleClickOpenBag = () => {
     setBagOpen(true);
-  }
+  };
 
   return (
     <AppBar>
@@ -78,18 +80,20 @@ export const NavBar: React.FC = (): JSX.Element => {
           </NavLink>
         </MenuList>
         <Container className={classes.iconsContainer}>
-          {/* <NavLink to="/baggage"> */}
-            <IconButton className={classes.button} onClick={handleClickOpenBag}>
-              <Badge color="secondary" badgeContent={totalSize}>
-                <LocalMallIcon />
-              </Badge>
+          <IconButton className={classes.button} onClick={handleClickOpenBag}>
+            <Badge color="secondary" badgeContent={totalSize}>
+              <LocalMallIcon />
+            </Badge>
+          </IconButton>
+          <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen} />
+          {userLoggedIn ? (
+            <IconButton>
+              <AdbIcon className={classes.button} />
             </IconButton>
-            <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen}/>
-          {/* </NavLink> */}
-            <IconButton onClick={handleClickOpen}>
-              <AccountCircleIcon className={classes.button}></AccountCircleIcon>
-            </IconButton>
-            <Authorisation authOpen={authOpen} setAuthOpen={setAuthOpen}/>
+          ) : (<IconButton onClick={handleClickOpen}>
+            <AccountCircleIcon className={classes.button}></AccountCircleIcon>
+          </IconButton>)}
+          <Authorisation authOpen={authOpen} setAuthOpen={setAuthOpen} setUserLoggedIn={setUserLoggedIn}/>
         </Container>
       </Toolbar>
     </AppBar>

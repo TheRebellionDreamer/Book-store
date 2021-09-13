@@ -8,12 +8,15 @@ import {
   Dialog,
   DialogActions,
   Link,
+  Snackbar,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import React, { useEffect, useState } from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { IUser } from "../types/types";
 import axios from "axios";
+import { Alert } from "@material-ui/lab";
+import { setTimeout } from "timers";
 
 const useStyle = makeStyles({
   container: {
@@ -52,17 +55,21 @@ const useStyle = makeStyles({
 interface IProps {
   authOpen: boolean;
   setAuthOpen(value: boolean): void;
+  setUserLoggedIn(value: boolean): void;
 }
 
 export const Authorisation: React.FC<IProps> = ({
   authOpen,
   setAuthOpen,
+  setUserLoggedIn
 }): JSX.Element => {
   const classes = useStyle();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [users, setUsers] = useState<IUser[]>([]);
-
+  const [openError, setOpenError] = useState<boolean>(false);
+  const [openSuccessful, setOpenSuccessful] = useState<boolean>(false);
+  
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -99,17 +106,37 @@ export const Authorisation: React.FC<IProps> = ({
     );
 
     if (findIndex !== -1) {
-      alert("Welcome")
-      handleClose();
+      setTimeout(() => {
+        handleClose();
+        setEmail("");
+        setPassword("");
+      }, 2000)
+      setOpenSuccessful(true);
+      setTimeout(() => {
+        setOpenSuccessful(false)
+        setUserLoggedIn(true);
+      }, 2000)
     } else {
-      alert("User not found!")
+      setOpenError(true);
     }
-    setEmail("");
-    setPassword("");
   };
 
   const handleClose = () => {
     setAuthOpen(false);
+  };
+
+  const handleErrorClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
+  };
+
+  const handleSuccessfulClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccessful(false);
   };
 
   return (
@@ -178,6 +205,25 @@ export const Authorisation: React.FC<IProps> = ({
           <Link variant="body1">Forgot password?</Link>
         </DialogActions>
       </form>
+      <Snackbar
+        open={openError}
+        // autoHideDuration={4000}
+        onClose={handleErrorClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert variant="filled" severity="error">
+          User not found
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openSuccessful}
+        onClose={handleSuccessfulClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert variant="filled" severity="success">
+          Welcome!
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
 };
