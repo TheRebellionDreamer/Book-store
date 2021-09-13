@@ -1,6 +1,13 @@
-import { Grid, Container, TextField, makeStyles, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Container,
+  TextField,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { goods, IGood } from "../data/goods.data";
+
 import { CatalogueItem } from "../components/CatalogueItem.component";
 
 const useStyle = makeStyles({
@@ -12,11 +19,12 @@ const useStyle = makeStyles({
     fontWeight: 300,
     fontSize: 60,
   },
-})
+});
 
 export const Catalogue: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
   const classes = useStyle();
+
 
   interface IFilteringItem {
     (book: IGood): boolean;
@@ -48,15 +56,15 @@ export const Catalogue: React.FC = () => {
       <Container>
         {filtredItems.length ? (
           <Grid container spacing={3}>
-            {filtredItems.map(item => (
+            {filtredItems.map((item) => (
               <Grid item key={item.id} xs={12} sm={6} md={4} lg={4}>
-                <CatalogueItem {...item}/>
+                <CatalogueItem {...item} />
               </Grid>
             ))}
           </Grid>
         ) : (
           <Typography variant="h3" className={classes.message}>
-            Sorry, but your query did not match :(
+            Sorry, but your query did not match
           </Typography>
         )}
       </Container>

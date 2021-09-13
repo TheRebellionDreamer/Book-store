@@ -5,12 +5,16 @@ import {
   Toolbar,
   MenuItem,
   makeStyles,
-  Button,
   Badge,
+  Container,
+  IconButton,
 } from "@material-ui/core";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { NavLink } from "react-router-dom";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
+import { Authorisation } from "../pages/Authorisation.page";
+import { Baggage } from "../pages/Baggage.page";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -25,11 +29,39 @@ const useStyles = makeStyles({
     color: "white",
     textDecoration: "none",
   },
+  iconsContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+
+    padding: 0,
+  },
+  title: {
+    textAlign: "center",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  text: {
+    padding: "1rem 2rem 1rem 2rem",
+  },
 });
 
 export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
   const { totalSize } = useTypedSelector((state) => state.shopList);
+  const [authOpen, setAuthOpen] = React.useState<boolean>(false);
+  const [bagOpen, setBagOpen] = React.useState<boolean>(false);
+  const [cheked, setCheked] = React.useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setAuthOpen(true);
+    setCheked(true);
+  };
+
+  const handleClickOpenBag = () => {
+    setBagOpen(true);
+  }
 
   return (
     <AppBar>
@@ -38,25 +70,27 @@ export const NavBar: React.FC = (): JSX.Element => {
           <NavLink to="/catalogue" className={classes.button}>
             <MenuItem>Catalogue</MenuItem>
           </NavLink>
-          <NavLink to="/contacts"  className={classes.button}>
+          <NavLink to="/contacts" className={classes.button}>
             <MenuItem>Contacts</MenuItem>
           </NavLink>
           <NavLink to="/about-us" className={classes.button}>
             <MenuItem>About us</MenuItem>
           </NavLink>
         </MenuList>
-        <NavLink to="/baggage">
-          <Button
-            endIcon={
+        <Container className={classes.iconsContainer}>
+          {/* <NavLink to="/baggage"> */}
+            <IconButton className={classes.button} onClick={handleClickOpenBag}>
               <Badge color="secondary" badgeContent={totalSize}>
                 <LocalMallIcon />
               </Badge>
-            }
-            className={classes.button}
-          >
-            Baggage
-          </Button>
-        </NavLink>
+            </IconButton>
+            <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen}/>
+          {/* </NavLink> */}
+            <IconButton onClick={handleClickOpen}>
+              <AccountCircleIcon className={classes.button}></AccountCircleIcon>
+            </IconButton>
+            <Authorisation authOpen={authOpen} setAuthOpen={setAuthOpen}/>
+        </Container>
       </Toolbar>
     </AppBar>
   );

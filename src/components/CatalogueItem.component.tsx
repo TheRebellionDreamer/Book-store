@@ -8,31 +8,27 @@ import {
   CardMedia,
   CardActions,
   Snackbar,
+  Tooltip,
+  Zoom,
+  Grow,
 } from "@material-ui/core";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGood } from "../data/goods.data";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { shopListActions } from "../store/reducers/shopListReducer.reducer";
 import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
-  root: {
-    height: "450px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    transition: ".4s ease 0s",
-    "&:hover": {
-      transform: "scale(1.01)",
-    },
-  },
   footer: {
     marginTop: "1.5rem",
   },
   card: {
     height: "100%",
+    transition: ".5s ease-in-out 0s",
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
   },
   cardMedia: {
     height: 140,
@@ -41,7 +37,6 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
-  button: {},
 });
 
 export const CatalogueItem: React.FC<IGood> = ({
@@ -55,6 +50,7 @@ export const CatalogueItem: React.FC<IGood> = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState<boolean>(false);
+  const [cheked] = React.useState<boolean>(true);
 
   const addInBag = (): void => {
     const payload = {
@@ -77,40 +73,49 @@ export const CatalogueItem: React.FC<IGood> = ({
   };
 
   return (
-    <Grid item xs={12}>
-      <Card className={classes.card}>
-        <CardMedia
-          image={image}
-          component="img"
-          alt={title}
-          title={title}
-          className={classes.cardMedia}
-        />
-        <CardContent>
-          <Typography variant="h6" component="h3">
-            {title}
-          </Typography>
-          <Typography variant="body1">Price: {price}₽</Typography>
-        </CardContent>
-        <CardActions className={classes.cardAction}>
-          <Button
-            color="secondary"
-            variant="contained"
-            endIcon={<ShoppingBasketIcon fontSize="large" />}
-            onClick={addInBag}
-          >
-            Buy
-          </Button>
-          <Snackbar
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          >
-            <Alert severity="success">Item added to cart</Alert>
-          </Snackbar>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>
+      <Grid item xs={12}>
+        <Card className={classes.card}>
+          <CardMedia
+            image={image}
+            component="img"
+            alt={title}
+            title={title}
+            className={classes.cardMedia}
+          />
+          <CardContent>
+            <Typography variant="h6" component="h3">
+              {title}
+            </Typography>
+            <Typography variant="body1">Price: {price}₽</Typography>
+          </CardContent>
+          <CardActions className={classes.cardAction}>
+            <Tooltip
+              title="Add in cart"
+              aria-label="add"
+              TransitionComponent={Zoom}
+              placement="top"
+            >
+              <Button
+                color="secondary"
+                variant="contained"
+                endIcon={<ShoppingBasketIcon fontSize="large" />}
+                onClick={addInBag}
+              >
+                Buy
+              </Button>
+            </Tooltip>
+          </CardActions>
+        </Card>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+          <Alert severity="success">Item added to cart</Alert>
+        </Snackbar>
+      </Grid>
+    </Grow>
   );
 };

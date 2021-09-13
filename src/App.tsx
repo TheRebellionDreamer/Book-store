@@ -4,9 +4,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
 import { Baggage } from "./pages/Baggage.page";
-import { Container } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
+import { Authorisation } from "./pages/Authorisation.page";
+import { Registration } from "./pages/Registration.page";
 
 const theme = createTheme({
   typography: {
@@ -26,17 +28,28 @@ const theme = createTheme({
   },
 });
 
+const useStyle = makeStyles({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+}) 
+
 function App() {
+  const classes = useStyle()
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <NavBar />
-        <Container>
+        <Container className={classes.root}>
           <Switch>
             <Route component={Catalogue} path="/catalogue" />
             <Route component={Contacts} path="/contacts" />
-            <Route component={Baggage} path="/baggage" />
-            <Route component={AboutUs} path="/about-us" />
+            {/* <Route component={Baggage} path="/baggage" /> */}
+            {/* <Route component={Registration} path="/registration" /> */}
+            {/* <Route component={Authorisation} path="/authorisation"/> */}
+            <Route component={AboutUs} path="/" />
           </Switch>
         </Container>
       </BrowserRouter>
