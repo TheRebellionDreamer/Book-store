@@ -15,7 +15,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { Authorisation } from "../pages/Authorisation.page";
 import { Baggage } from "../pages/Baggage.page";
-import AdbIcon from "@material-ui/icons/Adb";
+import { MenuOfUser } from "./MenuOfUser.component";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -87,13 +87,17 @@ export const NavBar: React.FC = (): JSX.Element => {
           </IconButton>
           <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen} />
           {userLoggedIn ? (
-            <IconButton>
-              <AdbIcon className={classes.button} />
+            <MenuOfUser />
+          ) : (
+            <IconButton onClick={handleClickOpen}>
+              <AccountCircleIcon className={classes.button}></AccountCircleIcon>
             </IconButton>
-          ) : (<IconButton onClick={handleClickOpen}>
-            <AccountCircleIcon className={classes.button}></AccountCircleIcon>
-          </IconButton>)}
-          <Authorisation authOpen={authOpen} setAuthOpen={setAuthOpen} setUserLoggedIn={setUserLoggedIn}/>
+          )}
+          <Authorisation
+            authOpen={authOpen}
+            setAuthOpen={setAuthOpen}
+            setUserLoggedIn={setUserLoggedIn}
+          />
         </Container>
       </Toolbar>
     </AppBar>
