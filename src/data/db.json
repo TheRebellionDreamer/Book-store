@@ -1,14 +1,17 @@
 {
   "users": [
     {
+      "id": "1",
       "login": "rebelliondreamer@gmail.com",
       "password": "HI19da97"
     },
     {
+      "id": "2",
       "login": "marisha160@gmail.com",
       "password": "rebeccAffcAVII14"
     },
     {
+      "id": "3",
       "login": "cody@mail.com",
       "password": "hizakasHI2214xcAA"
     }
