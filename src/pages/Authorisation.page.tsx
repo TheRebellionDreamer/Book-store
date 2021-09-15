@@ -17,7 +17,6 @@ import { IUser } from "../types/types";
 import axios from "axios";
 import { Alert } from "@material-ui/lab";
 import { setTimeout } from "timers";
-import { NavLink } from "react-router-dom";
 
 const useStyle = makeStyles({
   container: {
@@ -39,7 +38,6 @@ const useStyle = makeStyles({
     width: "30vw",
     textAlign: "center",
     fontWeight: 700,
-    // textShadow: "2px 5px 5px rgba(150, 150, 150, 0.74)",
   },
   actions: {
     display: "flex",
@@ -199,7 +197,6 @@ export const Authorisation: React.FC<IProps> = ({
                 </InputAdornment>
               ),
             }}
-            
           />
         </Container>
         <DialogActions className={classes.actions}>

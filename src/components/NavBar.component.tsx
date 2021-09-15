@@ -1,15 +1,12 @@
 import React from "react";
 import {
   AppBar,
-  MenuList,
   Toolbar,
-  MenuItem,
   makeStyles,
   Badge,
   Container,
   IconButton,
 } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
