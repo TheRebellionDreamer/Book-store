@@ -16,15 +16,13 @@ import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { Authorisation } from "../pages/Authorisation.page";
 import { Baggage } from "../pages/Baggage.page";
 import { MenuOfUser } from "./MenuOfUser.component";
+import { MenuListItem } from "./MenuListItems.component";
+import { Registration } from "../pages/Registration.page";
 
 const useStyles = makeStyles({
   toolBar: {
     display: "flex",
     justifyContent: "space-between",
-  },
-  menuList: {
-    display: "flex",
-    flexDirection: "row",
   },
   button: {
     color: "white",
@@ -55,6 +53,7 @@ export const NavBar: React.FC = (): JSX.Element => {
   const [bagOpen, setBagOpen] = React.useState<boolean>(false);
   const [cheked, setCheked] = React.useState<boolean>(false);
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
+  const [openRegistrarion, setOpenRegistration] = React.useState<boolean>(false);
 
   const handleClickOpen = () => {
     setAuthOpen(true);
@@ -65,20 +64,16 @@ export const NavBar: React.FC = (): JSX.Element => {
     setBagOpen(true);
   };
 
+  const handleClickSignOut = () => {
+    if (userLoggedIn) {
+      setUserLoggedIn(false)
+    } 
+  }
+
   return (
     <AppBar>
       <Toolbar className={classes.toolBar}>
-        <MenuList className={classes.menuList}>
-          <NavLink to="/catalogue" className={classes.button}>
-            <MenuItem>Catalogue</MenuItem>
-          </NavLink>
-          <NavLink to="/contacts" className={classes.button}>
-            <MenuItem>Contacts</MenuItem>
-          </NavLink>
-          <NavLink to="/about-us" className={classes.button}>
-            <MenuItem>About us</MenuItem>
-          </NavLink>
-        </MenuList>
+        <MenuListItem />
         <Container className={classes.iconsContainer}>
           <IconButton className={classes.button} onClick={handleClickOpenBag}>
             <Badge color="secondary" badgeContent={totalSize}>
@@ -87,7 +82,7 @@ export const NavBar: React.FC = (): JSX.Element => {
           </IconButton>
           <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen} />
           {userLoggedIn ? (
-            <MenuOfUser />
+            <MenuOfUser handleClickSignOut={handleClickSignOut}/>
           ) : (
             <IconButton onClick={handleClickOpen}>
               <AccountCircleIcon className={classes.button}></AccountCircleIcon>
@@ -97,7 +92,10 @@ export const NavBar: React.FC = (): JSX.Element => {
             authOpen={authOpen}
             setAuthOpen={setAuthOpen}
             setUserLoggedIn={setUserLoggedIn}
+            userLoggedIn={userLoggedIn}
+            setOpenRegistration={setOpenRegistration}
           />
+          <Registration openRegistrarion={openRegistrarion} setOpenRegistration={setOpenRegistration}/>
         </Container>
       </Toolbar>
     </AppBar>

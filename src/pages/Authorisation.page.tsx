@@ -17,6 +17,7 @@ import { IUser } from "../types/types";
 import axios from "axios";
 import { Alert } from "@material-ui/lab";
 import { setTimeout } from "timers";
+import { NavLink } from "react-router-dom";
 
 const useStyle = makeStyles({
   container: {
@@ -50,18 +51,27 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     marginBottom: "2rem",
   },
+  icon: {
+    fontSize: "120px",
+    margin: "0 auto",
+    paddingTop: "2rem"
+  }
 });
 
 interface IProps {
   authOpen: boolean;
+  userLoggedIn: boolean;
   setAuthOpen(value: boolean): void;
   setUserLoggedIn(value: boolean): void;
+  setOpenRegistration(value: boolean): void;
 }
 
 export const Authorisation: React.FC<IProps> = ({
   authOpen,
+  userLoggedIn,
   setAuthOpen,
-  setUserLoggedIn
+  setUserLoggedIn,
+  setOpenRegistration
 }): JSX.Element => {
   const classes = useStyle();
   const [email, setEmail] = useState<string>("");
@@ -139,9 +149,18 @@ export const Authorisation: React.FC<IProps> = ({
     setOpenSuccessful(false);
   };
 
+  const handleOpenRegistration = () => {
+    if (!userLoggedIn) {
+      setOpenRegistration(true);
+      setAuthOpen(false);
+      setOpenRegistration(true)
+    }
+    
+  }
   return (
     <Dialog open={authOpen} onClose={handleClose}>
-      <form className={classes.container} onSubmit={handleSubmit}>
+      <AccountCircleIcon className={classes.icon} color="action"/>
+      <form className={classes.container} onSubmit={handleSubmit} autoComplete="on">
         <Typography
           variant="h3"
           className={classes.header}
@@ -180,6 +199,7 @@ export const Authorisation: React.FC<IProps> = ({
                 </InputAdornment>
               ),
             }}
+            
           />
         </Container>
         <DialogActions className={classes.actions}>
@@ -203,11 +223,12 @@ export const Authorisation: React.FC<IProps> = ({
             </Button>
           </Container>
           <Link variant="body1">Forgot password?</Link>
+          <Link variant="body1" onClick={handleOpenRegistration} href="#">Registration</Link>
         </DialogActions>
       </form>
       <Snackbar
         open={openError}
-        // autoHideDuration={4000}
+        autoHideDuration={4000}
         onClose={handleErrorClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
