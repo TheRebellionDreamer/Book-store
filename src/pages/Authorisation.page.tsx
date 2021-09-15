@@ -84,7 +84,7 @@ export const Authorisation: React.FC<IProps> = ({
 
   async function fetchUsers() {
     try {
-      const responce = await axios.get<IUser[]>("http://localhost:8000/users");
+      const responce = await axios.get<IUser[]>("/users");
       setUsers(responce.data);
     } catch (error) {
       alert(error);

@@ -95,7 +95,7 @@ export const Registration: FC<IRegistrationProps> = ({
   const addNewUser = async (user: IUser) => {
     try {
       const responce = await axios.post<IUser[]>(
-        "http://localhost:8000/users",
+        "/users",
         user
       );
       console.log("responce: ", responce.data);
