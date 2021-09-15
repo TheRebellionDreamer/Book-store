@@ -100,6 +100,7 @@ export const Registration: FC<IRegistrationProps> = ({
       );
       console.log("responce: ", responce.data);
     } catch (error) {
+      console.log(user.login + " " + user.password);
       console.log("Error: ", error);
     }
   };
@@ -112,12 +113,9 @@ export const Registration: FC<IRegistrationProps> = ({
       login: email,
       password: password,
     };
-    console.log(newUser.login + " " + newUser.password)
+    console.log(newUser.login + " " + newUser.password);
 
-    const findIndex = users.findIndex(
-      (user) =>
-        user.login === newUser.login && user.password === newUser.password
-    );
+    const findIndex = users.findIndex((user) => user.login === newUser.login);
 
     if (findIndex === -1) {
       alert("Такого пользователя нет в базе, регистрируем");
@@ -147,7 +145,6 @@ export const Registration: FC<IRegistrationProps> = ({
     if (re.test(String(e.target.value).toLowerCase())) {
       setEmailSnackbarIsOpen(true);
       setEmailIsValidate(true);
-      
     } else {
       setEmailIsValidate(false);
     }
