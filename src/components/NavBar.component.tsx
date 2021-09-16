@@ -92,7 +92,7 @@ export const NavBar: React.FC = (): JSX.Element => {
             userLoggedIn={userLoggedIn}
             setOpenRegistration={setOpenRegistration}
           />
-          <Registration openRegistrarion={openRegistrarion} setOpenRegistration={setOpenRegistration}/>
+          <Registration openRegistrarion={openRegistrarion} setOpenRegistration={setOpenRegistration} setUserLoggedIn={setUserLoggedIn}/>
         </Container>
       </Toolbar>
     </AppBar>

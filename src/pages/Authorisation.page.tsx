@@ -80,7 +80,7 @@ export const Authorisation: React.FC<IProps> = ({
   
   useEffect(() => {
     fetchUsers();
-  }, [users]);
+  }, []);
 
   async function fetchUsers() {
     try {
@@ -242,6 +242,7 @@ export const Authorisation: React.FC<IProps> = ({
           Welcome!
         </Alert>
       </Snackbar>
+      {}
     </Dialog>
   );
 };

@@ -4,11 +4,13 @@ import {
   TextField,
   makeStyles,
   Typography,
+  Dialog,
+  DialogContentText,
 } from "@material-ui/core";
-import React from "react";
-import { goods, IGood } from "../data/goods.data";
-
+import React, { useEffect } from "react";
+import { IGood } from "../data/goods.data";
 import { CatalogueItem } from "../components/CatalogueItem.component";
+import axios from "axios";
 
 const useStyle = makeStyles({
   field: {
@@ -19,12 +21,31 @@ const useStyle = makeStyles({
     fontWeight: 300,
     fontSize: 60,
   },
+  errorMessage: {
+    padding: "3rem",
+    textAlign: "center"
+  }
 });
 
 export const Catalogue: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
+  const [goods, setGoods] = React.useState<IGood[]>([]);
+  const [serverError, setServerError] = React.useState<boolean>(false);
   const classes = useStyle();
 
+  useEffect(() => {
+    loadingCatalog();
+  }, []);
+
+  const loadingCatalog = async () => {
+    try {
+      await axios.get("/goods").then((response) => {
+        setGoods(response.data);
+      });
+    } catch {
+      setServerError(true);
+    }
+  };
 
   interface IFilteringItem {
     (book: IGood): boolean;
@@ -68,6 +89,13 @@ export const Catalogue: React.FC = () => {
           </Typography>
         )}
       </Container>
+      {serverError && (
+        <Dialog open={serverError}>
+          <DialogContentText variant="h3" className={classes.errorMessage}>
+            Sorry, but the catalog is experiencing temporary technical difficulties
+          </DialogContentText>
+        </Dialog>
+      )}
     </Container>
   );
 };

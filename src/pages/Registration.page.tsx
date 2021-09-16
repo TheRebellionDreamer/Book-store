@@ -51,11 +51,13 @@ const useStyle = makeStyles({
 interface IRegistrationProps {
   openRegistrarion: boolean;
   setOpenRegistration(value: boolean): void;
+  setUserLoggedIn(value: boolean): void;
 }
 
 export const Registration: FC<IRegistrationProps> = ({
   openRegistrarion,
   setOpenRegistration,
+  setUserLoggedIn
 }): JSX.Element => {
   const classes = useStyle();
   const [email, setEmail] = useState<string>("");
@@ -94,11 +96,14 @@ export const Registration: FC<IRegistrationProps> = ({
 
   const addNewUser = async (user: IUser) => {
     try {
-      const responce = await axios.post<IUser[]>(
+      await axios
+        .post<IUser[]>(
         "/users",
         user
-      );
-      console.log("responce: ", responce.data);
+      ).then(response => setUsers(response.data))
+      setUserLoggedIn(true);
+      setOpenRegistration(false);
+      console.log(users)
     } catch (error) {
       console.log(user.login + " " + user.password);
       console.log("Error: ", error);
@@ -118,7 +123,6 @@ export const Registration: FC<IRegistrationProps> = ({
     const findIndex = users.findIndex((user) => user.login === newUser.login);
 
     if (findIndex === -1) {
-      alert("Такого пользователя нет в базе, регистрируем");
       addNewUser(newUser);
     } else {
       setErrorSnackbarIsOpen(true);
