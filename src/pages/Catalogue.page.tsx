@@ -6,6 +6,11 @@ import {
   Typography,
   Dialog,
   DialogContentText,
+  Select,
+  MenuItem,
+  InputLabel,
+  Box,
+  FormControl,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { IGood } from "../data/goods.data";
@@ -13,17 +18,22 @@ import { CatalogueItem } from "../components/CatalogueItem.component";
 import axios from "axios";
 
 const useStyle = makeStyles({
-  field: {
-    marginTop: "5rem",
-    marginBottom: "3rem",
-  },
   message: {
     fontWeight: 300,
     fontSize: 60,
   },
   errorMessage: {
     padding: "3rem",
-    textAlign: "center"
+    textAlign: "center",
+  },
+  formContainer: {
+    margin: "5rem 0rem 3rem 0rem",
+    display: "flex",
+    flexDirection: "row"
+  },
+  select: {
+    paddingLeft: "1rem",
+    width: "10rem"
   }
 });
 
@@ -31,6 +41,7 @@ export const Catalogue: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
   const [goods, setGoods] = React.useState<IGood[]>([]);
   const [serverError, setServerError] = React.useState<boolean>(false);
+  const [sortingMethod, setSortingMethod] = React.useState<string>();
   const classes = useStyle();
 
   useEffect(() => {
@@ -62,18 +73,64 @@ export const Catalogue: React.FC = () => {
   const filtredItems =
     searchValue.trim() !== "" ? goods.filter(filteringItems) : goods; // принимаемый колбэк для метода
 
+  const handleChangeSortingMethod = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setSortingMethod(event.target.value as string);
+    console.log(sortingMethod);
+  };
+
+  enum typesOfSorting {
+    Title = "Title",
+    DescendingPrice = "Descending price",
+    AscendingPrice = "Ascending price",
+  }
+
+  if (sortingMethod === typesOfSorting.Title) {
+    filtredItems.sort((a: IGood, b: IGood) => {
+      if (a.title > b.title) return 1;
+      if (a.title < b.title) return -1;
+      return 0;
+    });
+  }
+
+  if (sortingMethod === typesOfSorting.DescendingPrice)
+    filtredItems.sort((a: IGood, b: IGood) => a.price - b.price);
+
+  if (sortingMethod === typesOfSorting.AscendingPrice)
+    filtredItems.sort((a: IGood, b: IGood) => b.price - a.price);
+
   return (
     <Container>
-      <form noValidate autoComplete="off">
-        <TextField
-          title={searchValue}
-          onChange={changeValue}
-          className={classes.field}
-          label="Search by title or author"
-          variant="standard"
-          fullWidth
-        />
-      </form>
+      <Box className={classes.formContainer}>
+        <FormControl fullWidth>
+          <TextField
+            title={searchValue}
+            onChange={changeValue}
+            label="Search by title or author"
+            variant="standard"
+            fullWidth
+          />
+        </FormControl>
+        <FormControl className={classes.select}>
+          <InputLabel id="demo-simple-select-label" style ={{paddingLeft: "1rem"}}>Sorted by</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            variant="standard"
+            value={sortingMethod}
+            onChange={handleChangeSortingMethod}
+          >
+            <MenuItem value={typesOfSorting.Title}>Title</MenuItem>
+            <MenuItem value={typesOfSorting.DescendingPrice}>
+              Descending price
+            </MenuItem>
+            <MenuItem value={typesOfSorting.AscendingPrice}>
+              Ascending price
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
       <Container>
         {filtredItems.length ? (
           <Grid container spacing={3}>
@@ -92,7 +149,8 @@ export const Catalogue: React.FC = () => {
       {serverError && (
         <Dialog open={serverError}>
           <DialogContentText variant="h3" className={classes.errorMessage}>
-            Sorry, but the catalog is experiencing temporary technical difficulties
+            Sorry, but the catalog is experiencing temporary technical
+            difficulties
           </DialogContentText>
         </Dialog>
       )}
