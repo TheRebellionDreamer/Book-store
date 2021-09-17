@@ -73,9 +73,7 @@ export const Catalogue: React.FC = () => {
   const filtredItems =
     searchValue.trim() !== "" ? goods.filter(filteringItems) : goods; // принимаемый колбэк для метода
 
-  const handleChangeSortingMethod = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleChangeSortingMethod = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSortingMethod(event.target.value as string);
     console.log(sortingMethod);
   };
@@ -87,7 +85,7 @@ export const Catalogue: React.FC = () => {
   }
 
   if (sortingMethod === typesOfSorting.Title) {
-    filtredItems.sort((a: IGood, b: IGood) => {
+    filtredItems.sort((a: IGood, b: IGood): number => {
       if (a.title > b.title) return 1;
       if (a.title < b.title) return -1;
       return 0;
@@ -95,10 +93,10 @@ export const Catalogue: React.FC = () => {
   }
 
   if (sortingMethod === typesOfSorting.DescendingPrice)
-    filtredItems.sort((a: IGood, b: IGood) => a.price - b.price);
+    filtredItems.sort((a: IGood, b: IGood): number => a.price - b.price);
 
   if (sortingMethod === typesOfSorting.AscendingPrice)
-    filtredItems.sort((a: IGood, b: IGood) => b.price - a.price);
+    filtredItems.sort((a: IGood, b: IGood): number => b.price - a.price);
 
   return (
     <Container>
