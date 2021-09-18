@@ -41,7 +41,7 @@ const useStyle = makeStyles({
 
 export const Catalogue: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
-  const [serverError, setServerError] = React.useState<boolean>(false);
+  const [serverError] = React.useState<boolean>(false);
   const [sortingMethod, setSortingMethod] = React.useState<string>();
   const [minPrice, setMinPrice] = React.useState<string>("");
   const [maxPrice, setMaxPrice] = React.useState<string>("");
