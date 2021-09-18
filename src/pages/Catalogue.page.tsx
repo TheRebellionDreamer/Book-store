@@ -13,10 +13,11 @@ import {
   FormControl,
   Snackbar,
 } from "@material-ui/core";
-import React from "react";
-import { IGood, goods } from "../data/goods.data";
+import React, { useEffect } from "react";
+import { IGood } from "../types/types";
 import { CatalogueItem } from "../components/CatalogueItem.component";
 import { Alert } from "@material-ui/lab";
+import axios from "axios";
 
 const useStyle = makeStyles({
   message: {
@@ -45,9 +46,16 @@ export const Catalogue: React.FC = () => {
   const [minPrice, setMinPrice] = React.useState<string>("");
   const [maxPrice, setMaxPrice] = React.useState<string>("");
   const [open, setOpen] = React.useState<boolean>(false);
-  
+  const [goods, setGoods] = React.useState<IGood[]>([]);
   const classes = useStyle();
-  
+
+  useEffect(() => {
+    fetchingUser();
+  }, []);
+
+  const fetchingUser = async () => {
+    await axios.get("/goods").then(response => setGoods(response.data));
+  }
   interface IFilteringItem {
     (book: IGood): boolean;
   }
@@ -67,7 +75,6 @@ export const Catalogue: React.FC = () => {
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
     setSortingMethod(event.target.value as string);
-    console.log(sortingMethod);
   };
 
   enum typesOfSorting {
@@ -92,12 +99,10 @@ export const Catalogue: React.FC = () => {
 
   const changeMin = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMinPrice(event.target.value);
-    console.log(minPrice);
   };
 
   const changeMax = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMaxPrice(event.target.value);
-    console.log(maxPrice);
   };
 
   if (minPrice && maxPrice) {

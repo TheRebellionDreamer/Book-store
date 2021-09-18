@@ -7,7 +7,6 @@ import {
   Grid,
   CardMedia,
   CardActions,
-  Snackbar,
   Tooltip,
   Zoom,
   Grow,
@@ -15,9 +14,8 @@ import {
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IGood } from "../data/goods.data";
+import { IGood } from "../types/types";
 import { shopListActions } from "../store/reducers/shopListReducer.reducer";
-import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   footer: {
@@ -67,8 +65,6 @@ export const CatalogueItem: React.FC<IGood & IProps> = ({
     dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
     setOpen(true);
   };
-
-
 
   return (
     <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>

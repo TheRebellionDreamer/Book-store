@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Menu, { MenuProps } from "@material-ui/core/Menu";
+import { makeStyles } from "@material-ui/core/styles";
+import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import AdbIcon from "@material-ui/icons/Adb";
@@ -8,37 +8,6 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 // import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import { ListItemIcon, ListItemText } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
-// const StyledMenu = withStyles({
-//   paper: {
-//     border: "1px solid #d3d4d5",
-//   },
-// })((props: MenuProps) => (
-//   <Menu
-//     elevation={0}
-//     getContentAnchorEl={null}
-//     anchorOrigin={{
-//       vertical: "bottom",
-//       horizontal: "left",
-//     }}
-//     transformOrigin={{
-//       vertical: "top",
-//       horizontal: "left",
-//     }}
-//     {...props}
-//   />
-// ));
-
-// const StyledMenuItem = withStyles((theme) => ({
-//   root: {
-//     "&:focus": {
-//       backgroundColor: theme.palette.primary.main,
-//       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-//         color: theme.palette.common.white,
-//       },
-//     },
-//   },
-// }))(MenuItem);
 
 const useStyles = makeStyles({
   button: {

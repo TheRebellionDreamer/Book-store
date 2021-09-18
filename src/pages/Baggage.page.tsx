@@ -46,8 +46,6 @@ export const Baggage: React.FC<IPropsBaggage> = ({
     setBagOpen(false);
   };
 
-  console.log(typeof totalCost)
-
   return (
     // <Container className={classes.container}>
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>

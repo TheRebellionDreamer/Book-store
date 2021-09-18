@@ -13,7 +13,6 @@ const useStyle = makeStyles({
   },
 })
 
-
 export const MenuListItem: React.FC = (): JSX.Element => {
   const classes = useStyle();
   return (

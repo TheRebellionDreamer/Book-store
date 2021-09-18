@@ -1,4 +1,4 @@
-import { IGood } from "../../data/goods.data";
+import { IGood } from "../../types/types";
 
 export enum shopListActions {
   ADD_ITEM = "shopList/addItem",

@@ -3,12 +3,9 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
-import { Baggage } from "./pages/Baggage.page";
 import { Container, makeStyles } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
-import { Authorisation } from "./pages/Authorisation.page";
-import { Registration } from "./pages/Registration.page";
 
 const theme = createTheme({
   typography: {
@@ -46,9 +43,6 @@ function App() {
           <Switch>
             <Route component={Catalogue} path="/catalogue" />
             <Route component={Contacts} path="/contacts" />
-            {/* <Route component={Baggage} path="/baggage" /> */}
-            {/* <Route component={Registration} path="/registration" /> */}
-            {/* <Route component={Authorisation} path="/authorisation"/> */}
             <Route component={AboutUs} path="/" />
           </Switch>
         </Container>
