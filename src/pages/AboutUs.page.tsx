@@ -2,9 +2,18 @@ import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import image from "../img/book.png";
 import React from "react";
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
   container: {
     marginTop: "5rem",
+    animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`
+  },
+  "@keyframes openEffect": {
+    "0%": {
+      opacity: 0
+    },
+    "100%": {
+      opacity: 1
+    }
   },
   paragraph: {
     marginTop: "3rem",
@@ -23,7 +32,7 @@ const useStyle = makeStyles({
   textContainer: {
     marginBottom: "3rem"
   }
-});
+}));
 
 export const AboutUs: React.FC = (): JSX.Element => {
   const classes = useStyle();

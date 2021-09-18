@@ -38,18 +38,21 @@ const useStyles = makeStyles({
     justifyContent: "flex-end",
   },
 });
+interface IProps {
+  setOpen(value: boolean): void;
+}
 
-export const CatalogueItem: React.FC<IGood> = ({
+export const CatalogueItem: React.FC<IGood & IProps> = ({
   id,
   category,
   title,
   author,
   image,
-  price,
+  price, 
+  setOpen
 }): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState<boolean>(false);
   const [cheked] = React.useState<boolean>(true);
 
   const addInBag = (): void => {
@@ -65,12 +68,7 @@ export const CatalogueItem: React.FC<IGood> = ({
     setOpen(true);
   };
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+
 
   return (
     <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>
@@ -107,14 +105,6 @@ export const CatalogueItem: React.FC<IGood> = ({
             </Tooltip>
           </CardActions>
         </Card>
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        >
-          <Alert severity="success">Item added to cart</Alert>
-        </Snackbar>
       </Grid>
     </Grow>
   );

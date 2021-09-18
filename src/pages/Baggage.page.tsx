@@ -46,6 +46,8 @@ export const Baggage: React.FC<IPropsBaggage> = ({
     setBagOpen(false);
   };
 
+  console.log(typeof totalCost)
+
   return (
     // <Container className={classes.container}>
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>
@@ -63,14 +65,14 @@ export const Baggage: React.FC<IPropsBaggage> = ({
       </AppBar>
       <List className={classes.container}>
         {!products.length ? (
-          <Typography variant="h2">Your cart is empty :(</Typography>
+          <Typography variant="h2">Your cart is empty</Typography>
         ) : (
           products.map(({ item, count }) => (
             <>
               <BaggageItem
                 {...item}
                 count={count}
-                key={`${item.id.toString()}`}
+                key={item.image}
               />
               <Divider variant="fullWidth" />
             </>
@@ -79,8 +81,7 @@ export const Baggage: React.FC<IPropsBaggage> = ({
         {products.length ? (
           <Container>
             <Typography variant="h4">
-              You have {totalSize} items in your basket with a value of{" "}
-              {totalCost}₽
+              You have {totalSize} items in your basket with a value of {totalCost}₽
             </Typography>
           </Container>
         ) : (
