@@ -9,6 +9,7 @@ import {
   DialogActions,
   Link,
   Snackbar,
+  Box,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import React, { useEffect, useState } from "react";
@@ -21,8 +22,15 @@ import { StyledTextField } from "../custom/StyledTextField.custom";
 import { StyledButton } from "../custom/StyledButton.custom";
 
 const useStyle = makeStyles({
+  root: {
+    padding: "1rem 2rem 1rem 2rem",
+  },
   container: {
     padding: "2rem 0rem 2rem 0rem",
+  },
+  headerOfDialog: {
+    display: "flex",
+    flexDirection: "column",
   },
   inputContainer: {
     display: "flex",
@@ -37,7 +45,6 @@ const useStyle = makeStyles({
   header: {
     marginBottom: "3.5rem",
     paddingBottom: "1.5rem",
-    width: "30vw",
     textAlign: "center",
     fontWeight: 700,
   },
@@ -54,8 +61,8 @@ const useStyle = makeStyles({
   icon: {
     fontSize: "120px",
     margin: "0 auto",
-    paddingTop: "2rem"
-  }
+    paddingTop: "2rem",
+  },
 });
 
 interface IProps {
@@ -71,7 +78,7 @@ export const Authorisation: React.FC<IProps> = ({
   userLoggedIn,
   setAuthOpen,
   setUserLoggedIn,
-  setOpenRegistration
+  setOpenRegistration,
 }): JSX.Element => {
   const classes = useStyle();
   const [email, setEmail] = useState<string>("");
@@ -79,7 +86,7 @@ export const Authorisation: React.FC<IProps> = ({
   const [users, setUsers] = useState<IUser[]>([]);
   const [openError, setOpenError] = useState<boolean>(false);
   const [openSuccessful, setOpenSuccessful] = useState<boolean>(false);
-  
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -120,12 +127,12 @@ export const Authorisation: React.FC<IProps> = ({
         handleClose();
         setEmail("");
         setPassword("");
-      }, 2000)
+      }, 2000);
       setOpenSuccessful(true);
       setTimeout(() => {
-        setOpenSuccessful(false)
+        setOpenSuccessful(false);
         setUserLoggedIn(true);
-      }, 2000)
+      }, 2000);
     } else {
       setOpenError(true);
     }
@@ -142,7 +149,10 @@ export const Authorisation: React.FC<IProps> = ({
     setOpenError(false);
   };
 
-  const handleSuccessfulClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleSuccessfulClose = (
+    event?: React.SyntheticEvent,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }
@@ -153,98 +163,106 @@ export const Authorisation: React.FC<IProps> = ({
     if (!userLoggedIn) {
       setOpenRegistration(true);
       setAuthOpen(false);
-      setOpenRegistration(true)
+      setOpenRegistration(true);
     }
-    
-  }
+  };
   return (
     <Dialog open={authOpen} onClose={handleClose}>
-      <AccountCircleIcon className={classes.icon} color="action"/>
-      <form className={classes.container} onSubmit={handleSubmit} autoComplete="on">
-        <Typography
-          variant="h3"
-          className={classes.header}
-          color="textSecondary"
+      <Box className={classes.root}>
+        <Box className={classes.headerOfDialog}>
+          <AccountCircleIcon className={classes.icon} color="action" />
+          <Typography
+            variant="h3"
+            className={classes.header}
+            color="textSecondary"
+          >
+            Authorisation
+          </Typography>
+        </Box>
+        <form
+          className={classes.container}
+          onSubmit={handleSubmit}
+          autoComplete="on"
         >
-          Authorisation
-        </Typography>
-        <Container className={classes.inputContainer}>
-          <StyledTextField
-            variant="outlined"
-            className={classes.inputField}
-            placeholder="Email"
-            onChange={changeEmailHandler}
-            value={email}
-            focused={true}
-            type="email"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircleIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <StyledTextField
-            variant="outlined"
-            className={classes.inputField}
-            placeholder="Password"
-            onChange={changePasswordHandler}
-            value={password}
-            type="password"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <VpnKeyIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Container>
-        <DialogActions className={classes.actions}>
-          <Container className={classes.buttonContainer}>
-            <StyledButton
-              type="submit"
-              variant="contained"
-              size="large"
-              color="primary"
-            >
-              Login
-            </StyledButton>
-            <StyledButton
-              type="button"
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={handleClose}
-            >
-              Cancel
-            </StyledButton>
+          <Container className={classes.inputContainer}>
+            <StyledTextField
+              variant="outlined"
+              className={classes.inputField}
+              placeholder="Email"
+              onChange={changeEmailHandler}
+              value={email}
+              focused={true}
+              type="email"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircleIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <StyledTextField
+              variant="outlined"
+              className={classes.inputField}
+              placeholder="Password"
+              onChange={changePasswordHandler}
+              value={password}
+              type="password"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <VpnKeyIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Container>
-          <Link variant="body1">Forgot password?</Link>
-          <Link variant="body1" onClick={handleOpenRegistration} href="#">Registration</Link>
-        </DialogActions>
-      </form>
-      <Snackbar
-        open={openError}
-        autoHideDuration={4000}
-        onClose={handleErrorClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert variant="filled" severity="error">
-          User not found
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={openSuccessful}
-        onClose={handleSuccessfulClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert variant="filled" severity="success">
-          Welcome!
-        </Alert>
-      </Snackbar>
-      {}
+          <DialogActions className={classes.actions}>
+            <Container className={classes.buttonContainer}>
+              <StyledButton
+                type="submit"
+                variant="contained"
+                size="large"
+                color="primary"
+              >
+                Login
+              </StyledButton>
+              <StyledButton
+                type="button"
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={handleClose}
+              >
+                Cancel
+              </StyledButton>
+            </Container>
+            <Link variant="body1">Forgot password?</Link>
+            <Link variant="body1" onClick={handleOpenRegistration} href="#">
+              Registration
+            </Link>
+          </DialogActions>
+        </form>
+        <Snackbar
+          open={openError}
+          autoHideDuration={4000}
+          onClose={handleErrorClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert variant="filled" severity="error">
+            User not found
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={openSuccessful}
+          onClose={handleSuccessfulClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert variant="filled" severity="success">
+            Welcome!
+          </Alert>
+        </Snackbar>
+      </Box>
     </Dialog>
   );
 };

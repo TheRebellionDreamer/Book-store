@@ -7,7 +7,7 @@ import { Container, makeStyles } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
 
-const theme = createTheme({
+export const theme = createTheme({
   typography: {
     fontFamily: "Quicksand, sans-serif",
   },

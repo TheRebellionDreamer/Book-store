@@ -2,11 +2,10 @@ import {
   Container,
   Typography,
   makeStyles,
-  TextField,
-  Button,
   Snackbar,
   Dialog,
   InputAdornment,
+  Box,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -15,12 +14,19 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import React, { useState, FC, useEffect } from "react";
 import { IUser } from "../types/types";
 import axios from "axios";
+import { StyledTextField } from "../custom/StyledTextField.custom";
+import { StyledButton } from "../custom/StyledButton.custom";
 
 const useStyle = makeStyles({
+  root: {
+    padding: "1rem 2rem 1rem 2rem",
+  },
   container: {
-    margin: "5rem 0rem 5rem 0rem",
-    textAlign: "center",
-    width: "30rem",
+    padding: "2rem 0rem 2rem 0rem",
+  },
+  headerOfDialog: {
+    display: "flex",
+    flexDirection: "column",
   },
   inputContainer: {
     display: "flex",
@@ -32,15 +38,20 @@ const useStyle = makeStyles({
   typography: {
     marginBottom: "2rem",
   },
-  dialog: {
-    width: "30rem",
-  },
   header: {
     marginBottom: "3.5rem",
     paddingBottom: "1.5rem",
-    width: "30vw",
     textAlign: "center",
     fontWeight: 700,
+  },
+  actions: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "2rem",
   },
   icon: {
     fontSize: "120px",
@@ -57,7 +68,7 @@ interface IRegistrationProps {
 export const Registration: FC<IRegistrationProps> = ({
   openRegistrarion,
   setOpenRegistration,
-  setUserLoggedIn
+  setUserLoggedIn,
 }): JSX.Element => {
   const classes = useStyle();
   const [email, setEmail] = useState<string>("");
@@ -97,13 +108,11 @@ export const Registration: FC<IRegistrationProps> = ({
   const addNewUser = async (user: IUser) => {
     try {
       await axios
-        .post<IUser[]>(
-        "/users",
-        user
-      ).then(response => setUsers(response.data))
+        .post<IUser[]>("/users", user)
+        .then((response) => setUsers(response.data));
       setUserLoggedIn(true);
       setOpenRegistration(false);
-      console.log(users)
+      console.log(users);
     } catch (error) {
       console.log(user.login + " " + user.password);
       console.log("Error: ", error);
@@ -181,85 +190,91 @@ export const Registration: FC<IRegistrationProps> = ({
 
   return (
     <Dialog open={openRegistrarion} onClose={handleClose}>
-      <PersonAddIcon className={classes.icon} color="action" />
-      <form className={classes.container} onSubmit={handleSubmit}>
-        <Typography
-          variant="h3"
-          className={classes.header}
-          color="textSecondary"
-        >
-          Registration
-        </Typography>
-        <Container className={classes.inputContainer}>
-          <TextField
-            name="email"
-            variant="outlined"
-            className={classes.inputField}
-            placeholder="Email"
-            value={email}
-            onChange={changeEmail}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircleIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Snackbar
-            open={emailSnackbarIsOpen}
-            autoHideDuration={2000}
-            onClose={handleEmailClose}
+      <Box className={classes.root}>
+        <Box className={classes.headerOfDialog}>
+          <PersonAddIcon className={classes.icon} color="action" />
+          <Typography
+            variant="h3"
+            className={classes.header}
+            color="textSecondary"
           >
-            <Alert onClose={handleEmailClose} severity="success">
-              Email is confirmed
+            Registration
+          </Typography>
+        </Box>
+        <form className={classes.container} onSubmit={handleSubmit}>
+          <Container className={classes.inputContainer}>
+            <StyledTextField
+              name="email"
+              variant="outlined"
+              className={classes.inputField}
+              placeholder="Email"
+              value={email}
+              onChange={changeEmail}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircleIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Snackbar
+              open={emailSnackbarIsOpen}
+              autoHideDuration={2000}
+              onClose={handleEmailClose}
+            >
+              <Alert onClose={handleEmailClose} severity="success">
+                Email is confirmed
+              </Alert>
+            </Snackbar>
+            <StyledTextField
+              type="password"
+              name="password"
+              variant="outlined"
+              className={classes.inputField}
+              placeholder="Password"
+              onChange={changePassword}
+              value={password}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <VpnKeyIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Snackbar
+              open={passwordSnackbarIsOpen}
+              autoHideDuration={2000}
+              onClose={handlePasswordClose}
+            >
+              <Alert onClose={handlePasswordClose} severity="success">
+                Password is strong
+              </Alert>
+            </Snackbar>
+          </Container>
+          <Container className={classes.buttonContainer}>
+            <StyledButton
+              type="submit"
+              disabled={!formValid}
+              variant="contained"
+              size="large"
+              color="primary"
+            >
+              Registred
+            </StyledButton>
+          </Container>
+          <Snackbar
+            open={errorSnackbarIsOpen}
+            autoHideDuration={4000}
+            onClose={handleErrorClose}
+          >
+            <Alert onClose={handleErrorClose} severity="error" variant="filled">
+              Such a user is already registered
             </Alert>
           </Snackbar>
-          <TextField
-            type="password"
-            name="password"
-            variant="outlined"
-            className={classes.inputField}
-            placeholder="Password"
-            onChange={changePassword}
-            value={password}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <VpnKeyIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Snackbar
-            open={passwordSnackbarIsOpen}
-            autoHideDuration={2000}
-            onClose={handlePasswordClose}
-          >
-            <Alert onClose={handlePasswordClose} severity="success">
-              Password is strong
-            </Alert>
-          </Snackbar>
-        </Container>
-        <Button
-          type="submit"
-          disabled={!formValid}
-          variant="contained"
-          size="large"
-          color="primary"
-        >
-          Registred
-        </Button>
-        <Snackbar
-          open={errorSnackbarIsOpen}
-          autoHideDuration={4000}
-          onClose={handleErrorClose}
-        >
-          <Alert onClose={handleErrorClose} severity="error" variant="filled">
-            Such a user is already registered
-          </Alert>
-        </Snackbar>
-      </form>
+        </form>
+      </Box>
     </Dialog>
   );
 };

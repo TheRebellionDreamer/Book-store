@@ -10,7 +10,10 @@ import {
 } from "@material-ui/core";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
-
+import { StyledAccordion } from "../custom/StyledAccordion.custom";
+import { StyledAccordionDetails } from "../custom/StyledAccordionDetails";
+import { StyledAccordionSummary } from "../custom/StyledAccordionSummary.custom";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import React, { useState } from "react";
 import { Faq } from "../components/Faq.component";
 
@@ -129,15 +132,26 @@ export const Contacts: React.FC = (): JSX.Element => {
           </Tooltip>
         </Box>
         <Box className={classes.mapContainer}>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9501485846104!2d-122.43316008469435!3d37.767767079760745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e1d93520f6f%3A0xfa5d2e61eafbe3cf!2sBooks%20%26%20Bookshelves!5e0!3m2!1sen!2sru!4v1632060081408!5m2!1sen!2sru"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            loading="eager"
-            className={classes.map}
-            title="We are on map"
-          ></iframe>
+          <StyledAccordion elevation={3}>
+            <StyledAccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography variant="h6">We're on the map</Typography>
+            </StyledAccordionSummary>
+            <StyledAccordionDetails>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9501485846104!2d-122.43316008469435!3d37.767767079760745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e1d93520f6f%3A0xfa5d2e61eafbe3cf!2sBooks%20%26%20Bookshelves!5e0!3m2!1sen!2sru!4v1632060081408!5m2!1sen!2sru"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              loading="eager"
+              className={classes.map}
+              title="We are on map"
+            ></iframe>
+            </StyledAccordionDetails>
+          </StyledAccordion>
           <Typography variant="h5" align="justify" className={classes.mapText}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
             asperiores vitae ducimus, repudiandae sapiente dignissimos fuga
