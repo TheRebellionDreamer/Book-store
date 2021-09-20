@@ -6,6 +6,7 @@ import React from "react";
 const useStyle = makeStyles({
   faq: {
     margin: "3rem 0 3rem 0",
+    fontWeight: 600
   },
 })
 

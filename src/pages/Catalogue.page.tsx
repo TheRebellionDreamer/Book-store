@@ -20,6 +20,9 @@ import { Alert } from "@material-ui/lab";
 import axios from "axios";
 
 const useStyle = makeStyles({
+  root: {
+    marginBottom: "3rem"
+  },
   message: {
     fontWeight: 300,
     fontSize: 60,
@@ -119,7 +122,7 @@ export const Catalogue: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container className={classes.root}>
       <Box className={classes.formContainer}>
         <FormControl fullWidth>
           <TextField

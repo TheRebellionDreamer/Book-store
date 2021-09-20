@@ -31,7 +31,9 @@ const useStyle = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     background: "rgba(0,0,0,.02)",
-    boxShadow: "0px -1px 8px 4px rgba(34, 60, 80, 0.2);"
+    boxShadow: "0px -1px 8px 4px rgba(34, 60, 80, 0.2);",
+    marginBottom: 0,
+    padding: 0
   }
 }) 
 

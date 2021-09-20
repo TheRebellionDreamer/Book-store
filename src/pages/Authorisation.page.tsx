@@ -17,6 +17,8 @@ import { IUser } from "../types/types";
 import axios from "axios";
 import { Alert } from "@material-ui/lab";
 import { setTimeout } from "timers";
+import { StyledTextField } from "../custom/StyledTextField.custom";
+import { StyledButton } from "../custom/StyledButton.custom";
 
 const useStyle = makeStyles({
   container: {
@@ -167,7 +169,7 @@ export const Authorisation: React.FC<IProps> = ({
           Authorisation
         </Typography>
         <Container className={classes.inputContainer}>
-          <TextField
+          <StyledTextField
             variant="outlined"
             className={classes.inputField}
             placeholder="Email"
@@ -183,7 +185,7 @@ export const Authorisation: React.FC<IProps> = ({
               ),
             }}
           />
-          <TextField
+          <StyledTextField
             variant="outlined"
             className={classes.inputField}
             placeholder="Password"
@@ -201,15 +203,15 @@ export const Authorisation: React.FC<IProps> = ({
         </Container>
         <DialogActions className={classes.actions}>
           <Container className={classes.buttonContainer}>
-            <Button
+            <StyledButton
               type="submit"
               variant="contained"
               size="large"
               color="primary"
             >
               Login
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               type="button"
               variant="contained"
               size="large"
@@ -217,7 +219,7 @@ export const Authorisation: React.FC<IProps> = ({
               onClick={handleClose}
             >
               Cancel
-            </Button>
+            </StyledButton>
           </Container>
           <Link variant="body1">Forgot password?</Link>
           <Link variant="body1" onClick={handleOpenRegistration} href="#">Registration</Link>

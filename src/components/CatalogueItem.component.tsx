@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Grid,
   CardMedia,
   CardActions,
@@ -11,6 +10,7 @@ import {
   Zoom,
   Grow,
 } from "@material-ui/core";
+import { StyledCatalogButton } from "../custom/StyledCatalogButton.custom";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -90,14 +90,14 @@ export const CatalogueItem: React.FC<IGood & IProps> = ({
               TransitionComponent={Zoom}
               placement="top"
             >
-              <Button
+              <StyledCatalogButton
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingBasketIcon fontSize="large" />}
                 onClick={addInBag}
               >
                 Buy
-              </Button>
+              </StyledCatalogButton>
             </Tooltip>
           </CardActions>
         </Card>

@@ -10,9 +10,11 @@ import {
   Toolbar,
   IconButton,
   Slide,
+  Button,
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
 import CloseIcon from "@material-ui/icons/Close";
+import { styled } from "@material-ui/styles";
 import React from "react";
 import { BaggageItem } from "../components/BaggageItem.component";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
@@ -20,6 +22,26 @@ import { useTypedSelector } from "../hooks/typed-selector.hook";
 const useStyle = makeStyles({
   container: {
     marginTop: "5rem",
+  },
+  emoji: {
+    fontSize: "6rem",
+    textAlign: "center",
+  },
+  messageContainer: {
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  resultContainer: {
+    paddingTop: "2rem",
+    marginTop: "3rem",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  sizeCart: {
+    marginBottom: "1rem",
   },
 });
 
@@ -47,7 +69,6 @@ export const Baggage: React.FC<IPropsBaggage> = ({
   };
 
   return (
-    // <Container className={classes.container}>
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>
       <AppBar>
         <Toolbar>
@@ -61,31 +82,38 @@ export const Baggage: React.FC<IPropsBaggage> = ({
           </IconButton>
         </Toolbar>
       </AppBar>
-      <List className={classes.container}>
-        {!products.length ? (
-          <Typography variant="h2">Your cart is empty</Typography>
-        ) : (
-          products.map(({ item, count }) => (
-            <>
-              <BaggageItem
-                {...item}
-                count={count}
-                key={item.image}
-              />
-              <Divider variant="fullWidth" />
-            </>
-          ))
-        )}
+      <Box>
+        <List className={classes.container}>
+          {!products.length ? (
+            <Container className={classes.messageContainer}>
+              <Typography className={classes.emoji}>😔</Typography>
+              <Typography variant="h2">Your cart is empty</Typography>
+            </Container>
+          ) : (
+            products.map(({ item, count }) => (
+              <>
+                <BaggageItem {...item} count={count} key={item.image} />
+                <Divider variant="fullWidth" />
+              </>
+            ))
+          )}
+        </List>
         {products.length ? (
-          <Container>
-            <Typography variant="h4">
-              You have {totalSize} items in your basket with a value of {totalCost}₽
-            </Typography>
+          <Container className={classes.resultContainer}>
+            <Box>
+              <Typography variant="h3" className={classes.sizeCart}>
+                Total items in cart: {totalSize}
+              </Typography>
+              <Typography variant="h3">Total: {totalCost}</Typography>
+            </Box>
+            <Button color="primary" variant="contained">
+              <Typography variant="button" >Place an order</Typography>
+            </Button>
           </Container>
         ) : (
           <Box></Box>
         )}
-      </List>
+      </Box>
     </Dialog>
   );
 };
