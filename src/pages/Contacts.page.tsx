@@ -13,6 +13,8 @@ import EmailIcon from "@material-ui/icons/Email";
 import { StyledAccordion } from "../custom/StyledAccordion.custom";
 import { StyledAccordionDetails } from "../custom/StyledAccordionDetails";
 import { StyledAccordionSummary } from "../custom/StyledAccordionSummary.custom";
+import { StyledIconButton } from "../custom/StyledIconButton.custom";
+import FacebookIcon from "@material-ui/icons/Facebook";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import React, { useState } from "react";
 import { Faq } from "../components/Faq.component";
@@ -68,6 +70,8 @@ export const Contacts: React.FC = (): JSX.Element => {
   const classes = useStyle();
   const [phoneTooltipOpen, setPhoneTooltipOpen] = useState<boolean>(false);
   const [emailTooltipOpen, setEmailTooltipOpen] = useState<boolean>(false);
+  const [facebookTooltipOpen, setFacebookTooltipOpen] =
+    useState<boolean>(false);
 
   const handleOpenPhone = () => {
     setPhoneTooltipOpen(true);
@@ -83,6 +87,14 @@ export const Contacts: React.FC = (): JSX.Element => {
 
   const handleCloseEmail = () => {
     setEmailTooltipOpen(false);
+  };
+
+  const handleCloseFacebook = () => {
+    setFacebookTooltipOpen(false);
+  };
+
+  const handleOpenFacebook = () => {
+    setFacebookTooltipOpen(true);
   };
 
   return (
@@ -107,9 +119,9 @@ export const Contacts: React.FC = (): JSX.Element => {
             enterDelay={500}
             leaveDelay={200}
           >
-            <IconButton size="medium">
+            <StyledIconButton size="medium">
               <PhoneIcon className={classes.icon} />
-            </IconButton>
+            </StyledIconButton>
           </Tooltip>
           <Tooltip
             className={classes.iconCont}
@@ -126,9 +138,28 @@ export const Contacts: React.FC = (): JSX.Element => {
             enterDelay={500}
             leaveDelay={200}
           >
-            <IconButton size="medium">
+            <StyledIconButton size="medium">
               <EmailIcon className={classes.icon} />
-            </IconButton>
+            </StyledIconButton>
+          </Tooltip>
+          <Tooltip
+            className={classes.iconCont}
+            placement="right"
+            TransitionComponent={Zoom}
+            open={facebookTooltipOpen}
+            onClose={handleCloseFacebook}
+            onOpen={handleOpenFacebook}
+            title={
+              <Typography className={classes.tooltipText}>
+                www.facebook.com/
+              </Typography>
+            }
+            enterDelay={500}
+            leaveDelay={200}
+          >
+            <StyledIconButton>
+              <FacebookIcon className={classes.icon} />
+            </StyledIconButton>
           </Tooltip>
         </Box>
         <Box className={classes.mapContainer}>
@@ -141,15 +172,15 @@ export const Contacts: React.FC = (): JSX.Element => {
               <Typography variant="h6">We're on the map</Typography>
             </StyledAccordionSummary>
             <StyledAccordionDetails>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9501485846104!2d-122.43316008469435!3d37.767767079760745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e1d93520f6f%3A0xfa5d2e61eafbe3cf!2sBooks%20%26%20Bookshelves!5e0!3m2!1sen!2sru!4v1632060081408!5m2!1sen!2sru"
-              width="600"
-              height="450"
-              style={{ border: 0 }}
-              loading="eager"
-              className={classes.map}
-              title="We are on map"
-            ></iframe>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9501485846104!2d-122.43316008469435!3d37.767767079760745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e1d93520f6f%3A0xfa5d2e61eafbe3cf!2sBooks%20%26%20Bookshelves!5e0!3m2!1sen!2sru!4v1632060081408!5m2!1sen!2sru"
+                width="600"
+                height="450"
+                style={{ border: 0 }}
+                loading="eager"
+                className={classes.map}
+                title="We are on map"
+              ></iframe>
             </StyledAccordionDetails>
           </StyledAccordion>
           <Typography variant="h5" align="justify" className={classes.mapText}>
