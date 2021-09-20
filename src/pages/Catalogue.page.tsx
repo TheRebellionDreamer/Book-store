@@ -12,6 +12,8 @@ import {
   Box,
   FormControl,
   Snackbar,
+  Button,
+  Popover,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { IGood } from "../types/types";
@@ -21,7 +23,7 @@ import axios from "axios";
 
 const useStyle = makeStyles({
   root: {
-    marginBottom: "3rem"
+    marginBottom: "3rem",
   },
   message: {
     fontWeight: 300,
@@ -40,6 +42,9 @@ const useStyle = makeStyles({
     paddingLeft: "1rem",
     width: "10rem",
   },
+  filters: {
+    padding: "1rem"
+  }
 });
 
 export const Catalogue: React.FC = () => {
@@ -50,15 +55,26 @@ export const Catalogue: React.FC = () => {
   const [maxPrice, setMaxPrice] = React.useState<string>("");
   const [open, setOpen] = React.useState<boolean>(false);
   const [goods, setGoods] = React.useState<IGood[]>([]);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const classes = useStyle();
+
+  const openFilters = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeFilters = (): void => {
+    setAnchorEl(null);
+  };
+
+  const openPopover = Boolean(anchorEl);
 
   useEffect(() => {
     fetchingUser();
   }, []);
 
   const fetchingUser = async () => {
-    await axios.get("/goods").then(response => setGoods(response.data));
-  }
+    await axios.get("/goods").then((response) => setGoods(response.data));
+  };
   interface IFilteringItem {
     (book: IGood): boolean;
   }
@@ -121,6 +137,8 @@ export const Catalogue: React.FC = () => {
     setOpen(false);
   };
 
+
+
   return (
     <Container className={classes.root}>
       <Box className={classes.formContainer}>
@@ -156,29 +174,41 @@ export const Catalogue: React.FC = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <FormControl>
-          <TextField
-            title={minPrice}
-            onChange={changeMin}
-            label="Min"
-            variant="standard"
-            fullWidth
-          />
-          <TextField
-            title={maxPrice}
-            onChange={changeMax}
-            label="Max"
-            variant="standard"
-            fullWidth
-          />
-        </FormControl>
+        <Button onClick={openFilters}>Open filter</Button>
+        <Popover
+          className={classes.filters}
+          open={openPopover}
+          onClose={closeFilters}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <FormControl>
+            <TextField
+              title={minPrice}
+              onChange={changeMin}
+              label="Min"
+              variant="standard"
+              fullWidth
+            />
+            <TextField
+              title={maxPrice}
+              onChange={changeMax}
+              label="Max"
+              variant="standard"
+              fullWidth
+            />
+          </FormControl>
+        </Popover>
       </Box>
       <Container>
         {filtredItems.length ? (
           <Grid container spacing={3}>
             {filtredItems.map((item) => (
               <Grid item key={item.id} xs={12} sm={6} md={4} lg={4}>
-                <CatalogueItem {...item} setOpen={setOpen}/>
+                <CatalogueItem {...item} setOpen={setOpen} />
               </Grid>
             ))}
           </Grid>
