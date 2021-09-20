@@ -6,9 +6,13 @@ import {
   Divider,
   Box,
   Tooltip,
+  Zoom,
 } from "@material-ui/core";
 import PhoneIcon from "@material-ui/icons/Phone";
+import EmailIcon from "@material-ui/icons/Email";
+
 import React, { useState } from "react";
+import { Faq } from "../components/Faq.component";
 
 const useStyle = makeStyles({
   root: {
@@ -25,27 +29,57 @@ const useStyle = makeStyles({
   },
   iconContainer: {
     display: "flex",
-    paddin: 0,
     flexDirection: "column",
     alignItems: "flex-start",
+    borderRight: "1px solid rgba(0,0,0,.1)",
+    paddingRight: "2rem",
   },
   icon: {
     fontSize: 45,
   },
   text: {
     maxWidth: "35rem",
+    padding: "0rem 0rem 0rem 3rem",
+    borderLeft: "1px solid rgba(0,0,0,.1)",
+  },
+  tooltipText: {
+    fontSize: "2rem",
+    whiteSpace: "nowrap",
+  },
+  iconCont: {
+    margin: "2rem 0rem 2rem 0rem",
+  },
+  mapContainer: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "0rem 2rem 0rem 2rem",
+  },
+  map: {
+    margin: "0rem 2rem 0rem 2rem",
+  },
+  mapText: {
+    padding: "2rem 0rem 0rem 0rem",
   },
 });
 export const Contacts: React.FC = (): JSX.Element => {
   const classes = useStyle();
-  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
+  const [phoneTooltipOpen, setPhoneTooltipOpen] = useState<boolean>(false);
+  const [emailTooltipOpen, setEmailTooltipOpen] = useState<boolean>(false);
 
-  const handleOpen = () => {
-    setTooltipOpen(true);
+  const handleOpenPhone = () => {
+    setPhoneTooltipOpen(true);
   };
 
-  const handleClose = () => {
-    setTooltipOpen(false);
+  const handleClosePhone = () => {
+    setPhoneTooltipOpen(false);
+  };
+
+  const handleOpenEmail = () => {
+    setEmailTooltipOpen(true);
+  };
+
+  const handleCloseEmail = () => {
+    setEmailTooltipOpen(false);
   };
 
   return (
@@ -57,10 +91,16 @@ export const Contacts: React.FC = (): JSX.Element => {
       <Box className={classes.content}>
         <Box className={classes.iconContainer}>
           <Tooltip
-            open={tooltipOpen}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            title="test"
+            placement="right"
+            TransitionComponent={Zoom}
+            open={phoneTooltipOpen}
+            onClose={handleClosePhone}
+            onOpen={handleOpenPhone}
+            title={
+              <Typography className={classes.tooltipText}>
+                +79307033812
+              </Typography>
+            }
             enterDelay={500}
             leaveDelay={200}
           >
@@ -68,10 +108,53 @@ export const Contacts: React.FC = (): JSX.Element => {
               <PhoneIcon className={classes.icon} />
             </IconButton>
           </Tooltip>
+          <Tooltip
+            className={classes.iconCont}
+            placement="right"
+            TransitionComponent={Zoom}
+            open={emailTooltipOpen}
+            onClose={handleCloseEmail}
+            onOpen={handleOpenEmail}
+            title={
+              <Typography className={classes.tooltipText}>
+                helpBook@mail.com
+              </Typography>
+            }
+            enterDelay={500}
+            leaveDelay={200}
+          >
+            <IconButton size="medium">
+              <EmailIcon className={classes.icon} />
+            </IconButton>
+          </Tooltip>
         </Box>
-        <Divider orientation="vertical" />
+        <Box className={classes.mapContainer}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9501485846104!2d-122.43316008469435!3d37.767767079760745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e1d93520f6f%3A0xfa5d2e61eafbe3cf!2sBooks%20%26%20Bookshelves!5e0!3m2!1sen!2sru!4v1632060081408!5m2!1sen!2sru"
+            width="600"
+            height="450"
+            style={{ border: 0 }}
+            loading="eager"
+            className={classes.map}
+            title="We are on map"
+          ></iframe>
+          <Typography variant="h5" align="justify" className={classes.mapText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
+            asperiores vitae ducimus, repudiandae sapiente dignissimos fuga
+            facere maiores ab consequatur, ut eos possimus obcaecati nam quasi
+            eum fugiat! Ipsam, perferendis tempore facilis incidunt aliquid
+            quisquam mollitia quasi numquam impedit, eos molestias, magni vero
+            saepe. Perspiciatis quas recusandae qui dolorem blanditiis voluptas
+            est impedit eaque debitis earum! Quas, dicta reiciendis totam cum
+            molestiae pariatur deserunt reprehenderit voluptatem atque
+            voluptatum consequuntur dolorem recusandae! Alias rem architecto
+            recusandae excepturi? Non ullam, dolor officiis ea recusandae
+            provident quis quam voluptate iusto ad aliquid eius possimus dicta
+            alias corrupti fuga deleniti asperiores eveniet beatae. Dicta.
+          </Typography>
+        </Box>
         <Box className={classes.text}>
-          <Typography variant="h5" align="right">
+          <Typography variant="h5" align="justify">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo
             accusantium eum magnam velit nobis iure rerum mollitia sunt expedita
             quos molestias ducimus illum, dolor reiciendis, amet, eos earum?
@@ -81,14 +164,11 @@ export const Contacts: React.FC = (): JSX.Element => {
             incidunt asperiores aspernatur, aperiam tempore blanditiis mollitia,
             deleniti magni. Praesentium laborum non neque id. Itaque earum
             recusandae esse maxime pariatur consequuntur at. Magni cupiditate
-            recusandae nostrum! Et suscipit commodi, cumque repudiandae ducimus
-            ad magni mollitia porro harum dolor. Ipsam consectetur a possimus
-            eos provident. Adipisci dolor rem labore debitis excepturi omnis
-            nesciunt dolorem, aliquid eius est fugit accusantium architecto
-            tempora laudantium temporibus saepe possimus tenetur velit nam!
+            recusandae nostrum!
           </Typography>
         </Box>
       </Box>
+      <Faq />
     </Container>
   );
 };
