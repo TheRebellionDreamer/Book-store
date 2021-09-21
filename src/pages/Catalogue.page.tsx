@@ -43,8 +43,8 @@ const useStyle = makeStyles({
     width: "10rem",
   },
   filters: {
-    padding: "1rem"
-  }
+    padding: "1rem",
+  },
 });
 
 export const Catalogue: React.FC = () => {
@@ -55,7 +55,9 @@ export const Catalogue: React.FC = () => {
   const [maxPrice, setMaxPrice] = React.useState<string>("");
   const [open, setOpen] = React.useState<boolean>(false);
   const [goods, setGoods] = React.useState<IGood[]>([]);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const classes = useStyle();
 
   const openFilters = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -79,7 +81,7 @@ export const Catalogue: React.FC = () => {
     (book: IGood): boolean;
   }
 
-  const changeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
   }; // ввод в поле поиска
 
@@ -87,12 +89,12 @@ export const Catalogue: React.FC = () => {
     title.toLowerCase().includes(searchValue.toLowerCase()) ||
     author.toLowerCase().includes(searchValue.toLowerCase()); // метод поиска книг по названию и автору
 
-  let filtredItems =
+  let filtredItems: IGood[] =
     searchValue.trim() !== "" ? goods.filter(filteringItems) : goods; // принимаемый колбэк для метода
 
   const handleChangeSortingMethod = (
     event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  ): void => {
     setSortingMethod(event.target.value as string);
   };
 
@@ -116,11 +118,11 @@ export const Catalogue: React.FC = () => {
   if (sortingMethod === typesOfSorting.AscendingPrice)
     filtredItems.sort((a: IGood, b: IGood): number => b.price - a.price);
 
-  const changeMin = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeMin = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setMinPrice(event.target.value);
   };
 
-  const changeMax = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeMax = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setMaxPrice(event.target.value);
   };
 
@@ -130,14 +132,12 @@ export const Catalogue: React.FC = () => {
     );
   }
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (event?: React.SyntheticEvent, reason?: string): void => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
-
-
 
   return (
     <Container className={classes.root}>

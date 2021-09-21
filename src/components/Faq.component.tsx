@@ -53,6 +53,20 @@ export const Faq: React.FC = (): JSX.Element => {
               </Typography>
             </StyledAccordionDetails>
           </StyledAccordion>
+          <StyledAccordion elevation={3}>
+            <StyledAccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography variant="h6">3. How can I contact you?</Typography>
+            </StyledAccordionSummary>
+            <StyledAccordionDetails>
+              <Typography>
+              All of our contacts are listed on this page above
+              </Typography>
+            </StyledAccordionDetails>
+          </StyledAccordion>
         </Container>
       </Container>
   )

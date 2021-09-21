@@ -7,6 +7,7 @@ import {
   Box,
   Tooltip,
   Zoom,
+  Link,
 } from "@material-ui/core";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
@@ -119,9 +120,11 @@ export const Contacts: React.FC = (): JSX.Element => {
             enterDelay={500}
             leaveDelay={200}
           >
-            <StyledIconButton size="medium">
-              <PhoneIcon className={classes.icon} />
-            </StyledIconButton>
+            <Link href="tel:+79307033812">
+              <StyledIconButton size="medium">
+                <PhoneIcon className={classes.icon} />
+              </StyledIconButton>
+            </Link>
           </Tooltip>
           <Tooltip
             className={classes.iconCont}
@@ -132,15 +135,17 @@ export const Contacts: React.FC = (): JSX.Element => {
             onOpen={handleOpenEmail}
             title={
               <Typography className={classes.tooltipText}>
-                helpBook@mail.com
+                rebelliondreamer@gmail.com
               </Typography>
             }
             enterDelay={500}
             leaveDelay={200}
           >
-            <StyledIconButton size="medium">
-              <EmailIcon className={classes.icon} />
-            </StyledIconButton>
+            <Link href="mailto:rebelliondreamer@gmail.com">
+              <StyledIconButton size="medium">
+                <EmailIcon className={classes.icon} />
+              </StyledIconButton>
+            </Link>
           </Tooltip>
           <Tooltip
             className={classes.iconCont}
@@ -151,15 +156,17 @@ export const Contacts: React.FC = (): JSX.Element => {
             onOpen={handleOpenFacebook}
             title={
               <Typography className={classes.tooltipText}>
-                www.facebook.com/
+                www.facebook.com
               </Typography>
             }
             enterDelay={500}
             leaveDelay={200}
           >
+            <Link href="https://www.facebook.com/" target="_blank">
             <StyledIconButton>
               <FacebookIcon className={classes.icon} />
             </StyledIconButton>
+            </Link>
           </Tooltip>
         </Box>
         <Box className={classes.mapContainer}>
