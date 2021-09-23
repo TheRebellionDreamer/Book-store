@@ -71,19 +71,23 @@ export const Registration: FC<IRegistrationProps> = ({
   setUserLoggedIn,
 }): JSX.Element => {
   const classes = useStyle();
+  
+  // use formik or redux-form or react-hook-form
   const [email, setEmail] = useState<string>("");
   const [emailIsValidate, setEmailIsValidate] = useState<boolean>(false);
-  const [passwordIsValidate, setPasswordIsValidate] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
-  const [emailSnackbarIsOpen, setEmailSnackbarIsOpen] =
-    useState<boolean>(false);
-  const [passwordSnackbarIsOpen, setPasswordSnackbarIsOpen] =
-    useState<boolean>(false);
+  const [passwordIsValidate, setPasswordIsValidate] = useState<boolean>(false);
   const [formValid, setFormValid] = useState<boolean>(false);
+  
+  // remove, use route GET / users?email={email}
   const [users, setUsers] = useState<IUser[]>([]);
-  const [errorSnackbarIsOpen, setErrorSnackbarIsOpen] =
-    useState<boolean>(false);
+  
+  // use notistack
+  const [emailSnackbarIsOpen, setEmailSnackbarIsOpen] = useState<boolean>(false);
+  const [passwordSnackbarIsOpen, setPasswordSnackbarIsOpen] = useState<boolean>(false);
+  const [errorSnackbarIsOpen, setErrorSnackbarIsOpen] = useState<boolean>(false);
 
+  // remove
   useEffect(() => {
     if (emailIsValidate && passwordIsValidate) {
       setFormValid(true);
@@ -92,10 +96,12 @@ export const Registration: FC<IRegistrationProps> = ({
     }
   }, [emailIsValidate, passwordIsValidate]);
 
+  // remove
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  // remove
   async function fetchUsers() {
     try {
       const responce = await axios.get<IUser[]>("http://localhost:8000/users");
@@ -123,10 +129,12 @@ export const Registration: FC<IRegistrationProps> = ({
     e: React.FormEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
+
     const newUser: IUser = {
       login: email,
       password: password,
     };
+    
     console.log(newUser.login + " " + newUser.password);
 
     const findIndex = users.findIndex((user) => user.login === newUser.login);
@@ -138,6 +146,7 @@ export const Registration: FC<IRegistrationProps> = ({
     }
   };
 
+  // rewrite
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;

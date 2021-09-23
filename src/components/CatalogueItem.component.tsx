@@ -15,7 +15,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGood } from "../types/types";
-import { shopListActions } from "../store/reducers/shopListReducer.reducer";
+import { shopListActions } from "../store/reducers/shopList.reducer";
 
 const useStyles = makeStyles({
   footer: {
