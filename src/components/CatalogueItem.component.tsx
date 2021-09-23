@@ -69,7 +69,7 @@ export const CatalogueItem: React.FC<IGood & IProps> = ({
   return (
     <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>
       <Grid item xs={12}>
-        <Card className={classes.card}>
+        <Card className={classes.card} color="">
           <CardMedia
             image={image}
             component="img"

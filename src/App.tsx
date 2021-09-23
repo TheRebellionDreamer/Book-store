@@ -1,55 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
-import { Container, makeStyles } from "@material-ui/core";
+import { Container, makeStyles, Paper } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
-
-export const theme = createTheme({
-  typography: {
-    fontFamily: "Quicksand, sans-serif",
-  },
-  palette: {
-    primary: {
-      main: "#4527a0",
-      dark: "#000070",
-      light: "#7953d2",
-    },
-    secondary: {
-      main: "#fdd835",
-      dark: "#c6a700",
-      light: "#ffff6b",
-    },
-  },
-});
 
 const useStyle = makeStyles({
   root: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "rgba(0,0,0,.02)",
-    boxShadow: "0px -1px 8px 4px rgba(34, 60, 80, 0.2);",
     marginBottom: 0,
     padding: 0
+  },
+  paper: {
+    margin: 0,
+    padding: 0,
   }
 }) 
 
 function App() {
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const switchTheme = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setDarkMode(prev => !prev)
+  }
+
+  const darkTheme = createTheme({
+    typography: {
+      fontFamily: "Quicksand, sans-serif",
+    },
+    palette: {
+      type: "dark",
+      primary: {
+        main: "#595959",
+        dark: "#000070",
+        light: "#7953d2",
+      },
+      secondary: {
+        main: "#fdd835",
+        dark: "#c6a700",
+        light: "#ffff6b",
+      },
+    },
+  });
+
+  const lightTheme = createTheme({
+    typography: {
+      fontFamily: "Quicksand, sans-serif",
+    },
+    palette: {
+      type: "light",
+      primary: {
+        main: "#4527a0",
+        dark: "#000070",
+        light: "#7953d2",
+      },
+      secondary: {
+        main: "#fdd835",
+        dark: "#c6a700",
+        light: "#ffff6b",
+      },
+    },
+  })
+
   const classes = useStyle()
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <BrowserRouter>
-        <NavBar />
-        <Container className={classes.root}>
+      <Paper className={classes.paper} elevation={0}>
+        <NavBar darkMode={darkMode} switchTheme={switchTheme}/>
+        <Container className={classes.root} maxWidth="lg">
           <Switch>
             <Route component={Catalogue} path="/catalogue" />
             <Route component={Contacts} path="/contacts" />
             <Route component={AboutUs} path="/" />
           </Switch>
         </Container>
+        </Paper>
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -20,9 +20,18 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import React, { useState } from "react";
 import { Faq } from "../components/Faq.component";
 
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   root: {
     margin: "5rem 0rem 5rem 0rem",
+    animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`,
+  },
+  "@keyframes openEffect": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
+    },
   },
   header: {
     marginBottom: "3rem",
@@ -66,7 +75,7 @@ const useStyle = makeStyles({
   mapText: {
     padding: "2rem 0rem 0rem 0rem",
   },
-});
+}));
 export const Contacts: React.FC = (): JSX.Element => {
   const classes = useStyle();
   const [phoneTooltipOpen, setPhoneTooltipOpen] = useState<boolean>(false);
@@ -163,9 +172,9 @@ export const Contacts: React.FC = (): JSX.Element => {
             leaveDelay={200}
           >
             <Link href="https://www.facebook.com/" target="_blank">
-            <StyledIconButton>
-              <FacebookIcon className={classes.icon} />
-            </StyledIconButton>
+              <StyledIconButton>
+                <FacebookIcon className={classes.icon} />
+              </StyledIconButton>
             </Link>
           </Tooltip>
         </Box>

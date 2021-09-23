@@ -12,18 +12,28 @@ import {
   Box,
   FormControl,
   Snackbar,
-  Button,
   Popover,
+  Divider,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { IGood } from "../types/types";
 import { CatalogueItem } from "../components/CatalogueItem.component";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
+import { StyledButton } from "../custom/StyledButton.custom";
 
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   root: {
     marginBottom: "3rem",
+    animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`,
+  },
+  "@keyframes openEffect": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
+    },
   },
   message: {
     fontWeight: 300,
@@ -43,9 +53,21 @@ const useStyle = makeStyles({
     width: "10rem",
   },
   filters: {
-    padding: "1rem",
+    width: "10rem",
+    marginLeft: "1rem",
   },
-});
+  popover: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  popoverText: {
+    padding: "2rem 2rem 1rem 2rem",
+  },
+  popoverHeader: {
+    marginTop: "1rem"
+  }
+}));
 
 export const Catalogue: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState<string>("");
@@ -174,9 +196,15 @@ export const Catalogue: React.FC = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button onClick={openFilters}>Open filter</Button>
-        <Popover
+        <StyledButton
+          onClick={openFilters}
+          size="small"
           className={classes.filters}
+          variant="outlined"
+        >
+          Filter's
+        </StyledButton>
+        <Popover
           open={openPopover}
           onClose={closeFilters}
           anchorEl={anchorEl}
@@ -184,21 +212,28 @@ export const Catalogue: React.FC = () => {
             vertical: "bottom",
             horizontal: "left",
           }}
+          className={classes.popover}
         >
-          <FormControl>
+          <Container>
+            <Typography className={classes.popoverHeader}>Price filter</Typography>
+            <Divider />
+          </Container>
+          <FormControl style={{}}>
             <TextField
               title={minPrice}
               onChange={changeMin}
-              label="Min"
               variant="standard"
-              fullWidth
+              // fullWidth
+              className={classes.popoverText}
+              placeholder="Min price"
             />
             <TextField
+              placeholder="Max price"
               title={maxPrice}
               onChange={changeMax}
-              label="Max"
               variant="standard"
-              fullWidth
+              // fullWidth
+              className={classes.popoverText}
             />
           </FormControl>
         </Popover>

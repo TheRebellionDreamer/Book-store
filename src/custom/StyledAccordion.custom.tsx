@@ -1,10 +1,9 @@
 import {
   Accordion,
-  AccordionDetails,
-  AccordionSummary,
+
 } from "@material-ui/core";
-import { styled, ThemeProvider,  } from "@material-ui/styles";
-import {theme} from "../App"
+import { styled } from "@material-ui/styles";
+
 
 export const StyledAccordion = styled(Accordion)({
 

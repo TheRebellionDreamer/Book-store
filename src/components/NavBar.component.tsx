@@ -6,6 +6,9 @@ import {
   Badge,
   Container,
   IconButton,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -41,16 +44,27 @@ const useStyles = makeStyles({
   text: {
     padding: "1rem 2rem 1rem 2rem",
   },
+  switchContainer: {
+    display: "flex",
+    justifyContent: "center"
+  }
 });
-
-export const NavBar: React.FC = (): JSX.Element => {
+interface IPropsNavBar {
+  darkMode: boolean;
+  switchTheme(e: React.ChangeEvent<HTMLInputElement>): void;
+}
+export const NavBar: React.FC<IPropsNavBar> = ({
+  darkMode,
+  switchTheme,
+}): JSX.Element => {
   const classes = useStyles();
   const { totalSize } = useTypedSelector((state) => state.shopList);
   const [authOpen, setAuthOpen] = React.useState<boolean>(false);
   const [bagOpen, setBagOpen] = React.useState<boolean>(false);
   const [cheked, setCheked] = React.useState<boolean>(false);
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
-  const [openRegistrarion, setOpenRegistration] = React.useState<boolean>(false);
+  const [openRegistrarion, setOpenRegistration] =
+    React.useState<boolean>(false);
 
   const handleClickOpen = () => {
     setAuthOpen(true);
@@ -63,15 +77,21 @@ export const NavBar: React.FC = (): JSX.Element => {
 
   const handleClickSignOut = () => {
     if (userLoggedIn) {
-      setUserLoggedIn(false)
-    } 
-  }
+      setUserLoggedIn(false);
+    }
+  };
 
   return (
     <AppBar>
       <Toolbar className={classes.toolBar}>
         <MenuListItem />
         <Container className={classes.iconsContainer}>
+          <FormGroup className={classes.switchContainer}>
+            <FormControlLabel
+              control={<Switch checked={darkMode} onChange={switchTheme} size="medium"/>}
+              label="Dark mode"
+            />
+          </FormGroup>
           <IconButton className={classes.button} onClick={handleClickOpenBag}>
             <Badge color="secondary" badgeContent={totalSize}>
               <LocalMallIcon />
@@ -79,7 +99,7 @@ export const NavBar: React.FC = (): JSX.Element => {
           </IconButton>
           <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen} />
           {userLoggedIn ? (
-            <MenuOfUser handleClickSignOut={handleClickSignOut}/>
+            <MenuOfUser handleClickSignOut={handleClickSignOut} />
           ) : (
             <IconButton onClick={handleClickOpen}>
               <AccountCircleIcon className={classes.button}></AccountCircleIcon>
@@ -92,7 +112,11 @@ export const NavBar: React.FC = (): JSX.Element => {
             userLoggedIn={userLoggedIn}
             setOpenRegistration={setOpenRegistration}
           />
-          <Registration openRegistrarion={openRegistrarion} setOpenRegistration={setOpenRegistration} setUserLoggedIn={setUserLoggedIn}/>
+          <Registration
+            openRegistrarion={openRegistrarion}
+            setOpenRegistration={setOpenRegistration}
+            setUserLoggedIn={setUserLoggedIn}
+          />
         </Container>
       </Toolbar>
     </AppBar>
