@@ -10,7 +10,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { shopListActions } from "../store/reducers/shopListReducer.reducer";
+import { shopListActions } from "../store/reducers/shopList.reducer";
 
 const useStyle = makeStyles({
   baggageItem: {
