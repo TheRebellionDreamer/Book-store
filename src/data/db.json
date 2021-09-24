@@ -1,20 +1,5 @@
 {
   "users": [
-    {
-      "login": "rebelliondreamer@gmail.com",
-      "password": "HI19da97",
-      "id": 1
-    },
-    {
-      "login": "testingUser@gmail.com",
-      "password": "HI19da97",
-      "id": 2
-    },
-    {
-      "login": "testingUser2@gmail.com",
-      "password": "HI19da97",
-      "id": 3
-    }
   ],
   "goods": [
     {

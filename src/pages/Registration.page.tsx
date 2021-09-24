@@ -116,27 +116,29 @@ export const Registration: FC<IRegistrationProps> = ({
                 login: data.login,
                 password: data.password,
               })
-              .then((responce: AxiosResponse<IUser>) =>
-                welcomeNewUser(responce)
-              )
+              .then((responce: AxiosResponse<IUser>) => {
+                welcomeNewUser(responce);
+                setUserLoggedIn(true);
+                handleClose();
+              })
           : userIsAlreadyRegistred();
       });
 
-      const welcomeNewUser = (responce: AxiosResponse<IUser>): SnackbarKey => {
-        return enqueueSnackbar(`Welcome to our team ${responce.data.login}`, {
-          variant: "success",
-          preventDuplicate: true,
-          anchorOrigin: { vertical: "bottom", horizontal: "center" },
-        });
-      };
-    
-      const userIsAlreadyRegistred = (): SnackbarKey => {
-        return enqueueSnackbar("This user is already registered", {
-          variant: "info",
-          preventDuplicate: true,
-          anchorOrigin: { vertical: "bottom", horizontal: "center" },
-        });
-      };
+    const welcomeNewUser = (responce: AxiosResponse<IUser>): SnackbarKey => {
+      return enqueueSnackbar(`Welcome to our team ${responce.data.login}`, {
+        variant: "success",
+        preventDuplicate: true,
+        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+      });
+    };
+
+    const userIsAlreadyRegistred = (): SnackbarKey => {
+      return enqueueSnackbar("This user is already registered", {
+        variant: "info",
+        preventDuplicate: true,
+        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+      });
+    };
   };
 
   return (
