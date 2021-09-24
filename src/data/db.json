@@ -4,6 +4,11 @@
       "login": "test@mail.com",
       "password": "HI19da97",
       "id": 1
+    },
+    {
+      "login": "shurmek1@gmail.com",
+      "password": "HI19da97",
+      "id": 2
     }
   ],
   "goods": [

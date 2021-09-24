@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { SnackbarKey, useSnackbar } from "notistack";
+import { useActions } from "../hooks/action.hook";
 
 const useStyle = makeStyles({
   root: {
@@ -88,16 +89,22 @@ export const Registration: FC<IRegistrationProps> = ({
     shouldUseNativeValidation: true,
   };
   const { register, handleSubmit, formState } = useForm(formOptions);
+  const {showNotification} = useActions()
   const { errors } = formState;
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
 
   if (errors.login || errors.password) {
-    enqueueSnackbar("Incorrect email or password", {
-      variant: "error",
-      preventDuplicate: true,
-      anchorOrigin: { vertical: "bottom", horizontal: "center" },
+    showNotification({
+      message:"Incorrect email or password",
+      type: "error"
     });
   }
+
+  //
+  //   variant: "error",
+  //   preventDuplicate: true,
+  //   anchorOrigin: { vertical: "bottom", horizontal: "center" },
+  //
 
   const onSubmit = async (data: IUser): Promise<void> => {
     await axios
@@ -114,28 +121,28 @@ export const Registration: FC<IRegistrationProps> = ({
                 password: data.password,
               })
               .then((responce: AxiosResponse<IUser>) => {
-                welcomeNewUser(responce);
+                showNotification({message: `Welcome to our team ${responce.data.login}`, type: 'success'});
                 setUserLoggedIn(true);
                 setOpenRegistration(false);
               })
-          : userIsAlreadyRegistred();
+          : showNotification({message: "This user is already registered", type: 'info'})
       });
 
-    const welcomeNewUser = (responce: AxiosResponse<IUser>): SnackbarKey => {
-      return enqueueSnackbar(`Welcome to our team ${responce.data.login}`, {
-        variant: "success",
-        preventDuplicate: true,
-        anchorOrigin: { vertical: "bottom", horizontal: "center" },
-      });
-    };
+    // const welcomeNewUser = (responce: AxiosResponse<IUser>): SnackbarKey => {
+    //   return enqueueSnackbar(`Welcome to our team ${responce.data.login}`, {
+    //     variant: "success",
+    //     preventDuplicate: true,
+    //     anchorOrigin: { vertical: "bottom", horizontal: "center" },
+    //   });
+    // };
 
-    const userIsAlreadyRegistred = (): SnackbarKey => {
-      return enqueueSnackbar("This user is already registered", {
-        variant: "info",
-        preventDuplicate: true,
-        anchorOrigin: { vertical: "bottom", horizontal: "center" },
-      });
-    };
+    // const userIsAlreadyRegistred = (): SnackbarKey => {
+    //   return enqueueSnackbar("This user is already registered", {
+    //     variant: "info",
+    //     preventDuplicate: true,
+    //     anchorOrigin: { vertical: "bottom", horizontal: "center" },
+    //   });
+    // };
   };
 
   return (
