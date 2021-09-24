@@ -9,7 +9,7 @@ import {
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { FC } from "react";
+import React, { FC } from "react";
 import { IRegistrationProps, IUser } from "../interfaces";
 import axios, { AxiosResponse } from "axios";
 import { StyledTextField } from "../custom/StyledTextField.custom";
@@ -90,9 +90,6 @@ export const Registration: FC<IRegistrationProps> = ({
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
   const { enqueueSnackbar } = useSnackbar();
-  const handleClose = (): void => {
-    setOpenRegistration(false);
-  };
 
   if (errors.login || errors.password) {
     enqueueSnackbar("Incorrect email or password", {
@@ -109,7 +106,7 @@ export const Registration: FC<IRegistrationProps> = ({
           login: data.login,
         },
       }) // запрос на существование регистрируемого в базе пользователей
-      .then((responce: AxiosResponse<IUser[]>) => {
+      .then((responce: AxiosResponse<IUser[]>): void => {
         !responce.data.length // проверка на пустой результат
           ? axios
               .post("/users", {
@@ -119,7 +116,7 @@ export const Registration: FC<IRegistrationProps> = ({
               .then((responce: AxiosResponse<IUser>) => {
                 welcomeNewUser(responce);
                 setUserLoggedIn(true);
-                handleClose();
+                setOpenRegistration(false);
               })
           : userIsAlreadyRegistred();
       });
@@ -142,7 +139,10 @@ export const Registration: FC<IRegistrationProps> = ({
   };
 
   return (
-    <Dialog open={openRegistrarion} onClose={handleClose}>
+    <Dialog
+      open={openRegistrarion}
+      onClose={(): void => setOpenRegistration(false)}
+    >
       <Box className={classes.root}>
         <Box className={classes.headerOfDialog}>
           <PersonAddIcon className={classes.icon} color="action" />

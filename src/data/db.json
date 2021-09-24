@@ -1,5 +1,10 @@
 {
   "users": [
+    {
+      "login": "test@mail.com",
+      "password": "HI19da97",
+      "id": 1
+    }
   ],
   "goods": [
     {
