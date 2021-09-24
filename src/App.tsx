@@ -7,6 +7,7 @@ import { Button, Container, makeStyles, Paper } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
 import { SnackbarProvider } from "notistack";
+import { Notifier } from "./components/Notifier";
 
 const useStyle = makeStyles({
   root: {
@@ -69,7 +70,8 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <BrowserRouter>
-        <SnackbarProvider autoHideDuration={2500}>
+        <SnackbarProvider autoHideDuration={2500} maxSnack={5}>
+          <Notifier/>
           <Paper className={classes.paper} elevation={0}>
             <NavBar darkMode={darkMode} switchTheme={switchTheme} />
             <Container className={classes.root} maxWidth="lg">
