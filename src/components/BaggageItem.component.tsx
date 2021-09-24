@@ -10,7 +10,8 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { shopListActions } from "../store/reducers/shopList.reducer";
+import { IBaggageItemProps } from "../interfaces";
+import { shopListActions } from "../store/actions/ShopListActions";
 
 const useStyle = makeStyles({
   baggageItem: {
@@ -24,15 +25,6 @@ const useStyle = makeStyles({
     margin: 5,
   },
 });
-
-interface IBaggageItemProps {
-  id: number;
-  category: string;
-  title: string;
-  author: string;
-  price: number;
-  count: number;
-}
 
 export const BaggageItem: React.FC<IBaggageItemProps> = ({
   id,

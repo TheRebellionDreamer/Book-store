@@ -1,9 +1,7 @@
 import {
-  TextField,
   Typography,
   makeStyles,
   Container,
-  Button,
   InputAdornment,
   Dialog,
   DialogActions,
@@ -14,12 +12,13 @@ import {
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import React, { useEffect, useState } from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { IUser } from "../types/types";
+import { IUser } from "../interfaces";
 import axios from "axios";
 import { Alert } from "@material-ui/lab";
 import { setTimeout } from "timers";
 import { StyledTextField } from "../custom/StyledTextField.custom";
 import { StyledButton } from "../custom/StyledButton.custom";
+import { IAuthorisationProps } from "../interfaces";
 
 const useStyle = makeStyles({
   root: {
@@ -65,15 +64,7 @@ const useStyle = makeStyles({
   },
 });
 
-interface IProps {
-  authOpen: boolean;
-  userLoggedIn: boolean;
-  setAuthOpen(value: boolean): void;
-  setUserLoggedIn(value: boolean): void;
-  setOpenRegistration(value: boolean): void;
-}
-
-export const Authorisation: React.FC<IProps> = ({
+export const Authorisation: React.FC<IAuthorisationProps> = ({
   authOpen,
   userLoggedIn,
   setAuthOpen,

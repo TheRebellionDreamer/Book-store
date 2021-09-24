@@ -18,6 +18,7 @@ import { Baggage } from "../pages/Baggage.page";
 import { MenuOfUser } from "./MenuOfUser.component";
 import { MenuListItem } from "./MenuListItems.component";
 import { Registration } from "../pages/Registration.page";
+import { INavBarProps } from "../interfaces/index"
 
 const useStyles = makeStyles({
   toolBar: {
@@ -49,11 +50,8 @@ const useStyles = makeStyles({
     justifyContent: "center"
   }
 });
-interface IPropsNavBar {
-  darkMode: boolean;
-  switchTheme(e: React.ChangeEvent<HTMLInputElement>): void;
-}
-export const NavBar: React.FC<IPropsNavBar> = ({
+
+export const NavBar: React.FC<INavBarProps> = ({
   darkMode,
   switchTheme,
 }): JSX.Element => {

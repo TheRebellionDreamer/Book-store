@@ -3,9 +3,10 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
-import { Container, makeStyles, Paper } from "@material-ui/core";
+import { Button, Container, makeStyles, Paper } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
+import { SnackbarProvider } from "notistack";
 
 const useStyle = makeStyles({
   root: {
@@ -13,19 +14,19 @@ const useStyle = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 0,
-    padding: 0
+    padding: 0,
   },
   paper: {
     margin: 0,
     padding: 0,
-  }
-}) 
+  },
+});
 
 function App() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const switchTheme = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setDarkMode(prev => !prev)
-  }
+    setDarkMode((prev) => !prev);
+  };
 
   const darkTheme = createTheme({
     typography: {
@@ -63,22 +64,23 @@ function App() {
         light: "#ffff6b",
       },
     },
-  })
-
-  const classes = useStyle()
+  });
+  const classes = useStyle();
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <BrowserRouter>
-      <Paper className={classes.paper} elevation={0}>
-        <NavBar darkMode={darkMode} switchTheme={switchTheme}/>
-        <Container className={classes.root} maxWidth="lg">
-          <Switch>
-            <Route component={Catalogue} path="/catalogue" />
-            <Route component={Contacts} path="/contacts" />
-            <Route component={AboutUs} path="/" />
-          </Switch>
-        </Container>
-        </Paper>
+        <SnackbarProvider autoHideDuration={2500}>
+          <Paper className={classes.paper} elevation={0}>
+            <NavBar darkMode={darkMode} switchTheme={switchTheme} />
+            <Container className={classes.root} maxWidth="lg">
+              <Switch>
+                <Route component={Catalogue} path="/catalogue" />
+                <Route component={Contacts} path="/contacts" />
+                <Route component={AboutUs} path="/" />
+              </Switch>
+            </Container>
+          </Paper>
+        </SnackbarProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

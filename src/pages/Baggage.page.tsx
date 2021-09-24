@@ -14,10 +14,10 @@ import {
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
 import CloseIcon from "@material-ui/icons/Close";
-import { styled } from "@material-ui/styles";
 import React from "react";
 import { BaggageItem } from "../components/BaggageItem.component";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
+import { IBaggageProps } from "../interfaces";
 
 const useStyle = makeStyles({
   container: {
@@ -51,11 +51,8 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-interface IPropsBaggage {
-  bagOpen: boolean;
-  setBagOpen(value: boolean): void;
-}
-export const Baggage: React.FC<IPropsBaggage> = ({
+
+export const Baggage: React.FC<IBaggageProps> = ({
   bagOpen,
   setBagOpen,
 }): JSX.Element => {

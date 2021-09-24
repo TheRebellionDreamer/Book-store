@@ -14,8 +14,9 @@ import { StyledCatalogButton } from "../custom/StyledCatalogButton.custom";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IGood } from "../types/types";
-import { shopListActions } from "../store/reducers/shopList.reducer";
+import { IGood, ICatalogItemFunc } from "../interfaces";
+import { addItem } from "../store/action-creators/addItem";
+// import { shopListActions } from "../store/reducers/shopList.reducer";
 
 const useStyles = makeStyles({
   footer: {
@@ -36,11 +37,8 @@ const useStyles = makeStyles({
     justifyContent: "flex-end",
   },
 });
-interface IProps {
-  setOpen(value: boolean): void;
-}
 
-export const CatalogueItem: React.FC<IGood & IProps> = ({
+export const CatalogueItem: React.FC<IGood & ICatalogItemFunc> = ({
   id,
   category,
   title,
@@ -54,15 +52,15 @@ export const CatalogueItem: React.FC<IGood & IProps> = ({
   const [cheked] = React.useState<boolean>(true);
 
   const addInBag = (): void => {
-    const payload = {
+    const payload: IGood = {
       id,
       category,
       title,
       author,
       price,
+      image
     };
-
-    dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
+    dispatch(addItem(payload));
     setOpen(true);
   };
 

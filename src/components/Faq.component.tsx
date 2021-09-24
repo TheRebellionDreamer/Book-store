@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/styles";
 import {StyledAccordion} from "../custom/StyledAccordion.custom"

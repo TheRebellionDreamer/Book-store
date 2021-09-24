@@ -16,7 +16,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { IGood } from "../types/types";
+import { IFilteringItem, IGood } from "../interfaces";
 import { CatalogueItem } from "../components/CatalogueItem.component";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
@@ -99,9 +99,6 @@ export const Catalogue: React.FC = () => {
   const fetchingUser = async () => {
     await axios.get("/goods").then((response) => setGoods(response.data));
   };
-  interface IFilteringItem {
-    (book: IGood): boolean;
-  }
 
   const changeValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
