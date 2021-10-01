@@ -1,5 +1,4 @@
 import {
-  Container,
   Divider,
   IconButton,
   ListItem,
@@ -61,7 +60,7 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   };
 
   return (
-    <Box style={{ width: "50rem" }}>
+    <Box style={{ width: "40vw" }}>
       <ListItem>
         <Box style={{ flex: 1 }}>
           <Typography variant="h6">{title}</Typography>

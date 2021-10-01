@@ -1,7 +1,5 @@
 import {
-  Container,
   Divider,
-  List,
   Typography,
   makeStyles,
   Box,
@@ -10,21 +8,28 @@ import {
   Toolbar,
   IconButton,
   Slide,
-  Button,
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
-import { BaggageItem } from "./BaggageItem.component";
 import { BaggageList } from "./BagggeList.components";
-import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { IBaggageProps } from "../interfaces";
+import { OrderPlacement } from "./OrderPlacement.components";
+import { useTypedSelector } from "../hooks/typed-selector.hook";
 
 const useStyle = makeStyles({
   toolBar: {
     display: "flex",
     justifyContent: "flex-end",
   },
+  basketIsEmpty: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  basketisNotEmpty: {
+    display: "flex",
+    justifyContent: "space-between"
+  }
 });
 
 const Transition = React.forwardRef(function Transition(
@@ -39,13 +44,13 @@ export const Baggage: React.FC<IBaggageProps> = ({
   setBagOpen,
 }): JSX.Element => {
   const classes = useStyle();
-  const { products, totalCost, totalSize } = useTypedSelector(
-    (state) => state.shopList
-  );
-
   const handleClose = () => {
     setBagOpen(false);
   };
+
+  const { products, totalCost, totalSize } = useTypedSelector(
+    (state) => state.shopList
+  );
 
   return (
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>
@@ -61,33 +66,15 @@ export const Baggage: React.FC<IBaggageProps> = ({
           </IconButton>
         </Toolbar>
       </AppBar>
-      {/* <Box>
-        
-        {products.length ? (
-          <Box className={classes.resultContainer}>
-            <Box>
-              <Typography variant="h3" className={classes.sizeCart}>
-                Total items in cart: {totalSize}
-              </Typography>
-              <Typography variant="h3">Total: {totalCost}</Typography>
-            </Box>
-            <Button color="primary" variant="contained">
-              <Typography variant="button" >Place an order</Typography>
-            </Button>
-          </Box>
-        ) : (
-          <Box></Box>
-        )}
-      </Box> */}
       <Box style={{ display: "flex", justifyContent: "center" }}>
         <Box style={{ width: "80vw" }}>
           <Typography style={{ margin: "5rem 0 0 0" }} variant="h2">
             Your order
           </Typography>
           <Divider style={{ margin: "2rem 0 2rem 0" }} />
-          <Box>
+          <Box className={!products.length ? classes.basketIsEmpty : classes.basketisNotEmpty}>
             <BaggageList />
-            
+            {products.length ? (<OrderPlacement />) : (<Box></Box>)}
           </Box>
         </Box>
       </Box>

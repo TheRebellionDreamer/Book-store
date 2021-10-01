@@ -9,7 +9,7 @@ import {
   Box,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import React from "react";
+import React, { useState } from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { StyledTextField } from "../custom/StyledTextField.custom";
 import { StyledButton } from "../custom/StyledButton.custom";
@@ -93,6 +93,7 @@ export const Authorisation: React.FC<IAuthorisationProps> = ({
   };
   const { register, handleSubmit } = useForm(formOptions);
   const { showNotification } = useActions();
+  const [isError, setIsError] = useState<boolean>(false);
   const handleOpenRegistration = () => {
     if (!userLoggedIn) {
       setOpenRegistration(true);
@@ -120,13 +121,12 @@ export const Authorisation: React.FC<IAuthorisationProps> = ({
           });
           setUserLoggedIn(true);
           setAuthOpen(false);
+        } else {
+          showNotification({
+            message: `Please verify that the data entered is correct`,
+            type: "error",
+          });
         }
-      })
-      .catch(() => {
-        showNotification({
-          message: `Please verify that the data entered is correct`,
-          type: "error",
-        });
       });
   };
 
