@@ -93,7 +93,6 @@ export const Authorisation: React.FC<IAuthorisationProps> = ({
   };
   const { register, handleSubmit } = useForm(formOptions);
   const { showNotification } = useActions();
-  const [isError, setIsError] = useState<boolean>(false);
   const handleOpenRegistration = () => {
     if (!userLoggedIn) {
       setOpenRegistration(true);

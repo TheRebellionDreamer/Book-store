@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "./components/NavBar.component";
 import { Catalogue } from "./pages/Catalogue.page";
-import { Box, Button, Container, makeStyles, Paper } from "@material-ui/core";
+import { Container, makeStyles, Paper } from "@material-ui/core";
 import { AboutUs } from "./pages/AboutUs.page";
 import { Contacts } from "./pages/Contacts.page";
 import { SnackbarProvider } from "notistack";
@@ -19,7 +19,6 @@ const useStyle = makeStyles({
   paper: {
     maxWidth: "80vw",
     margin: "0 auto",
-    // background: "rgba(0,0,0,.005)"
   },
 });
 

@@ -1,6 +1,4 @@
 import {
-  Divider,
-  Typography,
   makeStyles,
   Box,
   Dialog,
@@ -56,7 +54,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
     setBagOpen(false);
   };
 
-  const { products, totalCost, totalSize } = useTypedSelector(
+  const { products } = useTypedSelector(
     (state) => state.shopList
   );
 

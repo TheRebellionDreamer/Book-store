@@ -6,9 +6,6 @@ import {
   Badge,
   Container,
   IconButton,
-  FormGroup,
-  FormControlLabel,
-  Switch,
   Box,
 } from "@material-ui/core";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
@@ -55,14 +52,12 @@ export const NavBar: React.FC = (): JSX.Element => {
   const { totalSize } = useTypedSelector((state) => state.shopList);
   const [authOpen, setAuthOpen] = React.useState<boolean>(false);
   const [bagOpen, setBagOpen] = React.useState<boolean>(false);
-  const [cheked, setCheked] = React.useState<boolean>(false);
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
   const [openRegistrarion, setOpenRegistration] =
     React.useState<boolean>(false);
 
   const handleClickOpen = () => {
     setAuthOpen(true);
-    setCheked(true);
   };
 
   const handleClickOpenBag = () => {

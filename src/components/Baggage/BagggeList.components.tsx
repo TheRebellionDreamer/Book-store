@@ -9,15 +9,10 @@ const useStyles = makeStyles({
     fontSize: "124px",
     textAlign: "center"
   },
-  // textContainer: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "center"
-  // }
 });
 
 export const BaggageList: React.FC = (): JSX.Element => {
-  const { products, totalCost, totalSize } = useTypedSelector(
+  const { products } = useTypedSelector(
     (state) => state.shopList
   );
   const classes = useStyles();

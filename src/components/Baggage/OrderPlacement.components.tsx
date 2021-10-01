@@ -2,10 +2,8 @@ import {
   Box,
   Button,
   Divider,
-  FormControl,
   makeStyles,
   Paper,
-  Typography,
 } from "@material-ui/core";
 import {
   Public,
