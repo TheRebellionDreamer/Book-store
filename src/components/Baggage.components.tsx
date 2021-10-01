@@ -15,33 +15,15 @@ import {
 import { TransitionProps } from "@material-ui/core/transitions";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
-import { BaggageItem } from "../components/BaggageItem.component";
+import { BaggageItem } from "./BaggageItem.component";
+import { BaggageList } from "./BagggeList.components";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { IBaggageProps } from "../interfaces";
 
 const useStyle = makeStyles({
-  container: {
-    marginTop: "5rem",
-  },
-  emoji: {
-    fontSize: "6rem",
-    textAlign: "center",
-  },
-  messageContainer: {
-    height: "100vh",
+  toolBar: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-  resultContainer: {
-    paddingTop: "2rem",
-    marginTop: "3rem",
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  sizeCart: {
-    marginBottom: "1rem",
+    justifyContent: "flex-end",
   },
 });
 
@@ -68,7 +50,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
   return (
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>
       <AppBar>
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <IconButton
             edge="start"
             color="inherit"
@@ -80,21 +62,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
         </Toolbar>
       </AppBar>
       {/* <Box>
-        <List className={classes.container}>
-          {!products.length ? (
-            <Box className={classes.messageContainer}>
-              <Typography className={classes.emoji}>😔</Typography>
-              <Typography variant="h2">Your cart is empty</Typography>
-            </Box>
-          ) : (
-            products.map(({ item, count }) => (
-              <>
-                <BaggageItem {...item} count={count} key={item.image} />
-                <Divider variant="fullWidth" />
-              </>
-            ))
-          )}
-        </List>
+        
         {products.length ? (
           <Box className={classes.resultContainer}>
             <Box>
@@ -111,10 +79,16 @@ export const Baggage: React.FC<IBaggageProps> = ({
           <Box></Box>
         )}
       </Box> */}
-      <Box>
-        <Box>
-          <Typography>Your order</Typography>
-          
+      <Box style={{ display: "flex", justifyContent: "center" }}>
+        <Box style={{ width: "80vw" }}>
+          <Typography style={{ margin: "5rem 0 0 0" }} variant="h2">
+            Your order
+          </Typography>
+          <Divider style={{ margin: "2rem 0 2rem 0" }} />
+          <Box>
+            <BaggageList />
+            
+          </Box>
         </Box>
       </Box>
     </Dialog>

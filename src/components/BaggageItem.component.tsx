@@ -15,20 +15,18 @@ import { IBaggageItemProps } from "../interfaces";
 import { shopListActions } from "../store/actions/ShopListActions";
 
 const useStyle = makeStyles({
-  baggageItem: {
-    display: "inline-flex",
+  text: {
+    textAlign: "right",
   },
-  numberOfItems: {
-    display: "inline-flex",
-    justifyContent: "flex-end",
-  },
-  item: {
-    // margin: 5,
+  btnContainer: {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    marginLeft: "1rem",
   },
-  info: {
-    paddingRight: "2rem"
+  sum: {
+    display: "flex",
+    justifyContent: "flex-end",
+    flexDirection: "column",
   }
 });
 
@@ -63,31 +61,30 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   };
 
   return (
-      <ListItem className={classes.item}>
-        <Box className={classes.info}>
-          <Typography variant="h5">{title}</Typography>
-          <Typography variant="body1">{author}</Typography>
+    <Box style={{ width: "50rem" }}>
+      <ListItem>
+        <Box style={{ flex: 1 }}>
+          <Typography variant="h6">{title}</Typography>
+          <Typography variant="subtitle1">{author}</Typography>
         </Box>
-        <Box className={classes.baggageItem}>
-          <Typography>
-            Price: {price}₽, Summary: {price * count}₽
+        <Box className={classes.sum}>
+          <Typography className={classes.text}>
+            Price: {price} x <span style={{ fontWeight: 600 }}>{count}</span>
+          </Typography>
+          <Typography className={classes.text}>
+            Summary: {price * count}
           </Typography>
         </Box>
-        <Box className={classes.numberOfItems}>
-          <IconButton
-            onClick={removeInBag}
-            size="small"
-            className={classes.item}
-          >
-            <RemoveIcon />
-          </IconButton>
-          <Typography variant="h5" className={classes.item}>
-            {count}
-          </Typography>
-          <IconButton onClick={addInBag} size="small" className={classes.item}>
+        <Box className={classes.btnContainer}>
+          <IconButton size="small" onClick={addInBag}>
             <AddIcon />
+          </IconButton>
+          <IconButton size="small" onClick={removeInBag}>
+            <RemoveIcon />
           </IconButton>
         </Box>
       </ListItem>
+      <Divider />
+    </Box>
   );
 };

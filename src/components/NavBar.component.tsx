@@ -14,12 +14,11 @@ import {
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
-import { Authorisation } from "../pages/Authorisation.page";
-import { Baggage } from "../pages/Baggage.page";
+import { Authorisation } from "./Authorisation.components"
+import { Baggage } from "./Baggage.components";
 import { MenuOfUser } from "./MenuOfUser.component";
 import { MenuListItem } from "./MenuListItems.component";
-import { Registration } from "../pages/Registration.page";
-import { INavBarProps } from "../interfaces/index";
+import { Registration } from "./Registration.components";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -34,7 +33,6 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
 
-    padding: 0,
   },
   title: {
     textAlign: "center",
@@ -52,10 +50,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const NavBar: React.FC<INavBarProps> = ({
-  darkMode,
-  switchTheme,
-}): JSX.Element => {
+export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
   const { totalSize } = useTypedSelector((state) => state.shopList);
   const [authOpen, setAuthOpen] = React.useState<boolean>(false);
@@ -86,18 +81,6 @@ export const NavBar: React.FC<INavBarProps> = ({
         <Toolbar className={classes.toolBar}>
           <MenuListItem />
           <Box className={classes.iconsContainer}>
-            <FormGroup className={classes.switchContainer}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={darkMode}
-                    onChange={switchTheme}
-                    size="medium"
-                  />
-                }
-                label="Dark mode"
-              />
-            </FormGroup>
             <IconButton className={classes.button} onClick={handleClickOpenBag}>
               <Badge color="secondary" badgeContent={totalSize}>
                 <LocalMallIcon />
