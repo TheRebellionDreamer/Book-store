@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container, List, Paper, Typography } from "@material-ui/core";
-import { useTypedSelector } from "../hooks/typed-selector.hook";
+import { useTypedSelector } from "../../hooks/typed-selector.hook";
 import { BaggageItem } from "./BaggageItem.component";
 import { makeStyles } from "@material-ui/styles";
 

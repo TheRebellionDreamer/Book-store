@@ -5,6 +5,7 @@ import {
   FormControl,
   makeStyles,
   Paper,
+  Typography,
 } from "@material-ui/core";
 import {
   Public,
@@ -21,17 +22,19 @@ const useStyle = makeStyles({
     width: "28vw",
     maxHeight: "30rem",
     position: "fixed",
-    right: 0, marginRight: "10vw"
+    right: 0,
+    marginRight: "10vw",
   },
   container: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
   },
+  
 });
 
 const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault()
+  e.preventDefault();
   alert("Sending data");
 };
 
@@ -46,18 +49,17 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
           <OrderInput icon={<AddLocationOutlined />} message={"Adress"} />
           <OrderInput icon={<PersonOutline />} message={"Name"} />
           <OrderInput icon={<LocalPhoneOutlined />} message={"Tel."} />
-
-          <Divider variant="middle" />
-          <Box className={classes.container}>
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              style={{ margin: "1rem" }}
-            >
-              Place an order
-            </Button>
-          </Box>
+        </Box>
+        <Divider variant="middle" />
+        <Box className={classes.container}>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            style={{ margin: "1rem" }}
+          >
+            Place an order
+          </Button>
         </Box>
       </form>
     </Paper>

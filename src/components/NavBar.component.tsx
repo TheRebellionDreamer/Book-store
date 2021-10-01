@@ -15,7 +15,7 @@ import { useTypedSelector } from "../hooks/typed-selector.hook";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import { Authorisation } from "./Authorisation.components"
-import { Baggage } from "./Baggage.components";
+import { Baggage } from "./Baggage/Baggage.components";
 import { MenuOfUser } from "./MenuOfUser.component";
 import { MenuListItem } from "./MenuListItems.component";
 import { Registration } from "./Registration.components";

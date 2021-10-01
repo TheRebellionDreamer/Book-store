@@ -10,12 +10,13 @@ import {
   Slide,
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
-import CloseIcon from "@material-ui/icons/Close";
+import { Close } from "@material-ui/icons";
 import React from "react";
 import { BaggageList } from "./BagggeList.components";
-import { IBaggageProps } from "../interfaces";
+import { IBaggageProps } from "../../interfaces";
 import { OrderPlacement } from "./OrderPlacement.components";
-import { useTypedSelector } from "../hooks/typed-selector.hook";
+import { useTypedSelector } from "../../hooks/typed-selector.hook";
+import { Header } from "../Header.components"
 
 const useStyle = makeStyles({
   toolBar: {
@@ -28,8 +29,15 @@ const useStyle = makeStyles({
   },
   basketisNotEmpty: {
     display: "flex",
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
+  tooltipText: {
+    fontSize: "2rem",
+    whiteSpace: "nowrap",
+  },
+  icon: {
+    fontSize: 45,
+  },
 });
 
 const Transition = React.forwardRef(function Transition(
@@ -62,19 +70,22 @@ export const Baggage: React.FC<IBaggageProps> = ({
             onClick={handleClose}
             aria-label="close"
           >
-            <CloseIcon />
+            <Close />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Box style={{ display: "flex", justifyContent: "center" }}>
         <Box style={{ width: "80vw" }}>
-          <Typography style={{ margin: "5rem 0 0 0" }} variant="h2">
-            Your order
-          </Typography>
-          <Divider style={{ margin: "2rem 0 2rem 0" }} />
-          <Box className={!products.length ? classes.basketIsEmpty : classes.basketisNotEmpty}>
+          <Header text={"Your order"}/>
+          <Box
+            className={
+              !products.length
+                ? classes.basketIsEmpty
+                : classes.basketisNotEmpty
+            }
+          >
             <BaggageList />
-            {products.length ? (<OrderPlacement />) : (<Box></Box>)}
+            {products.length ? <OrderPlacement /> : <Box></Box>}
           </Box>
         </Box>
       </Box>
