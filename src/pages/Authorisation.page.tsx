@@ -6,19 +6,19 @@ import {
   Dialog,
   DialogActions,
   Link,
-  Snackbar,
   Box,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { IUser } from "../interfaces";
-import axios from "axios";
-import { Alert } from "@material-ui/lab";
-import { setTimeout } from "timers";
 import { StyledTextField } from "../custom/StyledTextField.custom";
 import { StyledButton } from "../custom/StyledButton.custom";
-import { IAuthorisationProps } from "../interfaces";
+import { IAuthorisationProps, IUser } from "../interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import axios, { AxiosResponse } from "axios";
+import { useActions } from "../hooks/action.hook";
 
 const useStyle = makeStyles({
   root: {
@@ -72,84 +72,27 @@ export const Authorisation: React.FC<IAuthorisationProps> = ({
   setOpenRegistration,
 }): JSX.Element => {
   const classes = useStyle();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [openError, setOpenError] = useState<boolean>(false);
-  const [openSuccessful, setOpenSuccessful] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  async function fetchUsers() {
-    try {
-      const responce = await axios.get<IUser[]>("/users");
-      setUsers(responce.data);
-    } catch (error) {
-      alert(error);
-    }
-  }
-
-  const changeEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const validationSchema = z.object({
+    login: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .nonempty("Email is required")
+      .regex(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .nonempty("Password is required")
+      .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/),
+  });
+  const formOptions = {
+    resolver: zodResolver(validationSchema),
+    shouldFocusError: true,
+    shouldUseNativeValidation: true,
   };
-
-  const changePasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit: React.FormEventHandler = (
-    e: React.FormEvent<HTMLInputElement>
-  ) => {
-    e.preventDefault();
-    const formUser: IUser = {
-      login: email,
-      password: password,
-    };
-
-    const findIndex = users.findIndex(
-      (user) =>
-        user.login === formUser.login && user.password === formUser.password
-    );
-
-    if (findIndex !== -1) {
-      setTimeout(() => {
-        handleClose();
-        setEmail("");
-        setPassword("");
-      }, 2000);
-      setOpenSuccessful(true);
-      setTimeout(() => {
-        setOpenSuccessful(false);
-        setUserLoggedIn(true);
-      }, 2000);
-    } else {
-      setOpenError(true);
-    }
-  };
-
-  const handleClose = () => {
-    setAuthOpen(false);
-  };
-
-  const handleErrorClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenError(false);
-  };
-
-  const handleSuccessfulClose = (
-    event?: React.SyntheticEvent,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSuccessful(false);
-  };
-
+  const { register, handleSubmit } = useForm(formOptions);
+  const { showNotification } = useActions();
   const handleOpenRegistration = () => {
     if (!userLoggedIn) {
       setOpenRegistration(true);
@@ -157,103 +100,112 @@ export const Authorisation: React.FC<IAuthorisationProps> = ({
       setOpenRegistration(true);
     }
   };
+
+  // Функция авторизации
+  const onSubmit = async (data: IUser): Promise<void> => {
+    await axios
+      .get("/users", {
+        params: {
+          login: data.login,
+        },
+      })
+      .then((response: AxiosResponse<IUser[]>) => {
+        if (
+          response.data[0].login === data.login &&
+          response.data[0].password === data.password
+        ) {
+          showNotification({
+            message: `Welcome back, ${data.login}`,
+            type: "success",
+          });
+          setUserLoggedIn(true);
+          setAuthOpen(false);
+        }
+      })
+      .catch(() => {
+        showNotification({
+          message: `Please verify that the data entered is correct`,
+          type: "error",
+        });
+      });
+  };
+
   return (
-    <Dialog open={authOpen} onClose={handleClose}>
-      <Box className={classes.root}>
-        <Box className={classes.headerOfDialog}>
-          <AccountCircleIcon className={classes.icon} color="action" />
-          <Typography
-            variant="h3"
-            className={classes.header}
-            color="textSecondary"
-          >
-            Authorisation
-          </Typography>
+    <Container>
+      <Dialog open={authOpen} onClose={() => setAuthOpen(false)}>
+        <Box className={classes.root}>
+          <Box className={classes.headerOfDialog}>
+            <AccountCircleIcon className={classes.icon} color="action" />
+            <Typography
+              variant="h3"
+              className={classes.header}
+              color="textSecondary"
+            >
+              Authorisation
+            </Typography>
+          </Box>
+          <form className={classes.container} onSubmit={handleSubmit(onSubmit)}>
+            <Box className={classes.inputContainer}>
+              <StyledTextField
+                {...register("login", { required: true })}
+                name="login"
+                variant="outlined"
+                className={classes.inputField}
+                placeholder="Email"
+                focused={true}
+                type="email"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircleIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <StyledTextField
+                {...register("password", { required: true })}
+                name="password"
+                variant="outlined"
+                className={classes.inputField}
+                placeholder="Password"
+                type="password"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <VpnKeyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+            <DialogActions className={classes.actions}>
+              <Box className={classes.buttonContainer}>
+                <StyledButton
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                >
+                  Login
+                </StyledButton>
+                <StyledButton
+                  type="button"
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  onClick={() => setAuthOpen(false)}
+                >
+                  Cancel
+                </StyledButton>
+              </Box>
+              <Link variant="body1">Forgot password?</Link>
+              <Link variant="body1" onClick={handleOpenRegistration} href="#">
+                Registration
+              </Link>
+            </DialogActions>
+          </form>
         </Box>
-        <form
-          className={classes.container}
-          onSubmit={handleSubmit}
-          autoComplete="on"
-        >
-          <Container className={classes.inputContainer}>
-            <StyledTextField
-              variant="outlined"
-              className={classes.inputField}
-              placeholder="Email"
-              onChange={changeEmailHandler}
-              value={email}
-              focused={true}
-              type="email"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircleIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <StyledTextField
-              variant="outlined"
-              className={classes.inputField}
-              placeholder="Password"
-              onChange={changePasswordHandler}
-              value={password}
-              type="password"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <VpnKeyIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Container>
-          <DialogActions className={classes.actions}>
-            <Container className={classes.buttonContainer}>
-              <StyledButton
-                type="submit"
-                variant="contained"
-                size="large"
-                color="primary"
-              >
-                Login
-              </StyledButton>
-              <StyledButton
-                type="button"
-                variant="contained"
-                size="large"
-                color="primary"
-                onClick={handleClose}
-              >
-                Cancel
-              </StyledButton>
-            </Container>
-            <Link variant="body1">Forgot password?</Link>
-            <Link variant="body1" onClick={handleOpenRegistration} href="#">
-              Registration
-            </Link>
-          </DialogActions>
-        </form>
-        <Snackbar
-          open={openError}
-          autoHideDuration={4000}
-          onClose={handleErrorClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
-          <Alert variant="filled" severity="error">
-            User not found
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          open={openSuccessful}
-          onClose={handleSuccessfulClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
-          <Alert variant="filled" severity="success">
-            Welcome!
-          </Alert>
-        </Snackbar>
-      </Box>
-    </Dialog>
+      </Dialog>
+    </Container>
   );
 };

@@ -211,10 +211,10 @@ export const Catalogue: React.FC = () => {
           }}
           className={classes.popover}
         >
-          <Container>
+          <Box>
             <Typography className={classes.popoverHeader}>Price filter</Typography>
             <Divider />
-          </Container>
+          </Box>
           <FormControl style={{}}>
             <TextField
               title={minPrice}
@@ -235,7 +235,7 @@ export const Catalogue: React.FC = () => {
           </FormControl>
         </Popover>
       </Box>
-      <Container>
+      <Box>
         {filtredItems.length ? (
           <Grid container spacing={3}>
             {filtredItems.map((item) => (
@@ -249,7 +249,7 @@ export const Catalogue: React.FC = () => {
             Sorry, but your query did not match
           </Typography>
         )}
-      </Container>
+      </Box>
       {serverError && (
         <Dialog open={serverError}>
           <DialogContentText variant="h3" className={classes.errorMessage}>

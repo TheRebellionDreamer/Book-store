@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import AdbIcon from "@material-ui/icons/Adb";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { ListItemIcon, ListItemText } from "@material-ui/core";
+import { Container, ListItemIcon, ListItemText } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IMenuOfUserProps } from "../interfaces";
 
@@ -31,7 +31,7 @@ export const MenuOfUser: React.FC<IMenuOfUserProps> = ({
   }
 
   return (
-    <>
+    <Container>
       <IconButton
         aria-controls="customized-menu"
         aria-haspopup="true"
@@ -60,6 +60,6 @@ export const MenuOfUser: React.FC<IMenuOfUserProps> = ({
           <ListItemText primary="Exit" />
         </MenuItem>
       </Menu>
-    </>
+    </Container>
   );
 };

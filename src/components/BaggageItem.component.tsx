@@ -5,6 +5,7 @@ import {
   ListItem,
   Typography,
   makeStyles,
+  Box,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
@@ -22,8 +23,13 @@ const useStyle = makeStyles({
     justifyContent: "flex-end",
   },
   item: {
-    margin: 5,
+    // margin: 5,
+    display: "flex",
+    justifyContent: "space-between",
   },
+  info: {
+    paddingRight: "2rem"
+  }
 });
 
 export const BaggageItem: React.FC<IBaggageItemProps> = ({
@@ -51,24 +57,29 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   const removeInBag = (): void => {
     const secPayload = {
       price,
-      id
-    }
-    dispatch({type: shopListActions.REMOVE_ITEM, payload: secPayload.id})
-  }
+      id,
+    };
+    dispatch({ type: shopListActions.REMOVE_ITEM, payload: secPayload.id });
+  };
 
   return (
-    <ListItem>
-      <Container>
-        <Typography variant="h5">{title}</Typography>
-        <Typography variant="body1">{author}</Typography>
-      </Container>
-      <Divider />
-      <Container className={classes.baggageItem}>
-        <Typography>
-          Price: {price}₽, Summary: {price * count}₽
-        </Typography>
-        <Container className={classes.numberOfItems}>
-          <IconButton onClick={removeInBag} size="small" className={classes.item}>
+    <Container>
+      <ListItem className={classes.item}>
+        <Box className={classes.info}>
+          <Typography variant="h5">{title}</Typography>
+          <Typography variant="body1">{author}</Typography>
+        </Box>
+        <Box className={classes.baggageItem}>
+          <Typography>
+            Price: {price}₽, Summary: {price * count}₽
+          </Typography>
+        </Box>
+        <Box className={classes.numberOfItems}>
+          <IconButton
+            onClick={removeInBag}
+            size="small"
+            className={classes.item}
+          >
             <RemoveIcon />
           </IconButton>
           <Typography variant="h5" className={classes.item}>
@@ -77,8 +88,8 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
           <IconButton onClick={addInBag} size="small" className={classes.item}>
             <AddIcon />
           </IconButton>
-        </Container>
-      </Container>
-    </ListItem>
+        </Box>
+      </ListItem>
+    </Container>
   );
 };

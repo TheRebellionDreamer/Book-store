@@ -9,7 +9,7 @@ import {
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import React, { FC } from "react";
+import { FC } from "react";
 import { IRegistrationProps, IUser } from "../interfaces";
 import axios, { AxiosResponse } from "axios";
 import { StyledTextField } from "../custom/StyledTextField.custom";
@@ -17,7 +17,6 @@ import { StyledButton } from "../custom/StyledButton.custom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { SnackbarKey, useSnackbar } from "notistack";
 import { useActions } from "../hooks/action.hook";
 
 const useStyle = makeStyles({
@@ -89,23 +88,17 @@ export const Registration: FC<IRegistrationProps> = ({
     shouldUseNativeValidation: true,
   };
   const { register, handleSubmit, formState } = useForm(formOptions);
-  const {showNotification} = useActions()
+  const { showNotification } = useActions();
   const { errors } = formState;
-  // const { enqueueSnackbar } = useSnackbar();
 
   if (errors.login || errors.password) {
     showNotification({
-      message:"Incorrect email or password",
-      type: "error"
+      message: "Incorrect email or password",
+      type: "error",
     });
   }
-
-  //
-  //   variant: "error",
-  //   preventDuplicate: true,
-  //   anchorOrigin: { vertical: "bottom", horizontal: "center" },
-  //
-
+  
+  //функция регистрации
   const onSubmit = async (data: IUser): Promise<void> => {
     await axios
       .get("/users", {
@@ -121,28 +114,18 @@ export const Registration: FC<IRegistrationProps> = ({
                 password: data.password,
               })
               .then((responce: AxiosResponse<IUser>) => {
-                showNotification({message: `Welcome to our team ${responce.data.login}`, type: 'success'});
+                showNotification({
+                  message: `Welcome to our team ${responce.data.login}`,
+                  type: "success",
+                });
                 setUserLoggedIn(true);
                 setOpenRegistration(false);
               })
-          : showNotification({message: "This user is already registered", type: 'info'})
+          : showNotification({
+              message: "This user is already registered",
+              type: "info",
+            });
       });
-
-    // const welcomeNewUser = (responce: AxiosResponse<IUser>): SnackbarKey => {
-    //   return enqueueSnackbar(`Welcome to our team ${responce.data.login}`, {
-    //     variant: "success",
-    //     preventDuplicate: true,
-    //     anchorOrigin: { vertical: "bottom", horizontal: "center" },
-    //   });
-    // };
-
-    // const userIsAlreadyRegistred = (): SnackbarKey => {
-    //   return enqueueSnackbar("This user is already registered", {
-    //     variant: "info",
-    //     preventDuplicate: true,
-    //     anchorOrigin: { vertical: "bottom", horizontal: "center" },
-    //   });
-    // };
   };
 
   return (

@@ -82,10 +82,10 @@ export const Baggage: React.FC<IBaggageProps> = ({
       <Box>
         <List className={classes.container}>
           {!products.length ? (
-            <Container className={classes.messageContainer}>
+            <Box className={classes.messageContainer}>
               <Typography className={classes.emoji}>😔</Typography>
               <Typography variant="h2">Your cart is empty</Typography>
-            </Container>
+            </Box>
           ) : (
             products.map(({ item, count }) => (
               <>
@@ -96,7 +96,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
           )}
         </List>
         {products.length ? (
-          <Container className={classes.resultContainer}>
+          <Box className={classes.resultContainer}>
             <Box>
               <Typography variant="h3" className={classes.sizeCart}>
                 Total items in cart: {totalSize}
@@ -106,7 +106,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
             <Button color="primary" variant="contained">
               <Typography variant="button" >Place an order</Typography>
             </Button>
-          </Container>
+          </Box>
         ) : (
           <Box></Box>
         )}

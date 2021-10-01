@@ -38,7 +38,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
   const classes = useStyle();
   return (
     <Container className={classes.container}>
-      <Container className={classes.textContainer}>
+      <Box className={classes.textContainer}>
         <Typography variant="h2">The Booktown</Typography>
         <Typography variant="body1" className={classes.paragraph}>
           Since its fuse in 2005, 'The Booktown' has cut a specialty for itself
@@ -74,7 +74,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
           capacities of youngsters, rather they are made with the aim of
           contributing towards their all encompassing improvement.
         </Typography>
-      </Container>
+      </Box>
     </Container>
   );
 };

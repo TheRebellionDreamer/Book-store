@@ -6,14 +6,23 @@
       "id": 1
     },
     {
-      "login": "shurmek1@gmail.com",
+      "login": "rebelliondreamer@gmail.com",
       "password": "HI19da97",
-      "id": 2
+      "id": 3
+    },
+    {
+      "login": "test1@gmail.com",
+      "password": "Aezakmi1451",
+      "id": 4
+    },
+    {
+      "login": "test22r@gmail.com",
+      "password": "HI19da97",
+      "id": 5
     }
   ],
   "goods": [
     {
-      "id": "1",
       "category": "books",
       "title": "JavaScript Pocket Guide",
       "author": "David Flanagan",
@@ -21,7 +30,6 @@
       "price": 750
     },
     {
-      "id": "2",
       "category": "books",
       "title": "JavaScript In-depth Guide",
       "author": "David Flanagan",
@@ -29,7 +37,6 @@
       "price": 1450
     },
     {
-      "id": "3",
       "category": "books",
       "title": "React and Redux",
       "author": "Alex Banks and Eva Porcello",
@@ -37,7 +44,6 @@
       "price": 950
     },
     {
-      "id": "4",
       "category": "books",
       "title": "GraphQL",
       "author": "Alex Banks and Eva Porcello",
@@ -45,7 +51,6 @@
       "price": 850
     },
     {
-      "id": "5",
       "category": "books",
       "title": "The path to learning React",
       "author": "Robin Viruch",
