@@ -18,10 +18,11 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import React, { useState } from "react";
 import { Faq } from "../components/Faq.component";
+import { Header } from "../components/Header.components";
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    margin: "5rem 0rem 5rem 0rem",
+    margin: "0rem 0rem 5rem 0rem",
     animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`,
   },
   "@keyframes openEffect": {
@@ -108,10 +109,7 @@ export const Contacts: React.FC = (): JSX.Element => {
 
   return (
     <Container className={classes.root}>
-      <Typography variant="h2" className={classes.header}>
-        Contacts
-      </Typography>
-      <Divider />
+      <Header text={"Contacts"}/>
       <Box className={classes.content}>
         <Box className={classes.iconContainer}>
           <Tooltip

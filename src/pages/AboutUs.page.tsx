@@ -1,10 +1,10 @@
 import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import image from "../img/book.png";
 import React from "react";
+import { Header } from "../components/Header.components";
 
 const useStyle = makeStyles(theme => ({
   container: {
-    marginTop: "5rem",
     animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`
   },
   "@keyframes openEffect": {
@@ -29,19 +29,16 @@ const useStyle = makeStyles(theme => ({
     backgroundPosition: "center",
     backgroundSize: "cover"
   },
-  textContainer: {
-    marginBottom: "3rem"
-  }
 }));
 
 export const AboutUs: React.FC = (): JSX.Element => {
   const classes = useStyle();
   return (
     <Container className={classes.container}>
-      <Box className={classes.textContainer}>
-        <Typography variant="h2">The Booktown</Typography>
+      <Box>
+        <Header text={"Books & Bookshelves"}/>
         <Typography variant="body1" className={classes.paragraph}>
-          Since its fuse in 2005, 'The Booktown' has cut a specialty for itself
+          Since its fuse in 2005, 'Books & Bookshelves' has cut a specialty for itself
           in the youngsters’ books section of the distributing business. We have
           some expertise in books implied for offspring of various ages. The
           wide scope of books offered by us incorporates fantasies, moral

@@ -21,6 +21,7 @@ import { CatalogueItem } from "../components/CatalogueItem.component";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import { StyledButton } from "../custom/StyledButton.custom";
+import { Header } from "../components/Header.components";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -44,7 +45,7 @@ const useStyle = makeStyles((theme) => ({
     textAlign: "center",
   },
   formContainer: {
-    margin: "5rem 0rem 3rem 0rem",
+    margin: "0rem 0rem 3rem 0rem",
     display: "flex",
     flexDirection: "row",
   },
@@ -160,6 +161,7 @@ export const Catalogue: React.FC = () => {
 
   return (
     <Container className={classes.root}>
+      <Header text={"Catalogue"}/>
       <Box className={classes.formContainer}>
         <FormControl fullWidth>
           <TextField
