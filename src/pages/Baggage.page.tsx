@@ -79,7 +79,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box>
+      {/* <Box>
         <List className={classes.container}>
           {!products.length ? (
             <Box className={classes.messageContainer}>
@@ -110,6 +110,12 @@ export const Baggage: React.FC<IBaggageProps> = ({
         ) : (
           <Box></Box>
         )}
+      </Box> */}
+      <Box>
+        <Box>
+          <Typography>Your order</Typography>
+          
+        </Box>
       </Box>
     </Dialog>
   );

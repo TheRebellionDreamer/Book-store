@@ -63,7 +63,6 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   };
 
   return (
-    <Container>
       <ListItem className={classes.item}>
         <Box className={classes.info}>
           <Typography variant="h5">{title}</Typography>
@@ -90,6 +89,5 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
           </IconButton>
         </Box>
       </ListItem>
-    </Container>
   );
 };
