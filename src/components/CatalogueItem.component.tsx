@@ -13,10 +13,8 @@ import {
 import { StyledCatalogButton } from "../custom/StyledCatalogButton.custom";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { IGood, ICatalogItemFunc } from "../interfaces";
-import { addItem } from "../store/action-creators/addItem";
-// import { shopListActions } from "../store/reducers/shopList.reducer";
+import { useActions } from "../hooks/action.hook";
 
 const useStyles = makeStyles({
   footer: {
@@ -44,25 +42,27 @@ export const CatalogueItem: React.FC<IGood & ICatalogItemFunc> = ({
   title,
   author,
   image,
-  price, 
-  setOpen
+  price,
+  setOpen,
 }): JSX.Element => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [cheked] = React.useState<boolean>(true);
+  const { addInBag } = useActions();
 
-  const addInBag = (): void => {
+
+  const addItem = (): void => {
     const payload: IGood = {
       id,
       category,
       title,
       author,
       price,
-      image
+      image,
     };
-    dispatch(addItem(payload));
+    addInBag(payload);
     setOpen(true);
   };
+  
 
   return (
     <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>
@@ -92,7 +92,7 @@ export const CatalogueItem: React.FC<IGood & ICatalogItemFunc> = ({
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingBasketIcon fontSize="large" />}
-                onClick={addInBag}
+                onClick={addItem}
               >
                 Buy
               </StyledCatalogButton>

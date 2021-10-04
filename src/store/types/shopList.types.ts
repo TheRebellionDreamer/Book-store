@@ -1,4 +1,4 @@
-import { IGood } from "../../interfaces";
+import { IGood } from "../../interfaces/index";
 
 export enum shopListActions {
   ADD_ITEM = "shopList/addItem",
@@ -16,3 +16,12 @@ export interface REMOVE_ITEM_ACTION {
 }
 
 export type ShopListAction = ADD_ITEM_ACTION | REMOVE_ITEM_ACTION;
+
+export interface ShopListState {
+  products: Array<{
+    item: IGood,
+    count: number 
+  }>,
+  totalSize: number,
+  totalCost: number,
+}

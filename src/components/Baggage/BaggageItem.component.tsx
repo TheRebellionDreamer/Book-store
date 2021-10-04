@@ -11,7 +11,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IBaggageItemProps } from "../../interfaces";
-import { shopListActions } from "../../store/actions/ShopListActions";
+import { shopListActions } from "../../store/types/shopList.types";
 
 const useStyle = makeStyles({
   text: {

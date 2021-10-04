@@ -222,7 +222,6 @@ export const Catalogue: React.FC = () => {
               title={minPrice}
               onChange={changeMin}
               variant="standard"
-              // fullWidth
               className={classes.popoverText}
               placeholder="Min price"
             />
@@ -231,7 +230,6 @@ export const Catalogue: React.FC = () => {
               title={maxPrice}
               onChange={changeMax}
               variant="standard"
-              // fullWidth
               className={classes.popoverText}
             />
           </FormControl>
