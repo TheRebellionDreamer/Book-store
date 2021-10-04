@@ -20,7 +20,6 @@ import { CatalogueItem } from "../components/CatalogueItem.component";
 import axios from "axios";
 import { StyledButton } from "../custom/StyledButton.custom";
 import { Header } from "../components/Header.components";
-import { showNotification } from "../store/actions/notification.actions";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -75,7 +74,6 @@ export const Catalogue: React.FC = () => {
   const [sortingMethod, setSortingMethod] = React.useState<string>();
   const [minPrice, setMinPrice] = React.useState<string>("");
   const [maxPrice, setMaxPrice] = React.useState<string>("");
-  const [itemIsAdded, setItemIsAdded] = React.useState<boolean>(false);
   const [goods, setGoods] = React.useState<IGood[]>([]);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -150,10 +148,7 @@ export const Catalogue: React.FC = () => {
       (item) => item.price >= Number(minPrice) && item.price <= Number(maxPrice)
     );
   }
-
-  const showNoti = () => showNotification({ message: "Item added in bag", type: "success" });
     
-
   return (
     <Container className={classes.root}>
       <Header text={"Catalogue"} />
