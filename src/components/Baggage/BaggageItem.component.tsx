@@ -9,11 +9,9 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useActions } from "../../hooks/action.hook";
-import { IBaggageItemProps, IGood } from "../../interfaces";
-import { addInBag } from "../../store/actions/shopList.actions";
-import { shopListActions } from "../../store/types/shopList.types";
+import { IBaggageItemProps } from "../../interfaces";
+
 
 const useStyle = makeStyles({
   text: {
