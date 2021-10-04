@@ -24,7 +24,7 @@ export const MenuListItem: React.FC = (): JSX.Element => {
         <NavLink to="/contacts" className={classes.button}>
           <MenuItem>Contacts</MenuItem>
         </NavLink>
-        <NavLink to="/about-us" className={classes.button}>
+        <NavLink to="/" className={classes.button}>
           <MenuItem>About us</MenuItem>
         </NavLink>
       </MenuList>
