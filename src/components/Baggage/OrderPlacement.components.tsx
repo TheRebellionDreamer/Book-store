@@ -111,6 +111,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
     formField: inputTypes,
     icon: JSX.Element
   }
+  
   const orderForm: IOrderForm[] = [
     { formField: "country", icon: <Public /> },
     { formField: "city", icon: <LocationCity /> },
@@ -128,7 +129,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
               <TextField
                 {...register(inputField.formField, { required: true })}
                 fullWidth
-                placeholder={"Your country"}
+                placeholder={`Your ${inputField.formField}`}
                 variant="outlined"
                 size="small"
                 InputProps={{
