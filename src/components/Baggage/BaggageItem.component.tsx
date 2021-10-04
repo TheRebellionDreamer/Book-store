@@ -10,7 +10,9 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IBaggageItemProps } from "../../interfaces";
+import { useActions } from "../../hooks/action.hook";
+import { IBaggageItemProps, IGood } from "../../interfaces";
+import { addInBag } from "../../store/actions/shopList.actions";
 import { shopListActions } from "../../store/types/shopList.types";
 
 const useStyle = makeStyles({
@@ -26,7 +28,7 @@ const useStyle = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
     flexDirection: "column",
-  }
+  },
 });
 
 export const BaggageItem: React.FC<IBaggageItemProps> = ({
@@ -36,28 +38,11 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   author,
   price,
   count,
+  image,
 }): JSX.Element => {
   const classes = useStyle();
-  const dispatch = useDispatch();
-  const addInBag = (): void => {
-    const payload = {
-      id,
-      category,
-      title,
-      author,
-      price,
-    };
-
-    dispatch({ type: shopListActions.ADD_ITEM, payload: payload });
-  };
-
-  const removeInBag = (): void => {
-    const secPayload = {
-      price,
-      id,
-    };
-    dispatch({ type: shopListActions.REMOVE_ITEM, payload: secPayload.id });
-  };
+  const { addInBag } = useActions();
+  const { removeInBag } = useActions();
 
   return (
     <Box style={{ width: "40vw" }}>
@@ -75,10 +60,15 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
           </Typography>
         </Box>
         <Box className={classes.btnContainer}>
-          <IconButton size="small" onClick={addInBag}>
+          <IconButton
+            size="small"
+            onClick={() =>
+              addInBag({ id, category, title, author, image, price })
+            }
+          >
             <AddIcon />
           </IconButton>
-          <IconButton size="small" onClick={removeInBag}>
+          <IconButton size="small" onClick={() => removeInBag(id)}>
             <RemoveIcon />
           </IconButton>
         </Box>

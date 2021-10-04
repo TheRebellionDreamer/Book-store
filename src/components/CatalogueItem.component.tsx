@@ -13,7 +13,7 @@ import {
 import { StyledCatalogButton } from "../custom/StyledCatalogButton.custom";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React from "react";
-import { IGood, ICatalogItemFunc } from "../interfaces";
+import { IGood } from "../interfaces";
 import { useActions } from "../hooks/action.hook";
 
 const useStyles = makeStyles({
@@ -36,33 +36,33 @@ const useStyles = makeStyles({
   },
 });
 
-export const CatalogueItem: React.FC<IGood & ICatalogItemFunc> = ({
+export const CatalogueItem: React.FC<IGood> = ({
   id,
   category,
   title,
   author,
   image,
   price,
-  setOpen,
 }): JSX.Element => {
   const classes = useStyles();
   const [cheked] = React.useState<boolean>(true);
   const { addInBag } = useActions();
-
+  const { showNotification } = useActions();
 
   const addItem = (): void => {
-    const payload: IGood = {
+    addInBag({
       id,
       category,
       title,
       author,
       price,
       image,
-    };
-    addInBag(payload);
-    setOpen(true);
+    });
+    showNotification({
+      message: "Item added in bag",
+      type: "success",
+    });
   };
-  
 
   return (
     <Grow in={cheked} {...(cheked ? { timeout: 1500 } : {})}>

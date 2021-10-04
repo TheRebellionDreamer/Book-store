@@ -11,17 +11,16 @@ import {
   InputLabel,
   Box,
   FormControl,
-  Snackbar,
   Popover,
   Divider,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { IFilteringItem, IGood } from "../interfaces";
 import { CatalogueItem } from "../components/CatalogueItem.component";
-import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import { StyledButton } from "../custom/StyledButton.custom";
 import { Header } from "../components/Header.components";
+import { showNotification } from "../store/actions/notification.actions";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -66,8 +65,8 @@ const useStyle = makeStyles((theme) => ({
     padding: "2rem 2rem 1rem 2rem",
   },
   popoverHeader: {
-    marginTop: "1rem"
-  }
+    marginTop: "1rem",
+  },
 }));
 
 export const Catalogue: React.FC = () => {
@@ -76,7 +75,7 @@ export const Catalogue: React.FC = () => {
   const [sortingMethod, setSortingMethod] = React.useState<string>();
   const [minPrice, setMinPrice] = React.useState<string>("");
   const [maxPrice, setMaxPrice] = React.useState<string>("");
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [itemIsAdded, setItemIsAdded] = React.useState<boolean>(false);
   const [goods, setGoods] = React.useState<IGood[]>([]);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -152,16 +151,12 @@ export const Catalogue: React.FC = () => {
     );
   }
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string): void => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+  const showNoti = () => showNotification({ message: "Item added in bag", type: "success" });
+    
 
   return (
     <Container className={classes.root}>
-      <Header text={"Catalogue"}/>
+      <Header text={"Catalogue"} />
       <Box className={classes.formContainer}>
         <FormControl fullWidth>
           <TextField
@@ -214,7 +209,9 @@ export const Catalogue: React.FC = () => {
           className={classes.popover}
         >
           <Box>
-            <Typography className={classes.popoverHeader}>Price filter</Typography>
+            <Typography className={classes.popoverHeader}>
+              Price filter
+            </Typography>
             <Divider />
           </Box>
           <FormControl style={{}}>
@@ -240,7 +237,7 @@ export const Catalogue: React.FC = () => {
           <Grid container spacing={3}>
             {filtredItems.map((item) => (
               <Grid item key={item.id} xs={12} sm={6} md={4} lg={4}>
-                <CatalogueItem {...item} setOpen={setOpen} />
+                <CatalogueItem {...item}/>
               </Grid>
             ))}
           </Grid>
@@ -258,14 +255,6 @@ export const Catalogue: React.FC = () => {
           </DialogContentText>
         </Dialog>
       )}
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      >
-        <Alert severity="success">Item added to cart</Alert>
-      </Snackbar>
     </Container>
   );
 };

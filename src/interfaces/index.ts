@@ -42,10 +42,7 @@ export interface IBaggageItemProps {
   author: string;
   price: number;
   count: number;
-}
-
-export interface ICatalogItemFunc {
-  setOpen(value: boolean): void;
+  image: string
 }
 
 export interface IMenuOfUserProps {
