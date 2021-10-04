@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  makeStyles,
-  Paper,
-} from "@material-ui/core";
+import { Box, Button, Divider, makeStyles, Paper } from "@material-ui/core";
 import {
   Public,
   LocationCity,
@@ -13,6 +7,8 @@ import {
   LocalPhoneOutlined,
 } from "@material-ui/icons/";
 import { OrderInput } from "./OrderInput.components";
+import axios, { AxiosResponse } from "axios";
+import { useActions } from "../../hooks/action.hook";
 
 const useStyle = makeStyles({
   root: {
@@ -28,25 +24,57 @@ const useStyle = makeStyles({
     flexDirection: "column",
     justifyContent: "flex-end",
   },
-  
 });
 
-const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  alert("Sending data");
-};
-
 export const OrderPlacement: React.FC = (): JSX.Element => {
+  const {showNotification} = useActions();
+  const { register, handleSubmit, formState } = useForm(formOptions);
+  interface IOrder {
+    country: string;
+    city: string;
+    adress: string;
+    name: string;
+    tel: string;
+  }
+
+  const onSubmit = async (data: IOrder): Promise<void> => {
+    await axios
+      .post("/orders", {
+        country: data.country,
+        city: data.city,
+        adress: data.adress,
+        name: data.name,
+        tel: data.tel,
+      })
+      .then((response: AxiosResponse<IOrder>): void => {
+        showNotification({
+          message: "Thank you for the order, to clarify the data, the manager will contact you",
+          type: "info"
+        })
+      });
+  };
   const classes = useStyle();
   return (
     <Paper className={classes.root}>
-      <form onSubmit={sendMessage}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.container}>
-          <OrderInput icon={<Public />} message={"Your country"} />
-          <OrderInput icon={<LocationCity />} message={"City"} />
-          <OrderInput icon={<AddLocationOutlined />} message={"Adress"} />
-          <OrderInput icon={<PersonOutline />} message={"Name"} />
-          <OrderInput icon={<LocalPhoneOutlined />} message={"Tel."} />
+          <OrderInput
+            icon={<Public />}
+            message={"Your country"}
+            type={"country"}
+          />
+          <OrderInput icon={<LocationCity />} message={"City"} type={"city"} />
+          <OrderInput
+            icon={<AddLocationOutlined />}
+            message={"Adress"}
+            type={"adress"}
+          />
+          <OrderInput icon={<PersonOutline />} message={"Name"} type={"name"} />
+          <OrderInput
+            icon={<LocalPhoneOutlined />}
+            message={"Tel (example: +79307033812)"}
+            type={"tel"}
+          />
         </Box>
         <Divider variant="middle" />
         <Box className={classes.container}>

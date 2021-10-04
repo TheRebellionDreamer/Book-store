@@ -85,7 +85,7 @@ export const Registration: FC<IRegistrationProps> = ({
   const formOptions = {
     resolver: zodResolver(validationSchema),
     shouldFocusError: true,
-    shouldUseNativeValidation: true,
+    
   };
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { showNotification } = useActions();
