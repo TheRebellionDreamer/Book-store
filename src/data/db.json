@@ -154,6 +154,13 @@
     }
   ],
   "orders": [
-    
+    {
+      "country": "Russian Federation",
+      "city": "Nizhniy Novgorod",
+      "adress": "test",
+      "name": "Nikita",
+      "tel": "89307033812",
+      "id": 1
+    }
   ]
 }

@@ -111,7 +111,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
     formField: inputTypes,
     icon: JSX.Element
   }
-  
+
   const orderForm: IOrderForm[] = [
     { formField: "country", icon: <Public /> },
     { formField: "city", icon: <LocationCity /> },
@@ -125,7 +125,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.container}>
           {orderForm.map((inputField) => (
-            <Box className={classes.input}>
+            <Box className={classes.input} key={inputField.formField}>
               <TextField
                 {...register(inputField.formField, { required: true })}
                 fullWidth
