@@ -7,6 +7,7 @@ import {
   Toolbar,
   IconButton,
   Slide,
+  Container,
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Close } from "@material-ui/icons";
@@ -70,7 +71,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box style={{ display: "flex", justifyContent: "center" }}>
+      <Container style={{ display: "flex", justifyContent: "center", }}>
         <Box style={{ width: "80vw" }}>
           <Header text={"Your order"} />
           <Box
@@ -84,7 +85,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
             {products.length ? <Order /> : <Box></Box>}
           </Box>
         </Box>
-      </Box>
+      </Container>
     </Dialog>
   );
 };

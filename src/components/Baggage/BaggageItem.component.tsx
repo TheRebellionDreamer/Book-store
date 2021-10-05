@@ -43,7 +43,7 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   const { removeInBag } = useActions();
 
   return (
-    <Box style={{ width: "40vw" }}>
+    <Box style={{ width: "30vw" }}>
       <ListItem>
         <Box style={{ flex: 1 }}>
           <Typography variant="h6">{title}</Typography>
