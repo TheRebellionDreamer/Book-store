@@ -108,7 +108,7 @@ export const Contacts: React.FC = (): JSX.Element => {
 
   return (
     <Container className={classes.root}>
-      <Header text={"Contacts"}/>
+      <Header text={"Contacts"} variant="h3"/>
       <Box className={classes.content}>
         <Box className={classes.iconContainer}>
           <Tooltip

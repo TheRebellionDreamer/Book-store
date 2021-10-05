@@ -11,11 +11,11 @@ import {
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
-import { Authorisation } from "./Authorisation.components"
-import { Baggage } from "./Baggage/Baggage.components";
+import { Authorisation } from "./Authorisation.components";
 import { MenuOfUser } from "./MenuOfUser.component";
 import { MenuListItem } from "./MenuListItems.component";
 import { Registration } from "./Registration.components";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
   toolBar: {
@@ -29,7 +29,6 @@ const useStyles = makeStyles({
   iconsContainer: {
     display: "flex",
     justifyContent: "flex-end",
-
   },
   title: {
     textAlign: "center",
@@ -51,17 +50,12 @@ export const NavBar: React.FC = (): JSX.Element => {
   const classes = useStyles();
   const { totalSize } = useTypedSelector((state) => state.shopList);
   const [authOpen, setAuthOpen] = React.useState<boolean>(false);
-  const [bagOpen, setBagOpen] = React.useState<boolean>(false);
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
   const [openRegistrarion, setOpenRegistration] =
     React.useState<boolean>(false);
 
   const handleClickOpen = () => {
     setAuthOpen(true);
-  };
-
-  const handleClickOpenBag = () => {
-    setBagOpen(true);
   };
 
   const handleClickSignOut = () => {
@@ -76,12 +70,13 @@ export const NavBar: React.FC = (): JSX.Element => {
         <Toolbar className={classes.toolBar}>
           <MenuListItem />
           <Box className={classes.iconsContainer}>
-            <IconButton className={classes.button} onClick={handleClickOpenBag}>
-              <Badge color="secondary" badgeContent={totalSize}>
-                <LocalMallIcon />
-              </Badge>
-            </IconButton>
-            <Baggage bagOpen={bagOpen} setBagOpen={setBagOpen} />
+            <NavLink to="/baggage">
+              <IconButton className={classes.button}>
+                <Badge color="secondary" badgeContent={totalSize}>
+                  <LocalMallIcon />
+                </Badge>
+              </IconButton>
+            </NavLink>
             {userLoggedIn ? (
               <MenuOfUser handleClickSignOut={handleClickSignOut} />
             ) : (

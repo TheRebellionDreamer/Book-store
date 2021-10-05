@@ -2,6 +2,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import { OrderPlacement } from "./OrderPlacement.components";
 import React from "react";
 import { OrderAmount } from "./OrderAmount.components";
+import { Header } from "./Header.components";
 
 const useStyle = makeStyles({
   root: {
@@ -9,7 +10,8 @@ const useStyle = makeStyles({
     width: "20vw",
     maxHeight: "30rem",
     position: "sticky",
-    top: 0
+    top: 100,
+    
     // float: "left",
     // right: "29rem",
     // marginRight: "20vw",
@@ -19,11 +21,11 @@ const useStyle = makeStyles({
 export const Order: React.FC = (): JSX.Element => {
   const classes = useStyle();
   return (
-    <Box>
+
       <Box className={classes.root}>
+        <Header text={"Enter your information"} variant="h6"/>
         <OrderPlacement />
         <OrderAmount />
       </Box>
-    </Box>
   );
 };

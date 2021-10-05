@@ -9,8 +9,8 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
-import { useActions } from "../../hooks/action.hook";
-import { IBaggageItemProps } from "../../interfaces";
+import { useActions } from "../hooks/action.hook";
+import { IBaggageItemProps } from "../interfaces";
 
 
 const useStyle = makeStyles({

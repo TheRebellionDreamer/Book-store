@@ -3,14 +3,17 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
+import { Variant } from "@material-ui/core/styles/createTypography";
 interface HeaderProps {
-  text: string
+  text: string,
+  variant: Variant
 }
-export const Header: React.FC<HeaderProps> = ({text}) => {
+
+export const Header: React.FC<HeaderProps> = ({text, variant}) => {
 
   return (
     <Box>
-      <Typography style={{ margin: "5rem 0 0 0" }} variant="h2">
+      <Typography style={{ margin: "5rem 0 0 0" }} variant={variant}>
         {text}
       </Typography>
       <Divider style={{ margin: "2rem 0 2rem 0" }} />
