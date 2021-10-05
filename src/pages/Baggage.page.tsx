@@ -7,7 +7,6 @@ import { Order } from "../components/Order.components";
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    marginBottom: "3rem",
     height: "80vh",
     animation: `$openEffect 1000ms ${theme.transitions.easing.easeInOut}`,
   },
@@ -34,15 +33,17 @@ export const Baggage: React.FC = (): JSX.Element => {
   const { products } = useTypedSelector((state) => state.shopList);
   return (
     <Container className={classes.root}>
-        <Header text={"Your order"} variant={"h3"}/>
-        <Box
-          className={
-            !products.length ? classes.basketIsEmpty : classes.basketisNotEmpty
-          }
-        >
+      <Header text={"Your order"} variant={"h3"} />
+      <Box
+        className={
+          !products.length ? classes.basketIsEmpty : classes.basketisNotEmpty
+        }
+      >
+        <Box style={{ display: "flex", flexDirection: "column" }}>
           <BaggageList />
-          {products.length ? <Order /> : <Box></Box>}
         </Box>
+        {products.length ? <Order /> : <Box></Box>}
+      </Box>
     </Container>
   );
 };

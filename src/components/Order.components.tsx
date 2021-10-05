@@ -17,15 +17,6 @@ export const Order: React.FC = (): JSX.Element => {
   const classes = useStyle();
   return (
     <Box className={classes.root}>
-      <Box style={{ paddingBottom: "2rem", backgroundColor: "white" }}>
-        <Typography
-          variant="h5"
-          align="center"
-          style={{ fontWeight: "bolder" }}
-        >
-          Enter your information
-        </Typography>
-      </Box>
       <OrderPlacement />
       <OrderAmount />
     </Box>

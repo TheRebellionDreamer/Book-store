@@ -6,6 +6,7 @@ import {
   makeStyles,
   Paper,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import {
   Public,
@@ -30,14 +31,6 @@ const useStyle = makeStyles({
     display: "flex",
     justifyContent: "space-between",
     padding: "1rem",
-  },
-  summary: {
-    background: "rgba(0,0,0,.02)",
-    width: "28vw",
-    maxHeight: "30rem",
-    position: "fixed",
-    right: 0,
-    margin: "42vh 10vw 0 0 ",
   },
 });
 
@@ -115,6 +108,13 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
 
   return (
     <Paper elevation={3}>
+      <Typography
+          variant="h5"
+          align="center"
+          style={{ fontWeight: "bolder", paddingTop: "1rem" }}
+        >
+          Enter your information
+        </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.container}>
           {orderForm.map((inputField) => (
@@ -140,7 +140,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
         <Box className={classes.container}>
           <Button
             type="submit"
-            color="primary"
+            color="secondary"
             variant="contained"
             style={{ margin: "1rem" }}
           >

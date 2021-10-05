@@ -39,8 +39,8 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   image,
 }): JSX.Element => {
   const classes = useStyle();
-  const { addInBag } = useActions();
-  const { removeInBag } = useActions();
+  const { addItem } = useActions();
+  const { removeItem } = useActions();
 
   return (
     <Box style={{ width: "30vw" }}>
@@ -61,12 +61,12 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
           <IconButton
             size="small"
             onClick={() =>
-              addInBag({ id, category, title, author, image, price })
+              addItem({ id, category, title, author, image, price })
             }
           >
             <AddIcon />
           </IconButton>
-          <IconButton size="small" onClick={() => removeInBag(id)}>
+          <IconButton size="small" onClick={() => removeItem(id)}>
             <RemoveIcon />
           </IconButton>
         </Box>

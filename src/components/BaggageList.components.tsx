@@ -17,7 +17,7 @@ export const BaggageList: React.FC = (): JSX.Element => {
   );
   const classes = useStyles();
   return (
-    <Box>
+    <Box style={{marginBottom: "5rem"}}>
       <List>
         {!products.length ? (
           <Container>
