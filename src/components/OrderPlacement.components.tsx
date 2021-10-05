@@ -21,14 +21,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const useStyle = makeStyles({
-  root: {
-    background: "rgba(0,0,0,.02)",
-    width: "28vw",
-    maxHeight: "30rem",
-    position: "fixed",
-    right: 0,
-    marginRight: "10vw",
-  },
   container: {
     display: "flex",
     flexDirection: "column",
@@ -39,8 +31,15 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     padding: "1rem",
   },
+  summary: {
+    background: "rgba(0,0,0,.02)",
+    width: "28vw",
+    maxHeight: "30rem",
+    position: "fixed",
+    right: 0,
+    margin: "42vh 10vw 0 0 ",
+  },
 });
-
 
 export const OrderPlacement: React.FC = (): JSX.Element => {
   const { showNotification } = useActions();
@@ -76,7 +75,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
     shouldFocusError: true,
     shouldUseNativeValidation: true,
   };
-  
+
   const { register, handleSubmit } = useForm(formOptions);
 
   interface IOrder {
@@ -89,13 +88,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
 
   const onSubmit = async (data: IOrder): Promise<void> => {
     await axios
-      .post("/orders", {
-        country: data.country,
-        city: data.city,
-        adress: data.adress,
-        name: data.name,
-        tel: data.tel,
-      })
+      .post("/orders", data)
       .then((response: AxiosResponse<IOrder>): void => {
         console.log(response.data);
         showNotification({
@@ -108,8 +101,8 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
 
   type inputTypes = "country" | "city" | "adress" | "name" | "tel";
   interface IOrderForm {
-    formField: inputTypes,
-    icon: JSX.Element
+    formField: inputTypes;
+    icon: JSX.Element;
   }
 
   const orderForm: IOrderForm[] = [
@@ -121,7 +114,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
   ];
 
   return (
-    <Paper className={classes.root}>
+    <Paper elevation={3}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.container}>
           {orderForm.map((inputField) => (

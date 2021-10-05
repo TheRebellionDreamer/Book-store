@@ -1,3 +1,4 @@
+import React from "react";
 import {
   makeStyles,
   Box,
@@ -9,13 +10,11 @@ import {
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Close } from "@material-ui/icons";
-import React from "react";
-import { BaggageList } from "./BaggageList.components";
-import { IBaggageProps } from "../../interfaces";
-import { OrderPlacement } from "../OrderPlacement.components";
-import { useTypedSelector } from "../../hooks/typed-selector.hook";
 import { Header } from "../Header.components";
-import {} from "../"
+import { BaggageList } from "./BaggageList.components";
+import {Order} from "../Order.components"
+import { useTypedSelector } from "../../hooks/typed-selector.hook";
+import { IBaggageProps } from "../../interfaces";
 
 const useStyle = makeStyles({
   toolBar: {
@@ -82,8 +81,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
             }
           >
             <BaggageList />
-            {products.length ? <OrderPlacement /> : <Box></Box>}
-            {products.length ? <OrderAmount /> : <Box></Box>}
+            {products.length ? <Order /> : <Box></Box>}
           </Box>
         </Box>
       </Box>
