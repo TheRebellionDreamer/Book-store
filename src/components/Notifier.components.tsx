@@ -12,7 +12,7 @@ export const Notifier: React.FC = (): null => {
       enqueueSnackbar(notification.message, {
         variant: notification.type,
         action: notification.action,
-        anchorOrigin: { vertical: "bottom", horizontal: "center" }
+        anchorOrigin: { vertical: "bottom", horizontal: "left" }
       })
     }
   }, [notification])
