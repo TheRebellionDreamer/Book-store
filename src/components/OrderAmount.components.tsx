@@ -8,11 +8,12 @@ import {
 } from "@material-ui/core";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { useActions } from "../hooks/action.hook";
+import {ClearDialog} from "../components/ClearDialog.components"
 
 export const OrderAmount: React.FC = (): JSX.Element => {
   const { totalCost, totalSize } = useTypedSelector((state) => state.shopList);
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
-  const { deleteAllItems } = useActions();
+  
+  const {openDialog} = useActions()
   return (
     <Paper style={{ marginTop: "1rem" }} elevation={3}>
       <Box>
@@ -76,7 +77,7 @@ export const OrderAmount: React.FC = (): JSX.Element => {
           }}
         >
           <Button
-            onClick={() => setDialogIsOpen(true)}
+            onClick={openDialog}
             variant="contained"
             color="primary"
             style={{ margin: "1rem" }}
@@ -84,7 +85,7 @@ export const OrderAmount: React.FC = (): JSX.Element => {
             Clear
           </Button>
         </Box>
-        
+        <ClearDialog />
       </Box>
     </Paper>
   );

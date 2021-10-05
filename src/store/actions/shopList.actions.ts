@@ -5,11 +5,11 @@ import { createRemoveItem } from "../action-creators/removeItem.action-creators"
 import { ShopListAction } from "../types/shopList.types";
 import {createDeleteAllItems} from "../action-creators/deleteAllItems.action-creators"
 
-export const addItem = (good: IGood) => (dispatch: Dispatch<ShopListAction>) =>
+export const addItem = (good: IGood) => (dispatch: Dispatch<ShopListAction>): void =>
   dispatch(createAddItem(good));
 
 export const removeItem =
-  (id: IGood["id"]) => (dispatch: Dispatch<ShopListAction>) =>
+  (id: IGood["id"]) => (dispatch: Dispatch<ShopListAction>): void =>
     dispatch(createRemoveItem(id));
 
-export const deleteAllItems = () => (dispatch: Dispatch<ShopListAction>) => dispatch(createDeleteAllItems())
+export const deleteAllItems = () => (dispatch: Dispatch<ShopListAction>): void => dispatch(createDeleteAllItems())
