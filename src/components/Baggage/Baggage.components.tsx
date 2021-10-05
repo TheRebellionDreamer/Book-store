@@ -14,7 +14,7 @@ import { BaggageList } from "./BagggeList.components";
 import { IBaggageProps } from "../../interfaces";
 import { OrderPlacement } from "./OrderPlacement.components";
 import { useTypedSelector } from "../../hooks/typed-selector.hook";
-import { Header } from "../Header.components"
+import { Header } from "../Header.components";
 
 const useStyle = makeStyles({
   toolBar: {
@@ -54,9 +54,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
     setBagOpen(false);
   };
 
-  const { products } = useTypedSelector(
-    (state) => state.shopList
-  );
+  const { products } = useTypedSelector((state) => state.shopList);
 
   return (
     <Dialog open={bagOpen} fullScreen={true} TransitionComponent={Transition}>
@@ -74,7 +72,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
       </AppBar>
       <Box style={{ display: "flex", justifyContent: "center" }}>
         <Box style={{ width: "80vw" }}>
-          <Header text={"Your order"}/>
+          <Header text={"Your order"} />
           <Box
             className={
               !products.length
@@ -83,7 +81,7 @@ export const Baggage: React.FC<IBaggageProps> = ({
             }
           >
             <BaggageList />
-            {products.length ? <OrderPlacement /> : <Box></Box>}
+            {products.length ? (<OrderPlacement />) : <Box></Box>}
           </Box>
         </Box>
       </Box>
