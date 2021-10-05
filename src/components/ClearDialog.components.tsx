@@ -9,10 +9,9 @@ import {
 import React from "react";
 import { useActions } from "../hooks/action.hook";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
-import { deleteAllItems } from "../store/actions/shopList.actions";
 
 export const ClearDialog: React.FC = (): JSX.Element => {
-  const { closeDialog } = useActions();
+  const { closeDialog, deleteAllItems } = useActions();
   const { isOpen } = useTypedSelector((state) => state.dialog);
   const close = (e: React.MouseEvent<HTMLButtonElement>) => {
     deleteAllItems();
@@ -35,7 +34,7 @@ export const ClearDialog: React.FC = (): JSX.Element => {
         </Button>
         <Button
           size="large"
-          onClick={() => deleteAllItems()}
+          onClick={close}
         >
           <span style={{ fontWeight: "bolder" }}>Yes</span>
         </Button>
