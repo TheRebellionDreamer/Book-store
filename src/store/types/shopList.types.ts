@@ -21,7 +21,7 @@ export interface DELETE_ALL_ITEMS_ACTION {
   payload?: null
 }
 
-export type ShopListAction = ADD_ITEM_ACTION | REMOVE_ITEM_ACTION;
+export type ShopListAction = ADD_ITEM_ACTION | REMOVE_ITEM_ACTION | DELETE_ALL_ITEMS_ACTION;
 
 export interface ShopListState {
   products: Array<{
