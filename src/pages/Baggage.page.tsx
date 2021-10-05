@@ -9,7 +9,7 @@ const useStyle = makeStyles((theme) => ({
   root: {
     marginBottom: "3rem",
     height: "80vh",
-    animation: `$openEffect 2000ms ${theme.transitions.easing.easeInOut}`,
+    animation: `$openEffect 1000ms ${theme.transitions.easing.easeInOut}`,
   },
   "@keyframes openEffect": {
     "0%": {
