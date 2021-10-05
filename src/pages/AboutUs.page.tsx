@@ -36,7 +36,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
   return (
     <Container className={classes.container}>
       <Box>
-        <Header text={"Books & Bookshelves"}/>
+        <Header text={"Books & Bookshelves"} variant="h3"/>
         <Typography variant="body1" className={classes.paragraph}>
           Since its fuse in 2005, 'Books & Bookshelves' has cut a specialty for itself
           in the youngsters’ books section of the distributing business. We have

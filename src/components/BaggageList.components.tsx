@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container, List, Paper, Typography } from "@material-ui/core";
-import { useTypedSelector } from "../../hooks/typed-selector.hook";
+import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { BaggageItem } from "./BaggageItem.component";
 import { makeStyles } from "@material-ui/styles";
 
@@ -17,7 +17,7 @@ export const BaggageList: React.FC = (): JSX.Element => {
   );
   const classes = useStyles();
   return (
-    <Box>
+    <Box style={{marginBottom: "5rem"}}>
       <List>
         {!products.length ? (
           <Container>

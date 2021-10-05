@@ -6,6 +6,7 @@ import {
   makeStyles,
   Paper,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import {
   Public,
@@ -15,20 +16,12 @@ import {
   LocalPhoneOutlined,
 } from "@material-ui/icons/";
 import axios, { AxiosResponse } from "axios";
-import { useActions } from "../../hooks/action.hook";
+import { useActions } from "../hooks/action.hook";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const useStyle = makeStyles({
-  root: {
-    background: "rgba(0,0,0,.02)",
-    width: "28vw",
-    maxHeight: "30rem",
-    position: "fixed",
-    right: 0,
-    marginRight: "10vw",
-  },
   container: {
     display: "flex",
     flexDirection: "column",
@@ -40,7 +33,6 @@ const useStyle = makeStyles({
     padding: "1rem",
   },
 });
-
 
 export const OrderPlacement: React.FC = (): JSX.Element => {
   const { showNotification } = useActions();
@@ -76,7 +68,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
     shouldFocusError: true,
     shouldUseNativeValidation: true,
   };
-  
+
   const { register, handleSubmit } = useForm(formOptions);
 
   interface IOrder {
@@ -89,13 +81,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
 
   const onSubmit = async (data: IOrder): Promise<void> => {
     await axios
-      .post("/orders", {
-        country: data.country,
-        city: data.city,
-        adress: data.adress,
-        name: data.name,
-        tel: data.tel,
-      })
+      .post("/orders", data)
       .then((response: AxiosResponse<IOrder>): void => {
         console.log(response.data);
         showNotification({
@@ -108,8 +94,8 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
 
   type inputTypes = "country" | "city" | "adress" | "name" | "tel";
   interface IOrderForm {
-    formField: inputTypes,
-    icon: JSX.Element
+    formField: inputTypes;
+    icon: JSX.Element;
   }
 
   const orderForm: IOrderForm[] = [
@@ -121,7 +107,14 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
   ];
 
   return (
-    <Paper className={classes.root}>
+    <Paper elevation={3}>
+      <Typography
+          variant="h5"
+          align="center"
+          style={{ fontWeight: "bolder", paddingTop: "1rem" }}
+        >
+          Enter your information
+        </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.container}>
           {orderForm.map((inputField) => (
@@ -147,7 +140,7 @@ export const OrderPlacement: React.FC = (): JSX.Element => {
         <Box className={classes.container}>
           <Button
             type="submit"
-            color="primary"
+            color="secondary"
             variant="contained"
             style={{ margin: "1rem" }}
           >

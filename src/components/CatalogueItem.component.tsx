@@ -46,11 +46,11 @@ export const CatalogueItem: React.FC<IGood> = ({
 }): JSX.Element => {
   const classes = useStyles();
   const [cheked] = React.useState<boolean>(true);
-  const { addInBag } = useActions();
+  const { addItem } = useActions();
   const { showNotification } = useActions();
 
-  const addItem = (): void => {
-    addInBag({
+  const add = (): void => {
+    addItem({
       id,
       category,
       title,
@@ -92,7 +92,7 @@ export const CatalogueItem: React.FC<IGood> = ({
                 color="secondary"
                 variant="contained"
                 endIcon={<ShoppingBasketIcon fontSize="large" />}
-                onClick={addItem}
+                onClick={add}
               >
                 Buy
               </StyledCatalogButton>

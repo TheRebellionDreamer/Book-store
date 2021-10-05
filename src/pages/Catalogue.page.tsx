@@ -151,7 +151,7 @@ export const Catalogue: React.FC = () => {
     
   return (
     <Container className={classes.root}>
-      <Header text={"Catalogue"} />
+      <Header text={"Catalogue"} variant="h3"/>
       <Box className={classes.formContainer}>
         <FormControl fullWidth>
           <TextField

@@ -59,6 +59,13 @@ export const shopListReducer = (
         totalCost: state.totalCost - price,
       };
 
+      case shopListActions.DELETE_ALL_ITEMS:
+        return {
+          products: state.products = [],
+          totalCost: state.totalCost = 0,
+          totalSize: state.totalSize = 0
+        }
+
     default:
       return state;
   }

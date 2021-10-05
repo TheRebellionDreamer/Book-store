@@ -9,8 +9,8 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import React from "react";
-import { useActions } from "../../hooks/action.hook";
-import { IBaggageItemProps } from "../../interfaces";
+import { useActions } from "../hooks/action.hook";
+import { IBaggageItemProps } from "../interfaces";
 
 
 const useStyle = makeStyles({
@@ -39,11 +39,11 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
   image,
 }): JSX.Element => {
   const classes = useStyle();
-  const { addInBag } = useActions();
-  const { removeInBag } = useActions();
+  const { addItem } = useActions();
+  const { removeItem } = useActions();
 
   return (
-    <Box style={{ width: "40vw" }}>
+    <Box style={{ width: "30vw" }}>
       <ListItem>
         <Box style={{ flex: 1 }}>
           <Typography variant="h6">{title}</Typography>
@@ -61,12 +61,12 @@ export const BaggageItem: React.FC<IBaggageItemProps> = ({
           <IconButton
             size="small"
             onClick={() =>
-              addInBag({ id, category, title, author, image, price })
+              addItem({ id, category, title, author, image, price })
             }
           >
             <AddIcon />
           </IconButton>
-          <IconButton size="small" onClick={() => removeInBag(id)}>
+          <IconButton size="small" onClick={() => removeItem(id)}>
             <RemoveIcon />
           </IconButton>
         </Box>

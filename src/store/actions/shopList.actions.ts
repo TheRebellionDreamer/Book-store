@@ -1,12 +1,15 @@
 import { Dispatch } from "react";
 import { IGood } from "../../interfaces";
-import { addItem } from "../action-creators/addItem.action-creators";
-import { removeItem } from "../action-creators/removeItem.action-creators";
+import { createAddItem } from "../action-creators/addItem.action-creators";
+import { createRemoveItem } from "../action-creators/removeItem.action-creators";
 import { ShopListAction } from "../types/shopList.types";
+import {createDeleteAllItems} from "../action-creators/deleteAllItems.action-creators"
 
-export const addInBag = (good: IGood) => (dispatch: Dispatch<ShopListAction>) =>
-  dispatch(addItem(good));
+export const addItem = (good: IGood) => (dispatch: Dispatch<ShopListAction>): void =>
+  dispatch(createAddItem(good));
 
-export const removeInBag =
-  (id: IGood["id"]) => (dispatch: Dispatch<ShopListAction>) =>
-    dispatch(removeItem(id));
+export const removeItem =
+  (id: IGood["id"]) => (dispatch: Dispatch<ShopListAction>): void =>
+    dispatch(createRemoveItem(id));
+
+export const deleteAllItems = () => (dispatch: Dispatch<ShopListAction>): void => dispatch(createDeleteAllItems())
