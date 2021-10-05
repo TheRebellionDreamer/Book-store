@@ -1,4 +1,4 @@
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { OrderPlacement } from "./OrderPlacement.components";
 import React from "react";
 import { OrderAmount } from "./OrderAmount.components";

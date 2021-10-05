@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Paper, Box, Typography, Divider, Button, Dialog } from "@material-ui/core";
+import {
+  Paper,
+  Box,
+  Typography,
+  Divider,
+  Button,
+} from "@material-ui/core";
 import { useTypedSelector } from "../hooks/typed-selector.hook";
 import { useActions } from "../hooks/action.hook";
 
 export const OrderAmount: React.FC = (): JSX.Element => {
   const { totalCost, totalSize } = useTypedSelector((state) => state.shopList);
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
-  const {deleteAllItems} = useActions();
+  const { deleteAllItems } = useActions();
   return (
     <Paper style={{ marginTop: "1rem" }} elevation={3}>
       <Box>
@@ -73,14 +79,12 @@ export const OrderAmount: React.FC = (): JSX.Element => {
             onClick={() => setDialogIsOpen(true)}
             variant="contained"
             color="primary"
-            style={{ margin: "1rem"}}
+            style={{ margin: "1rem" }}
           >
             Clear
           </Button>
         </Box>
-        <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
-          
-        </Dialog>
+        
       </Box>
     </Paper>
   );
