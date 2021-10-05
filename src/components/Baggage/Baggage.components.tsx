@@ -10,11 +10,12 @@ import {
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Close } from "@material-ui/icons";
 import React from "react";
-import { BaggageList } from "./BagggeList.components";
+import { BaggageList } from "./BaggageList.components";
 import { IBaggageProps } from "../../interfaces";
-import { OrderPlacement } from "./OrderPlacement.components";
+import { OrderPlacement } from "../OrderPlacement.components";
 import { useTypedSelector } from "../../hooks/typed-selector.hook";
 import { Header } from "../Header.components";
+import {} from "../"
 
 const useStyle = makeStyles({
   toolBar: {
@@ -81,7 +82,8 @@ export const Baggage: React.FC<IBaggageProps> = ({
             }
           >
             <BaggageList />
-            {products.length ? (<OrderPlacement />) : <Box></Box>}
+            {products.length ? <OrderPlacement /> : <Box></Box>}
+            {products.length ? <OrderAmount /> : <Box></Box>}
           </Box>
         </Box>
       </Box>

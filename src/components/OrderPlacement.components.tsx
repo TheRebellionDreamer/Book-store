@@ -15,7 +15,7 @@ import {
   LocalPhoneOutlined,
 } from "@material-ui/icons/";
 import axios, { AxiosResponse } from "axios";
-import { useActions } from "../../hooks/action.hook";
+import { useActions } from "../hooks/action.hook";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
